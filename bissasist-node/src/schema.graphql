@@ -1,0 +1,14 @@
+type Query {
+    info: String!
+    servicefeed: [Service!]!
+}
+
+type Mutation {
+    post(name: String!, cost:String!): Service!
+}
+
+type Service {
+    id: ID!
+    name: String!
+    cost: String!
+}
