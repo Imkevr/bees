@@ -5,6 +5,7 @@ type Service {
     name: String!
     cost: String!
     postedBy: User
+    appointments: [Appointment!]!
 }
 
 type User{
@@ -13,4 +14,11 @@ type User{
     email: String! @unique
     password: String!
     services: [Service!]!
+    appointments: [Appointment!]!
+}
+
+type Appointment{
+    id: ID! @id
+    service: Service!
+    user: User!
 }

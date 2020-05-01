@@ -3,12 +3,189 @@ module.exports = {
   // Please don't change this file manually but run `prisma generate` to update it.
   // For more information, please read the docs: https://www.prisma.io/docs/prisma-client/
 
-/* GraphQL */ `type AggregateService {
+/* GraphQL */ `type AggregateAppointment {
+  count: Int!
+}
+
+type AggregateService {
   count: Int!
 }
 
 type AggregateUser {
   count: Int!
+}
+
+type Appointment {
+  id: ID!
+  service: Service!
+  user: User!
+}
+
+type AppointmentConnection {
+  pageInfo: PageInfo!
+  edges: [AppointmentEdge]!
+  aggregate: AggregateAppointment!
+}
+
+input AppointmentCreateInput {
+  id: ID
+  service: ServiceCreateOneWithoutAppointmentsInput!
+  user: UserCreateOneWithoutAppointmentsInput!
+}
+
+input AppointmentCreateManyWithoutServiceInput {
+  create: [AppointmentCreateWithoutServiceInput!]
+  connect: [AppointmentWhereUniqueInput!]
+}
+
+input AppointmentCreateManyWithoutUserInput {
+  create: [AppointmentCreateWithoutUserInput!]
+  connect: [AppointmentWhereUniqueInput!]
+}
+
+input AppointmentCreateWithoutServiceInput {
+  id: ID
+  user: UserCreateOneWithoutAppointmentsInput!
+}
+
+input AppointmentCreateWithoutUserInput {
+  id: ID
+  service: ServiceCreateOneWithoutAppointmentsInput!
+}
+
+type AppointmentEdge {
+  node: Appointment!
+  cursor: String!
+}
+
+enum AppointmentOrderByInput {
+  id_ASC
+  id_DESC
+}
+
+type AppointmentPreviousValues {
+  id: ID!
+}
+
+input AppointmentScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  AND: [AppointmentScalarWhereInput!]
+  OR: [AppointmentScalarWhereInput!]
+  NOT: [AppointmentScalarWhereInput!]
+}
+
+type AppointmentSubscriptionPayload {
+  mutation: MutationType!
+  node: Appointment
+  updatedFields: [String!]
+  previousValues: AppointmentPreviousValues
+}
+
+input AppointmentSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: AppointmentWhereInput
+  AND: [AppointmentSubscriptionWhereInput!]
+  OR: [AppointmentSubscriptionWhereInput!]
+  NOT: [AppointmentSubscriptionWhereInput!]
+}
+
+input AppointmentUpdateInput {
+  service: ServiceUpdateOneRequiredWithoutAppointmentsInput
+  user: UserUpdateOneRequiredWithoutAppointmentsInput
+}
+
+input AppointmentUpdateManyWithoutServiceInput {
+  create: [AppointmentCreateWithoutServiceInput!]
+  delete: [AppointmentWhereUniqueInput!]
+  connect: [AppointmentWhereUniqueInput!]
+  set: [AppointmentWhereUniqueInput!]
+  disconnect: [AppointmentWhereUniqueInput!]
+  update: [AppointmentUpdateWithWhereUniqueWithoutServiceInput!]
+  upsert: [AppointmentUpsertWithWhereUniqueWithoutServiceInput!]
+  deleteMany: [AppointmentScalarWhereInput!]
+}
+
+input AppointmentUpdateManyWithoutUserInput {
+  create: [AppointmentCreateWithoutUserInput!]
+  delete: [AppointmentWhereUniqueInput!]
+  connect: [AppointmentWhereUniqueInput!]
+  set: [AppointmentWhereUniqueInput!]
+  disconnect: [AppointmentWhereUniqueInput!]
+  update: [AppointmentUpdateWithWhereUniqueWithoutUserInput!]
+  upsert: [AppointmentUpsertWithWhereUniqueWithoutUserInput!]
+  deleteMany: [AppointmentScalarWhereInput!]
+}
+
+input AppointmentUpdateWithoutServiceDataInput {
+  user: UserUpdateOneRequiredWithoutAppointmentsInput
+}
+
+input AppointmentUpdateWithoutUserDataInput {
+  service: ServiceUpdateOneRequiredWithoutAppointmentsInput
+}
+
+input AppointmentUpdateWithWhereUniqueWithoutServiceInput {
+  where: AppointmentWhereUniqueInput!
+  data: AppointmentUpdateWithoutServiceDataInput!
+}
+
+input AppointmentUpdateWithWhereUniqueWithoutUserInput {
+  where: AppointmentWhereUniqueInput!
+  data: AppointmentUpdateWithoutUserDataInput!
+}
+
+input AppointmentUpsertWithWhereUniqueWithoutServiceInput {
+  where: AppointmentWhereUniqueInput!
+  update: AppointmentUpdateWithoutServiceDataInput!
+  create: AppointmentCreateWithoutServiceInput!
+}
+
+input AppointmentUpsertWithWhereUniqueWithoutUserInput {
+  where: AppointmentWhereUniqueInput!
+  update: AppointmentUpdateWithoutUserDataInput!
+  create: AppointmentCreateWithoutUserInput!
+}
+
+input AppointmentWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  service: ServiceWhereInput
+  user: UserWhereInput
+  AND: [AppointmentWhereInput!]
+  OR: [AppointmentWhereInput!]
+  NOT: [AppointmentWhereInput!]
+}
+
+input AppointmentWhereUniqueInput {
+  id: ID
 }
 
 type BatchPayload {
@@ -20,6 +197,11 @@ scalar DateTime
 scalar Long
 
 type Mutation {
+  createAppointment(data: AppointmentCreateInput!): Appointment!
+  updateAppointment(data: AppointmentUpdateInput!, where: AppointmentWhereUniqueInput!): Appointment
+  upsertAppointment(where: AppointmentWhereUniqueInput!, create: AppointmentCreateInput!, update: AppointmentUpdateInput!): Appointment!
+  deleteAppointment(where: AppointmentWhereUniqueInput!): Appointment
+  deleteManyAppointments(where: AppointmentWhereInput): BatchPayload!
   createService(data: ServiceCreateInput!): Service!
   updateService(data: ServiceUpdateInput!, where: ServiceWhereUniqueInput!): Service
   updateManyServices(data: ServiceUpdateManyMutationInput!, where: ServiceWhereInput): BatchPayload!
@@ -52,6 +234,9 @@ type PageInfo {
 }
 
 type Query {
+  appointment(where: AppointmentWhereUniqueInput!): Appointment
+  appointments(where: AppointmentWhereInput, orderBy: AppointmentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Appointment]!
+  appointmentsConnection(where: AppointmentWhereInput, orderBy: AppointmentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AppointmentConnection!
   service(where: ServiceWhereUniqueInput!): Service
   services(where: ServiceWhereInput, orderBy: ServiceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Service]!
   servicesConnection(where: ServiceWhereInput, orderBy: ServiceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ServiceConnection!
@@ -68,6 +253,7 @@ type Service {
   name: String!
   cost: String!
   postedBy: User
+  appointments(where: AppointmentWhereInput, orderBy: AppointmentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Appointment!]
 }
 
 type ServiceConnection {
@@ -81,6 +267,7 @@ input ServiceCreateInput {
   name: String!
   cost: String!
   postedBy: UserCreateOneWithoutServicesInput
+  appointments: AppointmentCreateManyWithoutServiceInput
 }
 
 input ServiceCreateManyWithoutPostedByInput {
@@ -88,10 +275,23 @@ input ServiceCreateManyWithoutPostedByInput {
   connect: [ServiceWhereUniqueInput!]
 }
 
+input ServiceCreateOneWithoutAppointmentsInput {
+  create: ServiceCreateWithoutAppointmentsInput
+  connect: ServiceWhereUniqueInput
+}
+
+input ServiceCreateWithoutAppointmentsInput {
+  id: ID
+  name: String!
+  cost: String!
+  postedBy: UserCreateOneWithoutServicesInput
+}
+
 input ServiceCreateWithoutPostedByInput {
   id: ID
   name: String!
   cost: String!
+  appointments: AppointmentCreateManyWithoutServiceInput
 }
 
 type ServiceEdge {
@@ -206,6 +406,7 @@ input ServiceUpdateInput {
   name: String
   cost: String
   postedBy: UserUpdateOneWithoutServicesInput
+  appointments: AppointmentUpdateManyWithoutServiceInput
 }
 
 input ServiceUpdateManyDataInput {
@@ -235,14 +436,33 @@ input ServiceUpdateManyWithWhereNestedInput {
   data: ServiceUpdateManyDataInput!
 }
 
+input ServiceUpdateOneRequiredWithoutAppointmentsInput {
+  create: ServiceCreateWithoutAppointmentsInput
+  update: ServiceUpdateWithoutAppointmentsDataInput
+  upsert: ServiceUpsertWithoutAppointmentsInput
+  connect: ServiceWhereUniqueInput
+}
+
+input ServiceUpdateWithoutAppointmentsDataInput {
+  name: String
+  cost: String
+  postedBy: UserUpdateOneWithoutServicesInput
+}
+
 input ServiceUpdateWithoutPostedByDataInput {
   name: String
   cost: String
+  appointments: AppointmentUpdateManyWithoutServiceInput
 }
 
 input ServiceUpdateWithWhereUniqueWithoutPostedByInput {
   where: ServiceWhereUniqueInput!
   data: ServiceUpdateWithoutPostedByDataInput!
+}
+
+input ServiceUpsertWithoutAppointmentsInput {
+  update: ServiceUpdateWithoutAppointmentsDataInput!
+  create: ServiceCreateWithoutAppointmentsInput!
 }
 
 input ServiceUpsertWithWhereUniqueWithoutPostedByInput {
@@ -311,6 +531,9 @@ input ServiceWhereInput {
   cost_ends_with: String
   cost_not_ends_with: String
   postedBy: UserWhereInput
+  appointments_every: AppointmentWhereInput
+  appointments_some: AppointmentWhereInput
+  appointments_none: AppointmentWhereInput
   AND: [ServiceWhereInput!]
   OR: [ServiceWhereInput!]
   NOT: [ServiceWhereInput!]
@@ -321,6 +544,7 @@ input ServiceWhereUniqueInput {
 }
 
 type Subscription {
+  appointment(where: AppointmentSubscriptionWhereInput): AppointmentSubscriptionPayload
   service(where: ServiceSubscriptionWhereInput): ServiceSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
 }
@@ -331,6 +555,7 @@ type User {
   email: String!
   password: String!
   services(where: ServiceWhereInput, orderBy: ServiceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Service!]
+  appointments(where: AppointmentWhereInput, orderBy: AppointmentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Appointment!]
 }
 
 type UserConnection {
@@ -345,6 +570,12 @@ input UserCreateInput {
   email: String!
   password: String!
   services: ServiceCreateManyWithoutPostedByInput
+  appointments: AppointmentCreateManyWithoutUserInput
+}
+
+input UserCreateOneWithoutAppointmentsInput {
+  create: UserCreateWithoutAppointmentsInput
+  connect: UserWhereUniqueInput
 }
 
 input UserCreateOneWithoutServicesInput {
@@ -352,11 +583,20 @@ input UserCreateOneWithoutServicesInput {
   connect: UserWhereUniqueInput
 }
 
+input UserCreateWithoutAppointmentsInput {
+  id: ID
+  name: String!
+  email: String!
+  password: String!
+  services: ServiceCreateManyWithoutPostedByInput
+}
+
 input UserCreateWithoutServicesInput {
   id: ID
   name: String!
   email: String!
   password: String!
+  appointments: AppointmentCreateManyWithoutUserInput
 }
 
 type UserEdge {
@@ -405,12 +645,20 @@ input UserUpdateInput {
   email: String
   password: String
   services: ServiceUpdateManyWithoutPostedByInput
+  appointments: AppointmentUpdateManyWithoutUserInput
 }
 
 input UserUpdateManyMutationInput {
   name: String
   email: String
   password: String
+}
+
+input UserUpdateOneRequiredWithoutAppointmentsInput {
+  create: UserCreateWithoutAppointmentsInput
+  update: UserUpdateWithoutAppointmentsDataInput
+  upsert: UserUpsertWithoutAppointmentsInput
+  connect: UserWhereUniqueInput
 }
 
 input UserUpdateOneWithoutServicesInput {
@@ -422,10 +670,23 @@ input UserUpdateOneWithoutServicesInput {
   connect: UserWhereUniqueInput
 }
 
+input UserUpdateWithoutAppointmentsDataInput {
+  name: String
+  email: String
+  password: String
+  services: ServiceUpdateManyWithoutPostedByInput
+}
+
 input UserUpdateWithoutServicesDataInput {
   name: String
   email: String
   password: String
+  appointments: AppointmentUpdateManyWithoutUserInput
+}
+
+input UserUpsertWithoutAppointmentsInput {
+  update: UserUpdateWithoutAppointmentsDataInput!
+  create: UserCreateWithoutAppointmentsInput!
 }
 
 input UserUpsertWithoutServicesInput {
@@ -493,6 +754,9 @@ input UserWhereInput {
   services_every: ServiceWhereInput
   services_some: ServiceWhereInput
   services_none: ServiceWhereInput
+  appointments_every: AppointmentWhereInput
+  appointments_some: AppointmentWhereInput
+  appointments_none: AppointmentWhereInput
   AND: [UserWhereInput!]
   OR: [UserWhereInput!]
   NOT: [UserWhereInput!]

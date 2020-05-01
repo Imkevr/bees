@@ -13,6 +13,7 @@ type Mutation {
     #auth
     signup(email: String!, password: String!, name: String!): AuthPayload
     login(email: String!, password:String!): AuthPayload
+    appointment(serviceId: ID!): Appointment
 }
 
 type Service {
@@ -34,6 +35,13 @@ type User {
     services: [Service!]!
 }
 
+type Appointment{
+    id: ID!
+    service: Service!
+    user: User!
+}
+
 type Subscription {
   newService: Service
+  newAppointment: Appointment
 }

@@ -16,6 +16,7 @@ export type AtLeastOne<T, U = { [K in keyof T]: Pick<T, K> }> = Partial<T> &
 export type Maybe<T> = T | undefined | null;
 
 export interface Exists {
+  appointment: (where?: AppointmentWhereInput) => Promise<boolean>;
   service: (where?: ServiceWhereInput) => Promise<boolean>;
   user: (where?: UserWhereInput) => Promise<boolean>;
 }
@@ -39,6 +40,27 @@ export interface Prisma {
    * Queries
    */
 
+  appointment: (
+    where: AppointmentWhereUniqueInput
+  ) => AppointmentNullablePromise;
+  appointments: (args?: {
+    where?: AppointmentWhereInput;
+    orderBy?: AppointmentOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<Appointment>;
+  appointmentsConnection: (args?: {
+    where?: AppointmentWhereInput;
+    orderBy?: AppointmentOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => AppointmentConnectionPromise;
   service: (where: ServiceWhereUniqueInput) => ServiceNullablePromise;
   services: (args?: {
     where?: ServiceWhereInput;
@@ -83,6 +105,20 @@ export interface Prisma {
    * Mutations
    */
 
+  createAppointment: (data: AppointmentCreateInput) => AppointmentPromise;
+  updateAppointment: (args: {
+    data: AppointmentUpdateInput;
+    where: AppointmentWhereUniqueInput;
+  }) => AppointmentPromise;
+  upsertAppointment: (args: {
+    where: AppointmentWhereUniqueInput;
+    create: AppointmentCreateInput;
+    update: AppointmentUpdateInput;
+  }) => AppointmentPromise;
+  deleteAppointment: (where: AppointmentWhereUniqueInput) => AppointmentPromise;
+  deleteManyAppointments: (
+    where?: AppointmentWhereInput
+  ) => BatchPayloadPromise;
   createService: (data: ServiceCreateInput) => ServicePromise;
   updateService: (args: {
     data: ServiceUpdateInput;
@@ -124,6 +160,9 @@ export interface Prisma {
 }
 
 export interface Subscription {
+  appointment: (
+    where?: AppointmentSubscriptionWhereInput
+  ) => AppointmentSubscriptionPayloadSubscription;
   service: (
     where?: ServiceSubscriptionWhereInput
   ) => ServiceSubscriptionPayloadSubscription;
@@ -152,6 +191,8 @@ export type ServiceOrderByInput =
   | "cost_ASC"
   | "cost_DESC";
 
+export type AppointmentOrderByInput = "id_ASC" | "id_DESC";
+
 export type UserOrderByInput =
   | "id_ASC"
   | "id_DESC"
@@ -164,7 +205,7 @@ export type UserOrderByInput =
 
 export type MutationType = "CREATED" | "UPDATED" | "DELETED";
 
-export type ServiceWhereUniqueInput = AtLeastOne<{
+export type AppointmentWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
 }>;
 
@@ -228,6 +269,9 @@ export interface ServiceWhereInput {
   cost_ends_with?: Maybe<String>;
   cost_not_ends_with?: Maybe<String>;
   postedBy?: Maybe<UserWhereInput>;
+  appointments_every?: Maybe<AppointmentWhereInput>;
+  appointments_some?: Maybe<AppointmentWhereInput>;
+  appointments_none?: Maybe<AppointmentWhereInput>;
   AND?: Maybe<ServiceWhereInput[] | ServiceWhereInput>;
   OR?: Maybe<ServiceWhereInput[] | ServiceWhereInput>;
   NOT?: Maybe<ServiceWhereInput[] | ServiceWhereInput>;
@@ -293,17 +337,57 @@ export interface UserWhereInput {
   services_every?: Maybe<ServiceWhereInput>;
   services_some?: Maybe<ServiceWhereInput>;
   services_none?: Maybe<ServiceWhereInput>;
+  appointments_every?: Maybe<AppointmentWhereInput>;
+  appointments_some?: Maybe<AppointmentWhereInput>;
+  appointments_none?: Maybe<AppointmentWhereInput>;
   AND?: Maybe<UserWhereInput[] | UserWhereInput>;
   OR?: Maybe<UserWhereInput[] | UserWhereInput>;
   NOT?: Maybe<UserWhereInput[] | UserWhereInput>;
 }
+
+export interface AppointmentWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  service?: Maybe<ServiceWhereInput>;
+  user?: Maybe<UserWhereInput>;
+  AND?: Maybe<AppointmentWhereInput[] | AppointmentWhereInput>;
+  OR?: Maybe<AppointmentWhereInput[] | AppointmentWhereInput>;
+  NOT?: Maybe<AppointmentWhereInput[] | AppointmentWhereInput>;
+}
+
+export type ServiceWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
 
 export type UserWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
   email?: Maybe<String>;
 }>;
 
-export interface ServiceCreateInput {
+export interface AppointmentCreateInput {
+  id?: Maybe<ID_Input>;
+  service: ServiceCreateOneWithoutAppointmentsInput;
+  user: UserCreateOneWithoutAppointmentsInput;
+}
+
+export interface ServiceCreateOneWithoutAppointmentsInput {
+  create?: Maybe<ServiceCreateWithoutAppointmentsInput>;
+  connect?: Maybe<ServiceWhereUniqueInput>;
+}
+
+export interface ServiceCreateWithoutAppointmentsInput {
   id?: Maybe<ID_Input>;
   name: String;
   cost: String;
@@ -320,40 +404,27 @@ export interface UserCreateWithoutServicesInput {
   name: String;
   email: String;
   password: String;
+  appointments?: Maybe<AppointmentCreateManyWithoutUserInput>;
 }
 
-export interface ServiceUpdateInput {
-  name?: Maybe<String>;
-  cost?: Maybe<String>;
-  postedBy?: Maybe<UserUpdateOneWithoutServicesInput>;
+export interface AppointmentCreateManyWithoutUserInput {
+  create?: Maybe<
+    AppointmentCreateWithoutUserInput[] | AppointmentCreateWithoutUserInput
+  >;
+  connect?: Maybe<AppointmentWhereUniqueInput[] | AppointmentWhereUniqueInput>;
 }
 
-export interface UserUpdateOneWithoutServicesInput {
-  create?: Maybe<UserCreateWithoutServicesInput>;
-  update?: Maybe<UserUpdateWithoutServicesDataInput>;
-  upsert?: Maybe<UserUpsertWithoutServicesInput>;
-  delete?: Maybe<Boolean>;
-  disconnect?: Maybe<Boolean>;
+export interface AppointmentCreateWithoutUserInput {
+  id?: Maybe<ID_Input>;
+  service: ServiceCreateOneWithoutAppointmentsInput;
+}
+
+export interface UserCreateOneWithoutAppointmentsInput {
+  create?: Maybe<UserCreateWithoutAppointmentsInput>;
   connect?: Maybe<UserWhereUniqueInput>;
 }
 
-export interface UserUpdateWithoutServicesDataInput {
-  name?: Maybe<String>;
-  email?: Maybe<String>;
-  password?: Maybe<String>;
-}
-
-export interface UserUpsertWithoutServicesInput {
-  update: UserUpdateWithoutServicesDataInput;
-  create: UserCreateWithoutServicesInput;
-}
-
-export interface ServiceUpdateManyMutationInput {
-  name?: Maybe<String>;
-  cost?: Maybe<String>;
-}
-
-export interface UserCreateInput {
+export interface UserCreateWithoutAppointmentsInput {
   id?: Maybe<ID_Input>;
   name: String;
   email: String;
@@ -372,9 +443,132 @@ export interface ServiceCreateWithoutPostedByInput {
   id?: Maybe<ID_Input>;
   name: String;
   cost: String;
+  appointments?: Maybe<AppointmentCreateManyWithoutServiceInput>;
 }
 
-export interface UserUpdateInput {
+export interface AppointmentCreateManyWithoutServiceInput {
+  create?: Maybe<
+    | AppointmentCreateWithoutServiceInput[]
+    | AppointmentCreateWithoutServiceInput
+  >;
+  connect?: Maybe<AppointmentWhereUniqueInput[] | AppointmentWhereUniqueInput>;
+}
+
+export interface AppointmentCreateWithoutServiceInput {
+  id?: Maybe<ID_Input>;
+  user: UserCreateOneWithoutAppointmentsInput;
+}
+
+export interface AppointmentUpdateInput {
+  service?: Maybe<ServiceUpdateOneRequiredWithoutAppointmentsInput>;
+  user?: Maybe<UserUpdateOneRequiredWithoutAppointmentsInput>;
+}
+
+export interface ServiceUpdateOneRequiredWithoutAppointmentsInput {
+  create?: Maybe<ServiceCreateWithoutAppointmentsInput>;
+  update?: Maybe<ServiceUpdateWithoutAppointmentsDataInput>;
+  upsert?: Maybe<ServiceUpsertWithoutAppointmentsInput>;
+  connect?: Maybe<ServiceWhereUniqueInput>;
+}
+
+export interface ServiceUpdateWithoutAppointmentsDataInput {
+  name?: Maybe<String>;
+  cost?: Maybe<String>;
+  postedBy?: Maybe<UserUpdateOneWithoutServicesInput>;
+}
+
+export interface UserUpdateOneWithoutServicesInput {
+  create?: Maybe<UserCreateWithoutServicesInput>;
+  update?: Maybe<UserUpdateWithoutServicesDataInput>;
+  upsert?: Maybe<UserUpsertWithoutServicesInput>;
+  delete?: Maybe<Boolean>;
+  disconnect?: Maybe<Boolean>;
+  connect?: Maybe<UserWhereUniqueInput>;
+}
+
+export interface UserUpdateWithoutServicesDataInput {
+  name?: Maybe<String>;
+  email?: Maybe<String>;
+  password?: Maybe<String>;
+  appointments?: Maybe<AppointmentUpdateManyWithoutUserInput>;
+}
+
+export interface AppointmentUpdateManyWithoutUserInput {
+  create?: Maybe<
+    AppointmentCreateWithoutUserInput[] | AppointmentCreateWithoutUserInput
+  >;
+  delete?: Maybe<AppointmentWhereUniqueInput[] | AppointmentWhereUniqueInput>;
+  connect?: Maybe<AppointmentWhereUniqueInput[] | AppointmentWhereUniqueInput>;
+  set?: Maybe<AppointmentWhereUniqueInput[] | AppointmentWhereUniqueInput>;
+  disconnect?: Maybe<
+    AppointmentWhereUniqueInput[] | AppointmentWhereUniqueInput
+  >;
+  update?: Maybe<
+    | AppointmentUpdateWithWhereUniqueWithoutUserInput[]
+    | AppointmentUpdateWithWhereUniqueWithoutUserInput
+  >;
+  upsert?: Maybe<
+    | AppointmentUpsertWithWhereUniqueWithoutUserInput[]
+    | AppointmentUpsertWithWhereUniqueWithoutUserInput
+  >;
+  deleteMany?: Maybe<
+    AppointmentScalarWhereInput[] | AppointmentScalarWhereInput
+  >;
+}
+
+export interface AppointmentUpdateWithWhereUniqueWithoutUserInput {
+  where: AppointmentWhereUniqueInput;
+  data: AppointmentUpdateWithoutUserDataInput;
+}
+
+export interface AppointmentUpdateWithoutUserDataInput {
+  service?: Maybe<ServiceUpdateOneRequiredWithoutAppointmentsInput>;
+}
+
+export interface AppointmentUpsertWithWhereUniqueWithoutUserInput {
+  where: AppointmentWhereUniqueInput;
+  update: AppointmentUpdateWithoutUserDataInput;
+  create: AppointmentCreateWithoutUserInput;
+}
+
+export interface AppointmentScalarWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  AND?: Maybe<AppointmentScalarWhereInput[] | AppointmentScalarWhereInput>;
+  OR?: Maybe<AppointmentScalarWhereInput[] | AppointmentScalarWhereInput>;
+  NOT?: Maybe<AppointmentScalarWhereInput[] | AppointmentScalarWhereInput>;
+}
+
+export interface UserUpsertWithoutServicesInput {
+  update: UserUpdateWithoutServicesDataInput;
+  create: UserCreateWithoutServicesInput;
+}
+
+export interface ServiceUpsertWithoutAppointmentsInput {
+  update: ServiceUpdateWithoutAppointmentsDataInput;
+  create: ServiceCreateWithoutAppointmentsInput;
+}
+
+export interface UserUpdateOneRequiredWithoutAppointmentsInput {
+  create?: Maybe<UserCreateWithoutAppointmentsInput>;
+  update?: Maybe<UserUpdateWithoutAppointmentsDataInput>;
+  upsert?: Maybe<UserUpsertWithoutAppointmentsInput>;
+  connect?: Maybe<UserWhereUniqueInput>;
+}
+
+export interface UserUpdateWithoutAppointmentsDataInput {
   name?: Maybe<String>;
   email?: Maybe<String>;
   password?: Maybe<String>;
@@ -412,6 +606,46 @@ export interface ServiceUpdateWithWhereUniqueWithoutPostedByInput {
 export interface ServiceUpdateWithoutPostedByDataInput {
   name?: Maybe<String>;
   cost?: Maybe<String>;
+  appointments?: Maybe<AppointmentUpdateManyWithoutServiceInput>;
+}
+
+export interface AppointmentUpdateManyWithoutServiceInput {
+  create?: Maybe<
+    | AppointmentCreateWithoutServiceInput[]
+    | AppointmentCreateWithoutServiceInput
+  >;
+  delete?: Maybe<AppointmentWhereUniqueInput[] | AppointmentWhereUniqueInput>;
+  connect?: Maybe<AppointmentWhereUniqueInput[] | AppointmentWhereUniqueInput>;
+  set?: Maybe<AppointmentWhereUniqueInput[] | AppointmentWhereUniqueInput>;
+  disconnect?: Maybe<
+    AppointmentWhereUniqueInput[] | AppointmentWhereUniqueInput
+  >;
+  update?: Maybe<
+    | AppointmentUpdateWithWhereUniqueWithoutServiceInput[]
+    | AppointmentUpdateWithWhereUniqueWithoutServiceInput
+  >;
+  upsert?: Maybe<
+    | AppointmentUpsertWithWhereUniqueWithoutServiceInput[]
+    | AppointmentUpsertWithWhereUniqueWithoutServiceInput
+  >;
+  deleteMany?: Maybe<
+    AppointmentScalarWhereInput[] | AppointmentScalarWhereInput
+  >;
+}
+
+export interface AppointmentUpdateWithWhereUniqueWithoutServiceInput {
+  where: AppointmentWhereUniqueInput;
+  data: AppointmentUpdateWithoutServiceDataInput;
+}
+
+export interface AppointmentUpdateWithoutServiceDataInput {
+  user?: Maybe<UserUpdateOneRequiredWithoutAppointmentsInput>;
+}
+
+export interface AppointmentUpsertWithWhereUniqueWithoutServiceInput {
+  where: AppointmentWhereUniqueInput;
+  update: AppointmentUpdateWithoutServiceDataInput;
+  create: AppointmentCreateWithoutServiceInput;
 }
 
 export interface ServiceUpsertWithWhereUniqueWithoutPostedByInput {
@@ -494,10 +728,69 @@ export interface ServiceUpdateManyDataInput {
   cost?: Maybe<String>;
 }
 
+export interface UserUpsertWithoutAppointmentsInput {
+  update: UserUpdateWithoutAppointmentsDataInput;
+  create: UserCreateWithoutAppointmentsInput;
+}
+
+export interface ServiceCreateInput {
+  id?: Maybe<ID_Input>;
+  name: String;
+  cost: String;
+  postedBy?: Maybe<UserCreateOneWithoutServicesInput>;
+  appointments?: Maybe<AppointmentCreateManyWithoutServiceInput>;
+}
+
+export interface ServiceUpdateInput {
+  name?: Maybe<String>;
+  cost?: Maybe<String>;
+  postedBy?: Maybe<UserUpdateOneWithoutServicesInput>;
+  appointments?: Maybe<AppointmentUpdateManyWithoutServiceInput>;
+}
+
+export interface ServiceUpdateManyMutationInput {
+  name?: Maybe<String>;
+  cost?: Maybe<String>;
+}
+
+export interface UserCreateInput {
+  id?: Maybe<ID_Input>;
+  name: String;
+  email: String;
+  password: String;
+  services?: Maybe<ServiceCreateManyWithoutPostedByInput>;
+  appointments?: Maybe<AppointmentCreateManyWithoutUserInput>;
+}
+
+export interface UserUpdateInput {
+  name?: Maybe<String>;
+  email?: Maybe<String>;
+  password?: Maybe<String>;
+  services?: Maybe<ServiceUpdateManyWithoutPostedByInput>;
+  appointments?: Maybe<AppointmentUpdateManyWithoutUserInput>;
+}
+
 export interface UserUpdateManyMutationInput {
   name?: Maybe<String>;
   email?: Maybe<String>;
   password?: Maybe<String>;
+}
+
+export interface AppointmentSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<AppointmentWhereInput>;
+  AND?: Maybe<
+    AppointmentSubscriptionWhereInput[] | AppointmentSubscriptionWhereInput
+  >;
+  OR?: Maybe<
+    AppointmentSubscriptionWhereInput[] | AppointmentSubscriptionWhereInput
+  >;
+  NOT?: Maybe<
+    AppointmentSubscriptionWhereInput[] | AppointmentSubscriptionWhereInput
+  >;
 }
 
 export interface ServiceSubscriptionWhereInput {
@@ -526,6 +819,32 @@ export interface NodeNode {
   id: ID_Output;
 }
 
+export interface Appointment {
+  id: ID_Output;
+}
+
+export interface AppointmentPromise extends Promise<Appointment>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  service: <T = ServicePromise>() => T;
+  user: <T = UserPromise>() => T;
+}
+
+export interface AppointmentSubscription
+  extends Promise<AsyncIterator<Appointment>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  service: <T = ServiceSubscription>() => T;
+  user: <T = UserSubscription>() => T;
+}
+
+export interface AppointmentNullablePromise
+  extends Promise<Appointment | null>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  service: <T = ServicePromise>() => T;
+  user: <T = UserPromise>() => T;
+}
+
 export interface Service {
   id: ID_Output;
   createdAt: DateTimeOutput;
@@ -541,6 +860,15 @@ export interface ServicePromise extends Promise<Service>, Fragmentable {
   name: () => Promise<String>;
   cost: () => Promise<String>;
   postedBy: <T = UserPromise>() => T;
+  appointments: <T = FragmentableArray<Appointment>>(args?: {
+    where?: AppointmentWhereInput;
+    orderBy?: AppointmentOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
 }
 
 export interface ServiceSubscription
@@ -552,6 +880,15 @@ export interface ServiceSubscription
   name: () => Promise<AsyncIterator<String>>;
   cost: () => Promise<AsyncIterator<String>>;
   postedBy: <T = UserSubscription>() => T;
+  appointments: <T = Promise<AsyncIterator<AppointmentSubscription>>>(args?: {
+    where?: AppointmentWhereInput;
+    orderBy?: AppointmentOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
 }
 
 export interface ServiceNullablePromise
@@ -563,6 +900,15 @@ export interface ServiceNullablePromise
   name: () => Promise<String>;
   cost: () => Promise<String>;
   postedBy: <T = UserPromise>() => T;
+  appointments: <T = FragmentableArray<Appointment>>(args?: {
+    where?: AppointmentWhereInput;
+    orderBy?: AppointmentOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
 }
 
 export interface User {
@@ -580,6 +926,15 @@ export interface UserPromise extends Promise<User>, Fragmentable {
   services: <T = FragmentableArray<Service>>(args?: {
     where?: ServiceWhereInput;
     orderBy?: ServiceOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  appointments: <T = FragmentableArray<Appointment>>(args?: {
+    where?: AppointmentWhereInput;
+    orderBy?: AppointmentOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
@@ -604,6 +959,15 @@ export interface UserSubscription
     first?: Int;
     last?: Int;
   }) => T;
+  appointments: <T = Promise<AsyncIterator<AppointmentSubscription>>>(args?: {
+    where?: AppointmentWhereInput;
+    orderBy?: AppointmentOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
 }
 
 export interface UserNullablePromise
@@ -622,27 +986,36 @@ export interface UserNullablePromise
     first?: Int;
     last?: Int;
   }) => T;
+  appointments: <T = FragmentableArray<Appointment>>(args?: {
+    where?: AppointmentWhereInput;
+    orderBy?: AppointmentOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
 }
 
-export interface ServiceConnection {
+export interface AppointmentConnection {
   pageInfo: PageInfo;
-  edges: ServiceEdge[];
+  edges: AppointmentEdge[];
 }
 
-export interface ServiceConnectionPromise
-  extends Promise<ServiceConnection>,
+export interface AppointmentConnectionPromise
+  extends Promise<AppointmentConnection>,
     Fragmentable {
   pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<ServiceEdge>>() => T;
-  aggregate: <T = AggregateServicePromise>() => T;
+  edges: <T = FragmentableArray<AppointmentEdge>>() => T;
+  aggregate: <T = AggregateAppointmentPromise>() => T;
 }
 
-export interface ServiceConnectionSubscription
-  extends Promise<AsyncIterator<ServiceConnection>>,
+export interface AppointmentConnectionSubscription
+  extends Promise<AsyncIterator<AppointmentConnection>>,
     Fragmentable {
   pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<ServiceEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateServiceSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<AppointmentEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateAppointmentSubscription>() => T;
 }
 
 export interface PageInfo {
@@ -666,6 +1039,62 @@ export interface PageInfoSubscription
   hasPreviousPage: () => Promise<AsyncIterator<Boolean>>;
   startCursor: () => Promise<AsyncIterator<String>>;
   endCursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AppointmentEdge {
+  node: Appointment;
+  cursor: String;
+}
+
+export interface AppointmentEdgePromise
+  extends Promise<AppointmentEdge>,
+    Fragmentable {
+  node: <T = AppointmentPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface AppointmentEdgeSubscription
+  extends Promise<AsyncIterator<AppointmentEdge>>,
+    Fragmentable {
+  node: <T = AppointmentSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateAppointment {
+  count: Int;
+}
+
+export interface AggregateAppointmentPromise
+  extends Promise<AggregateAppointment>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateAppointmentSubscription
+  extends Promise<AsyncIterator<AggregateAppointment>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface ServiceConnection {
+  pageInfo: PageInfo;
+  edges: ServiceEdge[];
+}
+
+export interface ServiceConnectionPromise
+  extends Promise<ServiceConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<ServiceEdge>>() => T;
+  aggregate: <T = AggregateServicePromise>() => T;
+}
+
+export interface ServiceConnectionSubscription
+  extends Promise<AsyncIterator<ServiceConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<ServiceEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateServiceSubscription>() => T;
 }
 
 export interface ServiceEdge {
@@ -769,6 +1198,47 @@ export interface BatchPayloadSubscription
   extends Promise<AsyncIterator<BatchPayload>>,
     Fragmentable {
   count: () => Promise<AsyncIterator<Long>>;
+}
+
+export interface AppointmentSubscriptionPayload {
+  mutation: MutationType;
+  node: Appointment;
+  updatedFields: String[];
+  previousValues: AppointmentPreviousValues;
+}
+
+export interface AppointmentSubscriptionPayloadPromise
+  extends Promise<AppointmentSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = AppointmentPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = AppointmentPreviousValuesPromise>() => T;
+}
+
+export interface AppointmentSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<AppointmentSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = AppointmentSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = AppointmentPreviousValuesSubscription>() => T;
+}
+
+export interface AppointmentPreviousValues {
+  id: ID_Output;
+}
+
+export interface AppointmentPreviousValuesPromise
+  extends Promise<AppointmentPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+}
+
+export interface AppointmentPreviousValuesSubscription
+  extends Promise<AsyncIterator<AppointmentPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
 }
 
 export interface ServiceSubscriptionPayload {
@@ -918,6 +1388,10 @@ export const models: Model[] = [
   },
   {
     name: "User",
+    embedded: false
+  },
+  {
+    name: "Appointment",
     embedded: false
   }
 ];
