@@ -1,0 +1,4 @@
+Your Prisma endpoint is live:
+
+  HTTP:  https://eu1.prisma.sh/imke-van-rompa-cf3a4b/bissasist-node/dev
+  WS:    wss://eu1.prisma.sh/imke-van-rompa-cf3a4b/bissasist-node/dev
