@@ -3,6 +3,7 @@ type Query {
     servicefeed: [Service!]!
      # Fetch a single link by its `id`
     service(id:ID!): Service
+
 }
 
 type Mutation {
@@ -21,6 +22,7 @@ type Service {
     name: String!
     cost: String!
     postedBy: User
+    appointments: [Appointment!]!
 }
 
 type AuthPayload{

@@ -32,6 +32,7 @@ async function login(parent, args, context, info){
 
 async function appointment(parent, context, args, info){
     const userId = getUserId(context)
+    console.log(userId)
     return context.prisma.createAppointment({
         user: {connect: { id:userId}},
         service: {connect: { id: args.serviceId}},
@@ -46,6 +47,7 @@ function postService(parent, args, context, info){
         postedBy: { connect: {id: userId}},
     })
 }
+
 
 module.exports={
     signup,
