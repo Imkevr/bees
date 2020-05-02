@@ -3,7 +3,7 @@ import ServiceList from './ServiceList'
 import CreateService from './CreateService'
 import Sidenav from './Sidenav'
 import { Switch, Route } from 'react-router-dom'
-
+import Login from './Login'
 
 class App extends Component {
   render() {
@@ -14,6 +14,7 @@ class App extends Component {
         <Switch>
           <Route exact path="/" component={ServiceList} />
           <Route exact path="/create" component={CreateService} />
+          <Route exact path="/login" component={Login} />
         </Switch>
       </div>
     </div>
