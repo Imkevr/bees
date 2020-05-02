@@ -37,7 +37,10 @@ class CreateService extends Component {
               placeholder="The service cost"
             />
           </div>
-          <Mutation mutation={POST_MUTATION} variables={{cost, name}}>
+          <Mutation mutation={POST_MUTATION} 
+              variables={{cost, name}} 
+              onCompleted={() => this.props.history.push('/')}>
+                
               {postMutation => 
                 <button onClick={postMutation}>Submit</button>
               }

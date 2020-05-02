@@ -1,11 +1,23 @@
 import React, { Component } from 'react'
 import ServiceList from './ServiceList'
 import CreateService from './CreateService'
+import Sidenav from './Sidenav'
+import { Switch, Route } from 'react-router-dom'
+
 
 class App extends Component {
   render() {
-    // return <ServiceList />
-    return <CreateService />
+    return(
+      <div className="center w85">
+      <Sidenav />
+      <div className="ph3 pv1 background-gray">
+        <Switch>
+          <Route exact path="/" component={ServiceList} />
+          <Route exact path="/create" component={CreateService} />
+        </Switch>
+      </div>
+    </div>
+    )
   }
 }
 
