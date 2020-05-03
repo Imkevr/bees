@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { AUTH_TOKEN } from '../constants'
 import { Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
+import {Redirect } from 'react-router-dom'
 
 class Login extends Component {
     state = {
