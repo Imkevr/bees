@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import ServiceList from './ServiceList'
 import CreateService from './CreateService'
 import Sidenav from './Sidenav'
+import '../styles/App.scss'
 import {
   BrowserRouter as Router,
   Route,
@@ -23,16 +24,18 @@ class App extends Component {
       )} />
     )
     return(
-      <div className="center w85">
+    <React.Fragment>
+      
       <Sidenav />
-      <div className="ph3 pv1 background-gray">
+      <div className="fullscreen">
         <Switch>
           <PrivateRoute  exact path="/" component={ServiceList} />
           <PrivateRoute exact path="/create" component={CreateService} />
           <Route exact path="/login" component={Login} />
         </Switch>
-      </div>
+      
     </div>
+    </React.Fragment>
     )
   }
 }
