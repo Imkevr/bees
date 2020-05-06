@@ -32,36 +32,50 @@ class Login extends Component {
             <div id="login-container">
 
                 <div id="side">
-                    <h4> test</h4>
+                    <h4> BEES </h4>
+                    <h5> You're Business Scheduler  </h5>
                 </div>
                 <div id="login">
                     <div id="login-form">
                         <div>
-                        <h1 >{login ? 'Welcome' : 'Make a new account'}</h1>
+                            <h1 >{login ? 'Welcome' : 'Make a new account'}</h1>
                         </div>
                         <div className="fields">
                             {!login && (
-                                <input
-                                    value={name}
-                                    onChange={e => this.setState({ name: e.target.value })}
-                                    type="text"
-                                    placeholder="Your name"
-                                />
+                                <div className="form-group">
+                                    <label>Name:</label>
+                                    <input
+                                        className="form-control"
+                                        value={name}
+                                        onChange={e => this.setState({ name: e.target.value })}
+                                        type="text"
+                                        placeholder="Your name"
+                                    />
+                                </div>
                             )}
-                            <input
-                                value={email}
-                                onChange={e => this.setState({ email: e.target.value })}
-                                type="text"
-                                placeholder="Your email address"
-                            />
-                            <input
-                                value={password}
-                                onChange={e => this.setState({ password: e.target.value })}
-                                type="password"
-                                placeholder={login
-                                    ? 'Enter password'
-                                    : 'Choose a safe password'}
-                            />
+                            <div className="form-group">
+                                <label>Email:</label>
+                                <input
+                                    className="form-control"
+                                    value={email}
+                                    onChange={e => this.setState({ email: e.target.value })}
+                                    type="text"
+                                    placeholder="Your email address"
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label>Password:</label>
+                                <input
+                                    className="form-control"
+                                    value={password}
+                                    onChange={e => this.setState({ password: e.target.value })}
+                                    type="password"
+                                    placeholder={login
+                                        ? 'Enter password'
+                                        : 'Choose a safe password'}
+                                />
+                            </div>
+
                         </div>
                         <div className="button-field">
                             <Mutation
@@ -71,15 +85,16 @@ class Login extends Component {
                             >
                                 {mutation => (
                                     <div className="button" onClick={mutation}>
-                                        {login ? 'Login' : 'Sign Up'}
+                                     <p>   {login ? 'Login' : 'Sign Up'}</p>
                                     </div>
                                 )}
-                            </Mutation>
+                             </Mutation>
                             <div
-                                className=""
+                                className="change-form"
                                 onClick={() => this.setState({ login: !login })}
                             >
-                                {login ? "Don't have an account? Sign Up" : 'Already have an account? Login'}
+                                {login ? "Don't have an account?" : 'Already have an account?'}
+                                <span> {login ? "Sign Up" : 'Login'}</span>
                             </div>
                         </div>
                     </div>
