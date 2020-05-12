@@ -19,23 +19,23 @@ class App extends Component {
     const PrivateRoute = ({ component: component, ...rest }) => (
       <Route {...rest} render={(props) => (
         authToken === true
-          ? <Component {...props} />
+          ? <Component  {...props} />
           : <Redirect to='/login' />
       )} />
     )
-    return(
-    <React.Fragment>
-      
-      <Sidenav />
-      <div className="fullscreen">
-        <Switch>
-          <PrivateRoute  exact path="/" component={ServiceList} />
-          <PrivateRoute exact path="/create" component={CreateService} />
-          <Route exact path="/login" component={Login} />
-        </Switch>
-      
-    </div>
-    </React.Fragment>
+    return (
+      <React.Fragment>
+        <Router>
+          <Sidenav />
+          <div className="fullscreen">
+            <Switch>
+              <PrivateRoute exact path="/"  ><ServiceList/></PrivateRoute>
+              <PrivateRoute  path="/create" ><CreateService/></PrivateRoute>
+              <Route  path="/login" component={Login} />
+            </Switch>
+          </div>
+        </Router>
+      </React.Fragment>
     )
   }
 }

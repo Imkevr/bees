@@ -3,7 +3,7 @@ import { AUTH_TOKEN } from '../constants'
 import { Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
 import '../styles/Login.scss'
-
+import { withRouter } from 'react-router'
 class Login extends Component {
     state = {
         login: true,// switchen between login and signup
@@ -32,13 +32,13 @@ class Login extends Component {
             <div id="login-container">
 
                 <div id="side">
-                    <h4> BEES </h4>
-                    <h5> You're Business Scheduler  </h5>
+                    {/* <h4> BEES </h4>
+                    <h5> You're Business Scheduler  </h5> */}
                 </div>
                 <div id="login">
                     <div id="login-form">
                         <div>
-                            <h1 >{login ? 'Welcome' : 'Make a new account'}</h1>
+                            <h2 >{login ? 'Welcome' : 'Make a new account'}</h2>
                         </div>
                         <div className="fields">
                             {!login && (

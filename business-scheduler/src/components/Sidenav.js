@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
-
+import { NavLink } from 'react-router-dom'
 import { withRouter } from 'react-router'
 import { AUTH_TOKEN } from '../constants'
 class Sidenav extends Component {
@@ -11,35 +10,29 @@ class Sidenav extends Component {
        {authToken && (
     <div className="flex pa1 justify-between nowrap orange">
       <div className="flex flex-fixed black">
-        <div className="fw7 mr1">Bees - Business Scheduler</div>
-        <Link to="/" className="ml1 no-underline black">
+        {/* <div className="fw7 mr1">Bees - Business Scheduler</div> */}
+        <NavLink to="/" className="ml1 no-underline black">
           All services
-        </Link>
+        </NavLink>
        
           <div className="flex">
             <div className="ml1">|</div>
-            <Link to="/create" className="ml1 no-underline black">
+            <NavLink to="/create" className="ml1 no-underline black">
               Make service
-            </Link>
+            </NavLink>
           </div>
        
       </div>
       <div className="flex flex-fixed">
-        {authToken ? (
           <div
             className="ml1 pointer black"
             onClick={() => {
               localStorage.removeItem(AUTH_TOKEN)
-              this.props.history.push(`/`)
+              this.props.history.push(`/Login`)
             }}
           >
             logout
           </div>
-        ) : (
-          <Link to="/login" className="ml1 no-underline black">
-            login
-          </Link>
-        )}
       </div>
     </div>
      )}
