@@ -3,7 +3,7 @@ import { AUTH_TOKEN } from '../constants'
 import { Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
 import '../styles/Login.scss'
-import { withRouter } from 'react-router'
+
 class Login extends Component {
     state = {
         login: true,// switchen between login and signup

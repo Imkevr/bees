@@ -1,0 +1,12 @@
+@import './_colors';
+
+
+
+    .nav-container {
+        width: 12%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        background-color: $plain-white;
+        padding: 10px;
+    }

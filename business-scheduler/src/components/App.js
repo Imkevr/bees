@@ -26,11 +26,12 @@ class App extends Component {
     return (
       <React.Fragment>
         <Router>
-          <Sidenav />
-          <div className="fullscreen">
-            <Switch>
-              <PrivateRoute exact path="/"  ><ServiceList/></PrivateRoute>
-              <PrivateRoute  path="/create" ><CreateService/></PrivateRoute>
+        <div className="fullscreen">
+          <Sidenav className="sidenav" />
+          
+            <Switch >
+              <PrivateRoute exact path="/"  ><ServiceList className="content"/></PrivateRoute>
+              <PrivateRoute  path="/create" ><CreateService className="content"/></PrivateRoute>
               <Route  path="/login" component={Login} />
             </Switch>
           </div>

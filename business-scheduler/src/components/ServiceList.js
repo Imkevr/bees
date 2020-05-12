@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Service from './Service'
 import {Query } from 'react-apollo'
 import gql from 'graphql-tag'
+import '../styles/Services.scss'
 
 class ServiceList extends Component {
     render() {
@@ -23,7 +24,7 @@ class ServiceList extends Component {
 
                    const servicesToRender = data.servicefeed
                    return (
-                       <div>
+                       <div id="service-container"> 
                     {servicesToRender.map(service => <Service key={service.id} service={service} />)}
                     </div>
                    )
