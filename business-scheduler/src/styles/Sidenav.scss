@@ -2,11 +2,122 @@
 
 
 
-    .nav-container {
-        width: 12%;
-        height: 100%;
+#nav-container {
+    width: 12%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: $plain-white;
+    padding: 20px;
+
+    #nav-head {
+        height: 10%;
+        display: flex;
+        flex-direction: row;
+
+        p {
+            width: 50%;
+        }
+
+        h5 {
+            width: 50%;
+        }
+    }
+
+    #nav-links {
+        height: 40%;
         display: flex;
         flex-direction: column;
-        background-color: $plain-white;
-        padding: 10px;
+
+        .item-link {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            margin: 30px 0;
+
+            .nav-link-icon{
+                width:30%;
+            }
+
+            .link {
+                width:70%;
+                text-decoration: none;
+                color: $black;
+                margin: auto 0;
+            }
+            &:hover {
+                color: $blue;
+            }
+        }
+
     }
+    #nav-buttons{
+        height:30%;
+        button{
+            width:98%;
+            margin:10px auto;
+            background-color: $blue;
+            border: none;
+            padding:10px;
+            font-weight: 500;
+            border: solid 5px $blue;
+            border-radius:5px;
+            -webkit-box-shadow: 1px 5px 23px -2px rgba(199,199,199,1);
+            -moz-box-shadow: 1px 5px 23px -2px rgba(199,199,199,1);
+            box-shadow: 1px 5px 23px -2px rgba(199,199,199,1);
+
+            &:hover{
+                color:$plain-white;
+            }
+        }
+    }
+
+    #nav-user-info {
+        height: 15%;
+        display: flex;
+        flex-direction: row;
+
+        #nav-gravatar {
+            width: 40%;
+            margin: auto;
+
+            #gravatar {
+                border-radius: 100%;
+            }
+        }
+
+        h6 {
+            width: 60%;
+            margin: auto;
+        }
+    }
+
+    #nav-logout {
+        height: 5%;
+        display: flex;
+        flex-direction: row;
+
+        #svg {
+            width: 40%;
+            display: flex;
+            flex-direction: row-reverse;
+            align-self: center;
+            margin-left:-10px;
+        }
+
+        #logout {
+            width: 60%;
+            cursor: pointer;
+            margin: auto;
+
+        }
+
+        &:hover {
+            color: $blue;
+        }
+    }
+}
+
+.active {
+    color: $blue;
+}
