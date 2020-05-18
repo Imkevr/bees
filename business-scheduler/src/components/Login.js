@@ -9,13 +9,15 @@ class Login extends Component {
         login: true,// switchen between login and signup
         email: '',
         password: '',
-        name: '',
+        firstname: '',
+        lastname: '',
+       
     }
 
     render() {
         const SIGNUP_MUTATION = gql`
-        mutation SignupMutation($email: String!, $password: String!, $name: String!) {
-        signup(email: $email, password: $password, name: $name) {
+        mutation SignupMutation($email: String!, $password: String!, $firstname:String!, $lastname:String!) {
+        signup(email: $email, password: $password, firstname: $firstname, lastname: $lastname) {
         token
       }
     }
@@ -27,7 +29,7 @@ class Login extends Component {
     }
   }
       `
-        const { login, email, password, name } = this.state
+        const { login, email, password, firstname, lastname } = this.state
         return (
             <div id="login-container">
 
@@ -43,15 +45,25 @@ class Login extends Component {
                         <div className="fields">
                             {!login && (
                                 <div className="form-group">
-                                    <label>Name:</label>
+                                    <label>Firstname:</label>
                                     <input
                                         className="form-control"
-                                        value={name}
-                                        onChange={e => this.setState({ name: e.target.value })}
+                                        value={firstname}
+                                        onChange={e => this.setState({ firstname: e.target.value })}
                                         type="text"
-                                        placeholder="Your name"
+                                        placeholder="Your firstname"
                                     />
+                                    <label>Lastname:</label>
+                                    <input
+                                        className="form-control"
+                                        value={lastname}
+                                        onChange={e => this.setState({ lastname: e.target.value })}
+                                        type="text"
+                                        placeholder="Your lastname"
+                                    />
+                                   
                                 </div>
+
                             )}
                             <div className="form-group">
                                 <label>Email:</label>
@@ -80,15 +92,15 @@ class Login extends Component {
                         <div className="button-field">
                             <Mutation
                                 mutation={login ? LOGIN_MUTATION : SIGNUP_MUTATION}
-                                variables={{ email, password, name }}
+                                variables={{ email, password, firstname, lastname }}
                                 onCompleted={data => this._confirm(data)}
                             >
                                 {mutation => (
                                     <div className="button" onClick={mutation}>
-                                     <p>   {login ? 'Login' : 'Sign Up'}</p>
+                                        <p>   {login ? 'Login' : 'Sign Up'}</p>
                                     </div>
                                 )}
-                             </Mutation>
+                            </Mutation>
                             <div
                                 className="change-form"
                                 onClick={() => this.setState({ login: !login })}

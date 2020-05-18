@@ -7,6 +7,10 @@ module.exports = {
   count: Int!
 }
 
+type AggregateClient {
+  count: Int!
+}
+
 type AggregateService {
   count: Int!
 }
@@ -17,6 +21,10 @@ type AggregateUser {
 
 type Appointment {
   id: ID!
+  date: String!
+  start: String!
+  end: String!
+  completed: Boolean
   service: Service!
   user: User!
 }
@@ -29,6 +37,10 @@ type AppointmentConnection {
 
 input AppointmentCreateInput {
   id: ID
+  date: String!
+  start: String!
+  end: String!
+  completed: Boolean
   service: ServiceCreateOneWithoutAppointmentsInput!
   user: UserCreateOneWithoutAppointmentsInput!
 }
@@ -45,11 +57,19 @@ input AppointmentCreateManyWithoutUserInput {
 
 input AppointmentCreateWithoutServiceInput {
   id: ID
+  date: String!
+  start: String!
+  end: String!
+  completed: Boolean
   user: UserCreateOneWithoutAppointmentsInput!
 }
 
 input AppointmentCreateWithoutUserInput {
   id: ID
+  date: String!
+  start: String!
+  end: String!
+  completed: Boolean
   service: ServiceCreateOneWithoutAppointmentsInput!
 }
 
@@ -61,10 +81,22 @@ type AppointmentEdge {
 enum AppointmentOrderByInput {
   id_ASC
   id_DESC
+  date_ASC
+  date_DESC
+  start_ASC
+  start_DESC
+  end_ASC
+  end_DESC
+  completed_ASC
+  completed_DESC
 }
 
 type AppointmentPreviousValues {
   id: ID!
+  date: String!
+  start: String!
+  end: String!
+  completed: Boolean
 }
 
 input AppointmentScalarWhereInput {
@@ -82,6 +114,50 @@ input AppointmentScalarWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
+  date: String
+  date_not: String
+  date_in: [String!]
+  date_not_in: [String!]
+  date_lt: String
+  date_lte: String
+  date_gt: String
+  date_gte: String
+  date_contains: String
+  date_not_contains: String
+  date_starts_with: String
+  date_not_starts_with: String
+  date_ends_with: String
+  date_not_ends_with: String
+  start: String
+  start_not: String
+  start_in: [String!]
+  start_not_in: [String!]
+  start_lt: String
+  start_lte: String
+  start_gt: String
+  start_gte: String
+  start_contains: String
+  start_not_contains: String
+  start_starts_with: String
+  start_not_starts_with: String
+  start_ends_with: String
+  start_not_ends_with: String
+  end: String
+  end_not: String
+  end_in: [String!]
+  end_not_in: [String!]
+  end_lt: String
+  end_lte: String
+  end_gt: String
+  end_gte: String
+  end_contains: String
+  end_not_contains: String
+  end_starts_with: String
+  end_not_starts_with: String
+  end_ends_with: String
+  end_not_ends_with: String
+  completed: Boolean
+  completed_not: Boolean
   AND: [AppointmentScalarWhereInput!]
   OR: [AppointmentScalarWhereInput!]
   NOT: [AppointmentScalarWhereInput!]
@@ -106,8 +182,26 @@ input AppointmentSubscriptionWhereInput {
 }
 
 input AppointmentUpdateInput {
+  date: String
+  start: String
+  end: String
+  completed: Boolean
   service: ServiceUpdateOneRequiredWithoutAppointmentsInput
   user: UserUpdateOneRequiredWithoutAppointmentsInput
+}
+
+input AppointmentUpdateManyDataInput {
+  date: String
+  start: String
+  end: String
+  completed: Boolean
+}
+
+input AppointmentUpdateManyMutationInput {
+  date: String
+  start: String
+  end: String
+  completed: Boolean
 }
 
 input AppointmentUpdateManyWithoutServiceInput {
@@ -119,6 +213,7 @@ input AppointmentUpdateManyWithoutServiceInput {
   update: [AppointmentUpdateWithWhereUniqueWithoutServiceInput!]
   upsert: [AppointmentUpsertWithWhereUniqueWithoutServiceInput!]
   deleteMany: [AppointmentScalarWhereInput!]
+  updateMany: [AppointmentUpdateManyWithWhereNestedInput!]
 }
 
 input AppointmentUpdateManyWithoutUserInput {
@@ -130,13 +225,27 @@ input AppointmentUpdateManyWithoutUserInput {
   update: [AppointmentUpdateWithWhereUniqueWithoutUserInput!]
   upsert: [AppointmentUpsertWithWhereUniqueWithoutUserInput!]
   deleteMany: [AppointmentScalarWhereInput!]
+  updateMany: [AppointmentUpdateManyWithWhereNestedInput!]
+}
+
+input AppointmentUpdateManyWithWhereNestedInput {
+  where: AppointmentScalarWhereInput!
+  data: AppointmentUpdateManyDataInput!
 }
 
 input AppointmentUpdateWithoutServiceDataInput {
+  date: String
+  start: String
+  end: String
+  completed: Boolean
   user: UserUpdateOneRequiredWithoutAppointmentsInput
 }
 
 input AppointmentUpdateWithoutUserDataInput {
+  date: String
+  start: String
+  end: String
+  completed: Boolean
   service: ServiceUpdateOneRequiredWithoutAppointmentsInput
 }
 
@@ -177,6 +286,50 @@ input AppointmentWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
+  date: String
+  date_not: String
+  date_in: [String!]
+  date_not_in: [String!]
+  date_lt: String
+  date_lte: String
+  date_gt: String
+  date_gte: String
+  date_contains: String
+  date_not_contains: String
+  date_starts_with: String
+  date_not_starts_with: String
+  date_ends_with: String
+  date_not_ends_with: String
+  start: String
+  start_not: String
+  start_in: [String!]
+  start_not_in: [String!]
+  start_lt: String
+  start_lte: String
+  start_gt: String
+  start_gte: String
+  start_contains: String
+  start_not_contains: String
+  start_starts_with: String
+  start_not_starts_with: String
+  start_ends_with: String
+  start_not_ends_with: String
+  end: String
+  end_not: String
+  end_in: [String!]
+  end_not_in: [String!]
+  end_lt: String
+  end_lte: String
+  end_gt: String
+  end_gte: String
+  end_contains: String
+  end_not_contains: String
+  end_starts_with: String
+  end_not_starts_with: String
+  end_ends_with: String
+  end_not_ends_with: String
+  completed: Boolean
+  completed_not: Boolean
   service: ServiceWhereInput
   user: UserWhereInput
   AND: [AppointmentWhereInput!]
@@ -192,6 +345,124 @@ type BatchPayload {
   count: Long!
 }
 
+type Client {
+  id: ID!
+  firstname: String!
+  lastname: String!
+}
+
+type ClientConnection {
+  pageInfo: PageInfo!
+  edges: [ClientEdge]!
+  aggregate: AggregateClient!
+}
+
+input ClientCreateInput {
+  id: ID
+  firstname: String!
+  lastname: String!
+}
+
+type ClientEdge {
+  node: Client!
+  cursor: String!
+}
+
+enum ClientOrderByInput {
+  id_ASC
+  id_DESC
+  firstname_ASC
+  firstname_DESC
+  lastname_ASC
+  lastname_DESC
+}
+
+type ClientPreviousValues {
+  id: ID!
+  firstname: String!
+  lastname: String!
+}
+
+type ClientSubscriptionPayload {
+  mutation: MutationType!
+  node: Client
+  updatedFields: [String!]
+  previousValues: ClientPreviousValues
+}
+
+input ClientSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: ClientWhereInput
+  AND: [ClientSubscriptionWhereInput!]
+  OR: [ClientSubscriptionWhereInput!]
+  NOT: [ClientSubscriptionWhereInput!]
+}
+
+input ClientUpdateInput {
+  firstname: String
+  lastname: String
+}
+
+input ClientUpdateManyMutationInput {
+  firstname: String
+  lastname: String
+}
+
+input ClientWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  firstname: String
+  firstname_not: String
+  firstname_in: [String!]
+  firstname_not_in: [String!]
+  firstname_lt: String
+  firstname_lte: String
+  firstname_gt: String
+  firstname_gte: String
+  firstname_contains: String
+  firstname_not_contains: String
+  firstname_starts_with: String
+  firstname_not_starts_with: String
+  firstname_ends_with: String
+  firstname_not_ends_with: String
+  lastname: String
+  lastname_not: String
+  lastname_in: [String!]
+  lastname_not_in: [String!]
+  lastname_lt: String
+  lastname_lte: String
+  lastname_gt: String
+  lastname_gte: String
+  lastname_contains: String
+  lastname_not_contains: String
+  lastname_starts_with: String
+  lastname_not_starts_with: String
+  lastname_ends_with: String
+  lastname_not_ends_with: String
+  AND: [ClientWhereInput!]
+  OR: [ClientWhereInput!]
+  NOT: [ClientWhereInput!]
+}
+
+input ClientWhereUniqueInput {
+  id: ID
+}
+
 scalar DateTime
 
 scalar Long
@@ -199,9 +470,16 @@ scalar Long
 type Mutation {
   createAppointment(data: AppointmentCreateInput!): Appointment!
   updateAppointment(data: AppointmentUpdateInput!, where: AppointmentWhereUniqueInput!): Appointment
+  updateManyAppointments(data: AppointmentUpdateManyMutationInput!, where: AppointmentWhereInput): BatchPayload!
   upsertAppointment(where: AppointmentWhereUniqueInput!, create: AppointmentCreateInput!, update: AppointmentUpdateInput!): Appointment!
   deleteAppointment(where: AppointmentWhereUniqueInput!): Appointment
   deleteManyAppointments(where: AppointmentWhereInput): BatchPayload!
+  createClient(data: ClientCreateInput!): Client!
+  updateClient(data: ClientUpdateInput!, where: ClientWhereUniqueInput!): Client
+  updateManyClients(data: ClientUpdateManyMutationInput!, where: ClientWhereInput): BatchPayload!
+  upsertClient(where: ClientWhereUniqueInput!, create: ClientCreateInput!, update: ClientUpdateInput!): Client!
+  deleteClient(where: ClientWhereUniqueInput!): Client
+  deleteManyClients(where: ClientWhereInput): BatchPayload!
   createService(data: ServiceCreateInput!): Service!
   updateService(data: ServiceUpdateInput!, where: ServiceWhereUniqueInput!): Service
   updateManyServices(data: ServiceUpdateManyMutationInput!, where: ServiceWhereInput): BatchPayload!
@@ -237,6 +515,9 @@ type Query {
   appointment(where: AppointmentWhereUniqueInput!): Appointment
   appointments(where: AppointmentWhereInput, orderBy: AppointmentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Appointment]!
   appointmentsConnection(where: AppointmentWhereInput, orderBy: AppointmentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AppointmentConnection!
+  client(where: ClientWhereUniqueInput!): Client
+  clients(where: ClientWhereInput, orderBy: ClientOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Client]!
+  clientsConnection(where: ClientWhereInput, orderBy: ClientOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ClientConnection!
   service(where: ServiceWhereUniqueInput!): Service
   services(where: ServiceWhereInput, orderBy: ServiceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Service]!
   servicesConnection(where: ServiceWhereInput, orderBy: ServiceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ServiceConnection!
@@ -251,7 +532,9 @@ type Service {
   createdAt: DateTime!
   updatedAt: DateTime!
   name: String!
-  cost: String!
+  cost: Float!
+  description: String!
+  duration: Float!
   postedBy: User
   appointments(where: AppointmentWhereInput, orderBy: AppointmentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Appointment!]
 }
@@ -265,7 +548,9 @@ type ServiceConnection {
 input ServiceCreateInput {
   id: ID
   name: String!
-  cost: String!
+  cost: Float!
+  description: String!
+  duration: Float!
   postedBy: UserCreateOneWithoutServicesInput
   appointments: AppointmentCreateManyWithoutServiceInput
 }
@@ -283,14 +568,18 @@ input ServiceCreateOneWithoutAppointmentsInput {
 input ServiceCreateWithoutAppointmentsInput {
   id: ID
   name: String!
-  cost: String!
+  cost: Float!
+  description: String!
+  duration: Float!
   postedBy: UserCreateOneWithoutServicesInput
 }
 
 input ServiceCreateWithoutPostedByInput {
   id: ID
   name: String!
-  cost: String!
+  cost: Float!
+  description: String!
+  duration: Float!
   appointments: AppointmentCreateManyWithoutServiceInput
 }
 
@@ -310,6 +599,10 @@ enum ServiceOrderByInput {
   name_DESC
   cost_ASC
   cost_DESC
+  description_ASC
+  description_DESC
+  duration_ASC
+  duration_DESC
 }
 
 type ServicePreviousValues {
@@ -317,7 +610,9 @@ type ServicePreviousValues {
   createdAt: DateTime!
   updatedAt: DateTime!
   name: String!
-  cost: String!
+  cost: Float!
+  description: String!
+  duration: Float!
 }
 
 input ServiceScalarWhereInput {
@@ -365,20 +660,36 @@ input ServiceScalarWhereInput {
   name_not_starts_with: String
   name_ends_with: String
   name_not_ends_with: String
-  cost: String
-  cost_not: String
-  cost_in: [String!]
-  cost_not_in: [String!]
-  cost_lt: String
-  cost_lte: String
-  cost_gt: String
-  cost_gte: String
-  cost_contains: String
-  cost_not_contains: String
-  cost_starts_with: String
-  cost_not_starts_with: String
-  cost_ends_with: String
-  cost_not_ends_with: String
+  cost: Float
+  cost_not: Float
+  cost_in: [Float!]
+  cost_not_in: [Float!]
+  cost_lt: Float
+  cost_lte: Float
+  cost_gt: Float
+  cost_gte: Float
+  description: String
+  description_not: String
+  description_in: [String!]
+  description_not_in: [String!]
+  description_lt: String
+  description_lte: String
+  description_gt: String
+  description_gte: String
+  description_contains: String
+  description_not_contains: String
+  description_starts_with: String
+  description_not_starts_with: String
+  description_ends_with: String
+  description_not_ends_with: String
+  duration: Float
+  duration_not: Float
+  duration_in: [Float!]
+  duration_not_in: [Float!]
+  duration_lt: Float
+  duration_lte: Float
+  duration_gt: Float
+  duration_gte: Float
   AND: [ServiceScalarWhereInput!]
   OR: [ServiceScalarWhereInput!]
   NOT: [ServiceScalarWhereInput!]
@@ -404,19 +715,25 @@ input ServiceSubscriptionWhereInput {
 
 input ServiceUpdateInput {
   name: String
-  cost: String
+  cost: Float
+  description: String
+  duration: Float
   postedBy: UserUpdateOneWithoutServicesInput
   appointments: AppointmentUpdateManyWithoutServiceInput
 }
 
 input ServiceUpdateManyDataInput {
   name: String
-  cost: String
+  cost: Float
+  description: String
+  duration: Float
 }
 
 input ServiceUpdateManyMutationInput {
   name: String
-  cost: String
+  cost: Float
+  description: String
+  duration: Float
 }
 
 input ServiceUpdateManyWithoutPostedByInput {
@@ -445,13 +762,17 @@ input ServiceUpdateOneRequiredWithoutAppointmentsInput {
 
 input ServiceUpdateWithoutAppointmentsDataInput {
   name: String
-  cost: String
+  cost: Float
+  description: String
+  duration: Float
   postedBy: UserUpdateOneWithoutServicesInput
 }
 
 input ServiceUpdateWithoutPostedByDataInput {
   name: String
-  cost: String
+  cost: Float
+  description: String
+  duration: Float
   appointments: AppointmentUpdateManyWithoutServiceInput
 }
 
@@ -516,20 +837,36 @@ input ServiceWhereInput {
   name_not_starts_with: String
   name_ends_with: String
   name_not_ends_with: String
-  cost: String
-  cost_not: String
-  cost_in: [String!]
-  cost_not_in: [String!]
-  cost_lt: String
-  cost_lte: String
-  cost_gt: String
-  cost_gte: String
-  cost_contains: String
-  cost_not_contains: String
-  cost_starts_with: String
-  cost_not_starts_with: String
-  cost_ends_with: String
-  cost_not_ends_with: String
+  cost: Float
+  cost_not: Float
+  cost_in: [Float!]
+  cost_not_in: [Float!]
+  cost_lt: Float
+  cost_lte: Float
+  cost_gt: Float
+  cost_gte: Float
+  description: String
+  description_not: String
+  description_in: [String!]
+  description_not_in: [String!]
+  description_lt: String
+  description_lte: String
+  description_gt: String
+  description_gte: String
+  description_contains: String
+  description_not_contains: String
+  description_starts_with: String
+  description_not_starts_with: String
+  description_ends_with: String
+  description_not_ends_with: String
+  duration: Float
+  duration_not: Float
+  duration_in: [Float!]
+  duration_not_in: [Float!]
+  duration_lt: Float
+  duration_lte: Float
+  duration_gt: Float
+  duration_gte: Float
   postedBy: UserWhereInput
   appointments_every: AppointmentWhereInput
   appointments_some: AppointmentWhereInput
@@ -545,13 +882,15 @@ input ServiceWhereUniqueInput {
 
 type Subscription {
   appointment(where: AppointmentSubscriptionWhereInput): AppointmentSubscriptionPayload
+  client(where: ClientSubscriptionWhereInput): ClientSubscriptionPayload
   service(where: ServiceSubscriptionWhereInput): ServiceSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
 }
 
 type User {
   id: ID!
-  name: String!
+  firstname: String!
+  lastname: String!
   email: String!
   password: String!
   services(where: ServiceWhereInput, orderBy: ServiceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Service!]
@@ -566,7 +905,8 @@ type UserConnection {
 
 input UserCreateInput {
   id: ID
-  name: String!
+  firstname: String!
+  lastname: String!
   email: String!
   password: String!
   services: ServiceCreateManyWithoutPostedByInput
@@ -585,7 +925,8 @@ input UserCreateOneWithoutServicesInput {
 
 input UserCreateWithoutAppointmentsInput {
   id: ID
-  name: String!
+  firstname: String!
+  lastname: String!
   email: String!
   password: String!
   services: ServiceCreateManyWithoutPostedByInput
@@ -593,7 +934,8 @@ input UserCreateWithoutAppointmentsInput {
 
 input UserCreateWithoutServicesInput {
   id: ID
-  name: String!
+  firstname: String!
+  lastname: String!
   email: String!
   password: String!
   appointments: AppointmentCreateManyWithoutUserInput
@@ -607,8 +949,10 @@ type UserEdge {
 enum UserOrderByInput {
   id_ASC
   id_DESC
-  name_ASC
-  name_DESC
+  firstname_ASC
+  firstname_DESC
+  lastname_ASC
+  lastname_DESC
   email_ASC
   email_DESC
   password_ASC
@@ -617,7 +961,8 @@ enum UserOrderByInput {
 
 type UserPreviousValues {
   id: ID!
-  name: String!
+  firstname: String!
+  lastname: String!
   email: String!
   password: String!
 }
@@ -641,7 +986,8 @@ input UserSubscriptionWhereInput {
 }
 
 input UserUpdateInput {
-  name: String
+  firstname: String
+  lastname: String
   email: String
   password: String
   services: ServiceUpdateManyWithoutPostedByInput
@@ -649,7 +995,8 @@ input UserUpdateInput {
 }
 
 input UserUpdateManyMutationInput {
-  name: String
+  firstname: String
+  lastname: String
   email: String
   password: String
 }
@@ -671,14 +1018,16 @@ input UserUpdateOneWithoutServicesInput {
 }
 
 input UserUpdateWithoutAppointmentsDataInput {
-  name: String
+  firstname: String
+  lastname: String
   email: String
   password: String
   services: ServiceUpdateManyWithoutPostedByInput
 }
 
 input UserUpdateWithoutServicesDataInput {
-  name: String
+  firstname: String
+  lastname: String
   email: String
   password: String
   appointments: AppointmentUpdateManyWithoutUserInput
@@ -709,20 +1058,34 @@ input UserWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  name: String
-  name_not: String
-  name_in: [String!]
-  name_not_in: [String!]
-  name_lt: String
-  name_lte: String
-  name_gt: String
-  name_gte: String
-  name_contains: String
-  name_not_contains: String
-  name_starts_with: String
-  name_not_starts_with: String
-  name_ends_with: String
-  name_not_ends_with: String
+  firstname: String
+  firstname_not: String
+  firstname_in: [String!]
+  firstname_not_in: [String!]
+  firstname_lt: String
+  firstname_lte: String
+  firstname_gt: String
+  firstname_gte: String
+  firstname_contains: String
+  firstname_not_contains: String
+  firstname_starts_with: String
+  firstname_not_starts_with: String
+  firstname_ends_with: String
+  firstname_not_ends_with: String
+  lastname: String
+  lastname_not: String
+  lastname_in: [String!]
+  lastname_not_in: [String!]
+  lastname_lt: String
+  lastname_lte: String
+  lastname_gt: String
+  lastname_gte: String
+  lastname_contains: String
+  lastname_not_contains: String
+  lastname_starts_with: String
+  lastname_not_starts_with: String
+  lastname_ends_with: String
+  lastname_not_ends_with: String
   email: String
   email_not: String
   email_in: [String!]

@@ -17,6 +17,7 @@ export type Maybe<T> = T | undefined | null;
 
 export interface Exists {
   appointment: (where?: AppointmentWhereInput) => Promise<boolean>;
+  client: (where?: ClientWhereInput) => Promise<boolean>;
   service: (where?: ServiceWhereInput) => Promise<boolean>;
   user: (where?: UserWhereInput) => Promise<boolean>;
 }
@@ -61,6 +62,25 @@ export interface Prisma {
     first?: Int;
     last?: Int;
   }) => AppointmentConnectionPromise;
+  client: (where: ClientWhereUniqueInput) => ClientNullablePromise;
+  clients: (args?: {
+    where?: ClientWhereInput;
+    orderBy?: ClientOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<Client>;
+  clientsConnection: (args?: {
+    where?: ClientWhereInput;
+    orderBy?: ClientOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => ClientConnectionPromise;
   service: (where: ServiceWhereUniqueInput) => ServiceNullablePromise;
   services: (args?: {
     where?: ServiceWhereInput;
@@ -110,6 +130,10 @@ export interface Prisma {
     data: AppointmentUpdateInput;
     where: AppointmentWhereUniqueInput;
   }) => AppointmentPromise;
+  updateManyAppointments: (args: {
+    data: AppointmentUpdateManyMutationInput;
+    where?: AppointmentWhereInput;
+  }) => BatchPayloadPromise;
   upsertAppointment: (args: {
     where: AppointmentWhereUniqueInput;
     create: AppointmentCreateInput;
@@ -119,6 +143,22 @@ export interface Prisma {
   deleteManyAppointments: (
     where?: AppointmentWhereInput
   ) => BatchPayloadPromise;
+  createClient: (data: ClientCreateInput) => ClientPromise;
+  updateClient: (args: {
+    data: ClientUpdateInput;
+    where: ClientWhereUniqueInput;
+  }) => ClientPromise;
+  updateManyClients: (args: {
+    data: ClientUpdateManyMutationInput;
+    where?: ClientWhereInput;
+  }) => BatchPayloadPromise;
+  upsertClient: (args: {
+    where: ClientWhereUniqueInput;
+    create: ClientCreateInput;
+    update: ClientUpdateInput;
+  }) => ClientPromise;
+  deleteClient: (where: ClientWhereUniqueInput) => ClientPromise;
+  deleteManyClients: (where?: ClientWhereInput) => BatchPayloadPromise;
   createService: (data: ServiceCreateInput) => ServicePromise;
   updateService: (args: {
     data: ServiceUpdateInput;
@@ -163,6 +203,9 @@ export interface Subscription {
   appointment: (
     where?: AppointmentSubscriptionWhereInput
   ) => AppointmentSubscriptionPayloadSubscription;
+  client: (
+    where?: ClientSubscriptionWhereInput
+  ) => ClientSubscriptionPayloadSubscription;
   service: (
     where?: ServiceSubscriptionWhereInput
   ) => ServiceSubscriptionPayloadSubscription;
@@ -189,15 +232,39 @@ export type ServiceOrderByInput =
   | "name_ASC"
   | "name_DESC"
   | "cost_ASC"
-  | "cost_DESC";
+  | "cost_DESC"
+  | "description_ASC"
+  | "description_DESC"
+  | "duration_ASC"
+  | "duration_DESC";
 
-export type AppointmentOrderByInput = "id_ASC" | "id_DESC";
+export type AppointmentOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "date_ASC"
+  | "date_DESC"
+  | "start_ASC"
+  | "start_DESC"
+  | "end_ASC"
+  | "end_DESC"
+  | "completed_ASC"
+  | "completed_DESC";
+
+export type ClientOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "firstname_ASC"
+  | "firstname_DESC"
+  | "lastname_ASC"
+  | "lastname_DESC";
 
 export type UserOrderByInput =
   | "id_ASC"
   | "id_DESC"
-  | "name_ASC"
-  | "name_DESC"
+  | "firstname_ASC"
+  | "firstname_DESC"
+  | "lastname_ASC"
+  | "lastname_DESC"
   | "email_ASC"
   | "email_DESC"
   | "password_ASC"
@@ -254,20 +321,36 @@ export interface ServiceWhereInput {
   name_not_starts_with?: Maybe<String>;
   name_ends_with?: Maybe<String>;
   name_not_ends_with?: Maybe<String>;
-  cost?: Maybe<String>;
-  cost_not?: Maybe<String>;
-  cost_in?: Maybe<String[] | String>;
-  cost_not_in?: Maybe<String[] | String>;
-  cost_lt?: Maybe<String>;
-  cost_lte?: Maybe<String>;
-  cost_gt?: Maybe<String>;
-  cost_gte?: Maybe<String>;
-  cost_contains?: Maybe<String>;
-  cost_not_contains?: Maybe<String>;
-  cost_starts_with?: Maybe<String>;
-  cost_not_starts_with?: Maybe<String>;
-  cost_ends_with?: Maybe<String>;
-  cost_not_ends_with?: Maybe<String>;
+  cost?: Maybe<Float>;
+  cost_not?: Maybe<Float>;
+  cost_in?: Maybe<Float[] | Float>;
+  cost_not_in?: Maybe<Float[] | Float>;
+  cost_lt?: Maybe<Float>;
+  cost_lte?: Maybe<Float>;
+  cost_gt?: Maybe<Float>;
+  cost_gte?: Maybe<Float>;
+  description?: Maybe<String>;
+  description_not?: Maybe<String>;
+  description_in?: Maybe<String[] | String>;
+  description_not_in?: Maybe<String[] | String>;
+  description_lt?: Maybe<String>;
+  description_lte?: Maybe<String>;
+  description_gt?: Maybe<String>;
+  description_gte?: Maybe<String>;
+  description_contains?: Maybe<String>;
+  description_not_contains?: Maybe<String>;
+  description_starts_with?: Maybe<String>;
+  description_not_starts_with?: Maybe<String>;
+  description_ends_with?: Maybe<String>;
+  description_not_ends_with?: Maybe<String>;
+  duration?: Maybe<Float>;
+  duration_not?: Maybe<Float>;
+  duration_in?: Maybe<Float[] | Float>;
+  duration_not_in?: Maybe<Float[] | Float>;
+  duration_lt?: Maybe<Float>;
+  duration_lte?: Maybe<Float>;
+  duration_gt?: Maybe<Float>;
+  duration_gte?: Maybe<Float>;
   postedBy?: Maybe<UserWhereInput>;
   appointments_every?: Maybe<AppointmentWhereInput>;
   appointments_some?: Maybe<AppointmentWhereInput>;
@@ -292,20 +375,34 @@ export interface UserWhereInput {
   id_not_starts_with?: Maybe<ID_Input>;
   id_ends_with?: Maybe<ID_Input>;
   id_not_ends_with?: Maybe<ID_Input>;
-  name?: Maybe<String>;
-  name_not?: Maybe<String>;
-  name_in?: Maybe<String[] | String>;
-  name_not_in?: Maybe<String[] | String>;
-  name_lt?: Maybe<String>;
-  name_lte?: Maybe<String>;
-  name_gt?: Maybe<String>;
-  name_gte?: Maybe<String>;
-  name_contains?: Maybe<String>;
-  name_not_contains?: Maybe<String>;
-  name_starts_with?: Maybe<String>;
-  name_not_starts_with?: Maybe<String>;
-  name_ends_with?: Maybe<String>;
-  name_not_ends_with?: Maybe<String>;
+  firstname?: Maybe<String>;
+  firstname_not?: Maybe<String>;
+  firstname_in?: Maybe<String[] | String>;
+  firstname_not_in?: Maybe<String[] | String>;
+  firstname_lt?: Maybe<String>;
+  firstname_lte?: Maybe<String>;
+  firstname_gt?: Maybe<String>;
+  firstname_gte?: Maybe<String>;
+  firstname_contains?: Maybe<String>;
+  firstname_not_contains?: Maybe<String>;
+  firstname_starts_with?: Maybe<String>;
+  firstname_not_starts_with?: Maybe<String>;
+  firstname_ends_with?: Maybe<String>;
+  firstname_not_ends_with?: Maybe<String>;
+  lastname?: Maybe<String>;
+  lastname_not?: Maybe<String>;
+  lastname_in?: Maybe<String[] | String>;
+  lastname_not_in?: Maybe<String[] | String>;
+  lastname_lt?: Maybe<String>;
+  lastname_lte?: Maybe<String>;
+  lastname_gt?: Maybe<String>;
+  lastname_gte?: Maybe<String>;
+  lastname_contains?: Maybe<String>;
+  lastname_not_contains?: Maybe<String>;
+  lastname_starts_with?: Maybe<String>;
+  lastname_not_starts_with?: Maybe<String>;
+  lastname_ends_with?: Maybe<String>;
+  lastname_not_ends_with?: Maybe<String>;
   email?: Maybe<String>;
   email_not?: Maybe<String>;
   email_in?: Maybe<String[] | String>;
@@ -360,11 +457,107 @@ export interface AppointmentWhereInput {
   id_not_starts_with?: Maybe<ID_Input>;
   id_ends_with?: Maybe<ID_Input>;
   id_not_ends_with?: Maybe<ID_Input>;
+  date?: Maybe<String>;
+  date_not?: Maybe<String>;
+  date_in?: Maybe<String[] | String>;
+  date_not_in?: Maybe<String[] | String>;
+  date_lt?: Maybe<String>;
+  date_lte?: Maybe<String>;
+  date_gt?: Maybe<String>;
+  date_gte?: Maybe<String>;
+  date_contains?: Maybe<String>;
+  date_not_contains?: Maybe<String>;
+  date_starts_with?: Maybe<String>;
+  date_not_starts_with?: Maybe<String>;
+  date_ends_with?: Maybe<String>;
+  date_not_ends_with?: Maybe<String>;
+  start?: Maybe<String>;
+  start_not?: Maybe<String>;
+  start_in?: Maybe<String[] | String>;
+  start_not_in?: Maybe<String[] | String>;
+  start_lt?: Maybe<String>;
+  start_lte?: Maybe<String>;
+  start_gt?: Maybe<String>;
+  start_gte?: Maybe<String>;
+  start_contains?: Maybe<String>;
+  start_not_contains?: Maybe<String>;
+  start_starts_with?: Maybe<String>;
+  start_not_starts_with?: Maybe<String>;
+  start_ends_with?: Maybe<String>;
+  start_not_ends_with?: Maybe<String>;
+  end?: Maybe<String>;
+  end_not?: Maybe<String>;
+  end_in?: Maybe<String[] | String>;
+  end_not_in?: Maybe<String[] | String>;
+  end_lt?: Maybe<String>;
+  end_lte?: Maybe<String>;
+  end_gt?: Maybe<String>;
+  end_gte?: Maybe<String>;
+  end_contains?: Maybe<String>;
+  end_not_contains?: Maybe<String>;
+  end_starts_with?: Maybe<String>;
+  end_not_starts_with?: Maybe<String>;
+  end_ends_with?: Maybe<String>;
+  end_not_ends_with?: Maybe<String>;
+  completed?: Maybe<Boolean>;
+  completed_not?: Maybe<Boolean>;
   service?: Maybe<ServiceWhereInput>;
   user?: Maybe<UserWhereInput>;
   AND?: Maybe<AppointmentWhereInput[] | AppointmentWhereInput>;
   OR?: Maybe<AppointmentWhereInput[] | AppointmentWhereInput>;
   NOT?: Maybe<AppointmentWhereInput[] | AppointmentWhereInput>;
+}
+
+export type ClientWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
+
+export interface ClientWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  firstname?: Maybe<String>;
+  firstname_not?: Maybe<String>;
+  firstname_in?: Maybe<String[] | String>;
+  firstname_not_in?: Maybe<String[] | String>;
+  firstname_lt?: Maybe<String>;
+  firstname_lte?: Maybe<String>;
+  firstname_gt?: Maybe<String>;
+  firstname_gte?: Maybe<String>;
+  firstname_contains?: Maybe<String>;
+  firstname_not_contains?: Maybe<String>;
+  firstname_starts_with?: Maybe<String>;
+  firstname_not_starts_with?: Maybe<String>;
+  firstname_ends_with?: Maybe<String>;
+  firstname_not_ends_with?: Maybe<String>;
+  lastname?: Maybe<String>;
+  lastname_not?: Maybe<String>;
+  lastname_in?: Maybe<String[] | String>;
+  lastname_not_in?: Maybe<String[] | String>;
+  lastname_lt?: Maybe<String>;
+  lastname_lte?: Maybe<String>;
+  lastname_gt?: Maybe<String>;
+  lastname_gte?: Maybe<String>;
+  lastname_contains?: Maybe<String>;
+  lastname_not_contains?: Maybe<String>;
+  lastname_starts_with?: Maybe<String>;
+  lastname_not_starts_with?: Maybe<String>;
+  lastname_ends_with?: Maybe<String>;
+  lastname_not_ends_with?: Maybe<String>;
+  AND?: Maybe<ClientWhereInput[] | ClientWhereInput>;
+  OR?: Maybe<ClientWhereInput[] | ClientWhereInput>;
+  NOT?: Maybe<ClientWhereInput[] | ClientWhereInput>;
 }
 
 export type ServiceWhereUniqueInput = AtLeastOne<{
@@ -378,6 +571,10 @@ export type UserWhereUniqueInput = AtLeastOne<{
 
 export interface AppointmentCreateInput {
   id?: Maybe<ID_Input>;
+  date: String;
+  start: String;
+  end: String;
+  completed?: Maybe<Boolean>;
   service: ServiceCreateOneWithoutAppointmentsInput;
   user: UserCreateOneWithoutAppointmentsInput;
 }
@@ -390,7 +587,9 @@ export interface ServiceCreateOneWithoutAppointmentsInput {
 export interface ServiceCreateWithoutAppointmentsInput {
   id?: Maybe<ID_Input>;
   name: String;
-  cost: String;
+  cost: Float;
+  description: String;
+  duration: Float;
   postedBy?: Maybe<UserCreateOneWithoutServicesInput>;
 }
 
@@ -401,7 +600,8 @@ export interface UserCreateOneWithoutServicesInput {
 
 export interface UserCreateWithoutServicesInput {
   id?: Maybe<ID_Input>;
-  name: String;
+  firstname: String;
+  lastname: String;
   email: String;
   password: String;
   appointments?: Maybe<AppointmentCreateManyWithoutUserInput>;
@@ -416,6 +616,10 @@ export interface AppointmentCreateManyWithoutUserInput {
 
 export interface AppointmentCreateWithoutUserInput {
   id?: Maybe<ID_Input>;
+  date: String;
+  start: String;
+  end: String;
+  completed?: Maybe<Boolean>;
   service: ServiceCreateOneWithoutAppointmentsInput;
 }
 
@@ -426,7 +630,8 @@ export interface UserCreateOneWithoutAppointmentsInput {
 
 export interface UserCreateWithoutAppointmentsInput {
   id?: Maybe<ID_Input>;
-  name: String;
+  firstname: String;
+  lastname: String;
   email: String;
   password: String;
   services?: Maybe<ServiceCreateManyWithoutPostedByInput>;
@@ -442,7 +647,9 @@ export interface ServiceCreateManyWithoutPostedByInput {
 export interface ServiceCreateWithoutPostedByInput {
   id?: Maybe<ID_Input>;
   name: String;
-  cost: String;
+  cost: Float;
+  description: String;
+  duration: Float;
   appointments?: Maybe<AppointmentCreateManyWithoutServiceInput>;
 }
 
@@ -456,10 +663,18 @@ export interface AppointmentCreateManyWithoutServiceInput {
 
 export interface AppointmentCreateWithoutServiceInput {
   id?: Maybe<ID_Input>;
+  date: String;
+  start: String;
+  end: String;
+  completed?: Maybe<Boolean>;
   user: UserCreateOneWithoutAppointmentsInput;
 }
 
 export interface AppointmentUpdateInput {
+  date?: Maybe<String>;
+  start?: Maybe<String>;
+  end?: Maybe<String>;
+  completed?: Maybe<Boolean>;
   service?: Maybe<ServiceUpdateOneRequiredWithoutAppointmentsInput>;
   user?: Maybe<UserUpdateOneRequiredWithoutAppointmentsInput>;
 }
@@ -473,7 +688,9 @@ export interface ServiceUpdateOneRequiredWithoutAppointmentsInput {
 
 export interface ServiceUpdateWithoutAppointmentsDataInput {
   name?: Maybe<String>;
-  cost?: Maybe<String>;
+  cost?: Maybe<Float>;
+  description?: Maybe<String>;
+  duration?: Maybe<Float>;
   postedBy?: Maybe<UserUpdateOneWithoutServicesInput>;
 }
 
@@ -487,7 +704,8 @@ export interface UserUpdateOneWithoutServicesInput {
 }
 
 export interface UserUpdateWithoutServicesDataInput {
-  name?: Maybe<String>;
+  firstname?: Maybe<String>;
+  lastname?: Maybe<String>;
   email?: Maybe<String>;
   password?: Maybe<String>;
   appointments?: Maybe<AppointmentUpdateManyWithoutUserInput>;
@@ -514,6 +732,10 @@ export interface AppointmentUpdateManyWithoutUserInput {
   deleteMany?: Maybe<
     AppointmentScalarWhereInput[] | AppointmentScalarWhereInput
   >;
+  updateMany?: Maybe<
+    | AppointmentUpdateManyWithWhereNestedInput[]
+    | AppointmentUpdateManyWithWhereNestedInput
+  >;
 }
 
 export interface AppointmentUpdateWithWhereUniqueWithoutUserInput {
@@ -522,6 +744,10 @@ export interface AppointmentUpdateWithWhereUniqueWithoutUserInput {
 }
 
 export interface AppointmentUpdateWithoutUserDataInput {
+  date?: Maybe<String>;
+  start?: Maybe<String>;
+  end?: Maybe<String>;
+  completed?: Maybe<Boolean>;
   service?: Maybe<ServiceUpdateOneRequiredWithoutAppointmentsInput>;
 }
 
@@ -546,9 +772,65 @@ export interface AppointmentScalarWhereInput {
   id_not_starts_with?: Maybe<ID_Input>;
   id_ends_with?: Maybe<ID_Input>;
   id_not_ends_with?: Maybe<ID_Input>;
+  date?: Maybe<String>;
+  date_not?: Maybe<String>;
+  date_in?: Maybe<String[] | String>;
+  date_not_in?: Maybe<String[] | String>;
+  date_lt?: Maybe<String>;
+  date_lte?: Maybe<String>;
+  date_gt?: Maybe<String>;
+  date_gte?: Maybe<String>;
+  date_contains?: Maybe<String>;
+  date_not_contains?: Maybe<String>;
+  date_starts_with?: Maybe<String>;
+  date_not_starts_with?: Maybe<String>;
+  date_ends_with?: Maybe<String>;
+  date_not_ends_with?: Maybe<String>;
+  start?: Maybe<String>;
+  start_not?: Maybe<String>;
+  start_in?: Maybe<String[] | String>;
+  start_not_in?: Maybe<String[] | String>;
+  start_lt?: Maybe<String>;
+  start_lte?: Maybe<String>;
+  start_gt?: Maybe<String>;
+  start_gte?: Maybe<String>;
+  start_contains?: Maybe<String>;
+  start_not_contains?: Maybe<String>;
+  start_starts_with?: Maybe<String>;
+  start_not_starts_with?: Maybe<String>;
+  start_ends_with?: Maybe<String>;
+  start_not_ends_with?: Maybe<String>;
+  end?: Maybe<String>;
+  end_not?: Maybe<String>;
+  end_in?: Maybe<String[] | String>;
+  end_not_in?: Maybe<String[] | String>;
+  end_lt?: Maybe<String>;
+  end_lte?: Maybe<String>;
+  end_gt?: Maybe<String>;
+  end_gte?: Maybe<String>;
+  end_contains?: Maybe<String>;
+  end_not_contains?: Maybe<String>;
+  end_starts_with?: Maybe<String>;
+  end_not_starts_with?: Maybe<String>;
+  end_ends_with?: Maybe<String>;
+  end_not_ends_with?: Maybe<String>;
+  completed?: Maybe<Boolean>;
+  completed_not?: Maybe<Boolean>;
   AND?: Maybe<AppointmentScalarWhereInput[] | AppointmentScalarWhereInput>;
   OR?: Maybe<AppointmentScalarWhereInput[] | AppointmentScalarWhereInput>;
   NOT?: Maybe<AppointmentScalarWhereInput[] | AppointmentScalarWhereInput>;
+}
+
+export interface AppointmentUpdateManyWithWhereNestedInput {
+  where: AppointmentScalarWhereInput;
+  data: AppointmentUpdateManyDataInput;
+}
+
+export interface AppointmentUpdateManyDataInput {
+  date?: Maybe<String>;
+  start?: Maybe<String>;
+  end?: Maybe<String>;
+  completed?: Maybe<Boolean>;
 }
 
 export interface UserUpsertWithoutServicesInput {
@@ -569,7 +851,8 @@ export interface UserUpdateOneRequiredWithoutAppointmentsInput {
 }
 
 export interface UserUpdateWithoutAppointmentsDataInput {
-  name?: Maybe<String>;
+  firstname?: Maybe<String>;
+  lastname?: Maybe<String>;
   email?: Maybe<String>;
   password?: Maybe<String>;
   services?: Maybe<ServiceUpdateManyWithoutPostedByInput>;
@@ -605,7 +888,9 @@ export interface ServiceUpdateWithWhereUniqueWithoutPostedByInput {
 
 export interface ServiceUpdateWithoutPostedByDataInput {
   name?: Maybe<String>;
-  cost?: Maybe<String>;
+  cost?: Maybe<Float>;
+  description?: Maybe<String>;
+  duration?: Maybe<Float>;
   appointments?: Maybe<AppointmentUpdateManyWithoutServiceInput>;
 }
 
@@ -631,6 +916,10 @@ export interface AppointmentUpdateManyWithoutServiceInput {
   deleteMany?: Maybe<
     AppointmentScalarWhereInput[] | AppointmentScalarWhereInput
   >;
+  updateMany?: Maybe<
+    | AppointmentUpdateManyWithWhereNestedInput[]
+    | AppointmentUpdateManyWithWhereNestedInput
+  >;
 }
 
 export interface AppointmentUpdateWithWhereUniqueWithoutServiceInput {
@@ -639,6 +928,10 @@ export interface AppointmentUpdateWithWhereUniqueWithoutServiceInput {
 }
 
 export interface AppointmentUpdateWithoutServiceDataInput {
+  date?: Maybe<String>;
+  start?: Maybe<String>;
+  end?: Maybe<String>;
+  completed?: Maybe<Boolean>;
   user?: Maybe<UserUpdateOneRequiredWithoutAppointmentsInput>;
 }
 
@@ -699,20 +992,36 @@ export interface ServiceScalarWhereInput {
   name_not_starts_with?: Maybe<String>;
   name_ends_with?: Maybe<String>;
   name_not_ends_with?: Maybe<String>;
-  cost?: Maybe<String>;
-  cost_not?: Maybe<String>;
-  cost_in?: Maybe<String[] | String>;
-  cost_not_in?: Maybe<String[] | String>;
-  cost_lt?: Maybe<String>;
-  cost_lte?: Maybe<String>;
-  cost_gt?: Maybe<String>;
-  cost_gte?: Maybe<String>;
-  cost_contains?: Maybe<String>;
-  cost_not_contains?: Maybe<String>;
-  cost_starts_with?: Maybe<String>;
-  cost_not_starts_with?: Maybe<String>;
-  cost_ends_with?: Maybe<String>;
-  cost_not_ends_with?: Maybe<String>;
+  cost?: Maybe<Float>;
+  cost_not?: Maybe<Float>;
+  cost_in?: Maybe<Float[] | Float>;
+  cost_not_in?: Maybe<Float[] | Float>;
+  cost_lt?: Maybe<Float>;
+  cost_lte?: Maybe<Float>;
+  cost_gt?: Maybe<Float>;
+  cost_gte?: Maybe<Float>;
+  description?: Maybe<String>;
+  description_not?: Maybe<String>;
+  description_in?: Maybe<String[] | String>;
+  description_not_in?: Maybe<String[] | String>;
+  description_lt?: Maybe<String>;
+  description_lte?: Maybe<String>;
+  description_gt?: Maybe<String>;
+  description_gte?: Maybe<String>;
+  description_contains?: Maybe<String>;
+  description_not_contains?: Maybe<String>;
+  description_starts_with?: Maybe<String>;
+  description_not_starts_with?: Maybe<String>;
+  description_ends_with?: Maybe<String>;
+  description_not_ends_with?: Maybe<String>;
+  duration?: Maybe<Float>;
+  duration_not?: Maybe<Float>;
+  duration_in?: Maybe<Float[] | Float>;
+  duration_not_in?: Maybe<Float[] | Float>;
+  duration_lt?: Maybe<Float>;
+  duration_lte?: Maybe<Float>;
+  duration_gt?: Maybe<Float>;
+  duration_gte?: Maybe<Float>;
   AND?: Maybe<ServiceScalarWhereInput[] | ServiceScalarWhereInput>;
   OR?: Maybe<ServiceScalarWhereInput[] | ServiceScalarWhereInput>;
   NOT?: Maybe<ServiceScalarWhereInput[] | ServiceScalarWhereInput>;
@@ -725,7 +1034,9 @@ export interface ServiceUpdateManyWithWhereNestedInput {
 
 export interface ServiceUpdateManyDataInput {
   name?: Maybe<String>;
-  cost?: Maybe<String>;
+  cost?: Maybe<Float>;
+  description?: Maybe<String>;
+  duration?: Maybe<Float>;
 }
 
 export interface UserUpsertWithoutAppointmentsInput {
@@ -733,29 +1044,59 @@ export interface UserUpsertWithoutAppointmentsInput {
   create: UserCreateWithoutAppointmentsInput;
 }
 
+export interface AppointmentUpdateManyMutationInput {
+  date?: Maybe<String>;
+  start?: Maybe<String>;
+  end?: Maybe<String>;
+  completed?: Maybe<Boolean>;
+}
+
+export interface ClientCreateInput {
+  id?: Maybe<ID_Input>;
+  firstname: String;
+  lastname: String;
+}
+
+export interface ClientUpdateInput {
+  firstname?: Maybe<String>;
+  lastname?: Maybe<String>;
+}
+
+export interface ClientUpdateManyMutationInput {
+  firstname?: Maybe<String>;
+  lastname?: Maybe<String>;
+}
+
 export interface ServiceCreateInput {
   id?: Maybe<ID_Input>;
   name: String;
-  cost: String;
+  cost: Float;
+  description: String;
+  duration: Float;
   postedBy?: Maybe<UserCreateOneWithoutServicesInput>;
   appointments?: Maybe<AppointmentCreateManyWithoutServiceInput>;
 }
 
 export interface ServiceUpdateInput {
   name?: Maybe<String>;
-  cost?: Maybe<String>;
+  cost?: Maybe<Float>;
+  description?: Maybe<String>;
+  duration?: Maybe<Float>;
   postedBy?: Maybe<UserUpdateOneWithoutServicesInput>;
   appointments?: Maybe<AppointmentUpdateManyWithoutServiceInput>;
 }
 
 export interface ServiceUpdateManyMutationInput {
   name?: Maybe<String>;
-  cost?: Maybe<String>;
+  cost?: Maybe<Float>;
+  description?: Maybe<String>;
+  duration?: Maybe<Float>;
 }
 
 export interface UserCreateInput {
   id?: Maybe<ID_Input>;
-  name: String;
+  firstname: String;
+  lastname: String;
   email: String;
   password: String;
   services?: Maybe<ServiceCreateManyWithoutPostedByInput>;
@@ -763,7 +1104,8 @@ export interface UserCreateInput {
 }
 
 export interface UserUpdateInput {
-  name?: Maybe<String>;
+  firstname?: Maybe<String>;
+  lastname?: Maybe<String>;
   email?: Maybe<String>;
   password?: Maybe<String>;
   services?: Maybe<ServiceUpdateManyWithoutPostedByInput>;
@@ -771,7 +1113,8 @@ export interface UserUpdateInput {
 }
 
 export interface UserUpdateManyMutationInput {
-  name?: Maybe<String>;
+  firstname?: Maybe<String>;
+  lastname?: Maybe<String>;
   email?: Maybe<String>;
   password?: Maybe<String>;
 }
@@ -791,6 +1134,17 @@ export interface AppointmentSubscriptionWhereInput {
   NOT?: Maybe<
     AppointmentSubscriptionWhereInput[] | AppointmentSubscriptionWhereInput
   >;
+}
+
+export interface ClientSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<ClientWhereInput>;
+  AND?: Maybe<ClientSubscriptionWhereInput[] | ClientSubscriptionWhereInput>;
+  OR?: Maybe<ClientSubscriptionWhereInput[] | ClientSubscriptionWhereInput>;
+  NOT?: Maybe<ClientSubscriptionWhereInput[] | ClientSubscriptionWhereInput>;
 }
 
 export interface ServiceSubscriptionWhereInput {
@@ -821,10 +1175,18 @@ export interface NodeNode {
 
 export interface Appointment {
   id: ID_Output;
+  date: String;
+  start: String;
+  end: String;
+  completed?: Boolean;
 }
 
 export interface AppointmentPromise extends Promise<Appointment>, Fragmentable {
   id: () => Promise<ID_Output>;
+  date: () => Promise<String>;
+  start: () => Promise<String>;
+  end: () => Promise<String>;
+  completed: () => Promise<Boolean>;
   service: <T = ServicePromise>() => T;
   user: <T = UserPromise>() => T;
 }
@@ -833,6 +1195,10 @@ export interface AppointmentSubscription
   extends Promise<AsyncIterator<Appointment>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
+  date: () => Promise<AsyncIterator<String>>;
+  start: () => Promise<AsyncIterator<String>>;
+  end: () => Promise<AsyncIterator<String>>;
+  completed: () => Promise<AsyncIterator<Boolean>>;
   service: <T = ServiceSubscription>() => T;
   user: <T = UserSubscription>() => T;
 }
@@ -841,6 +1207,10 @@ export interface AppointmentNullablePromise
   extends Promise<Appointment | null>,
     Fragmentable {
   id: () => Promise<ID_Output>;
+  date: () => Promise<String>;
+  start: () => Promise<String>;
+  end: () => Promise<String>;
+  completed: () => Promise<Boolean>;
   service: <T = ServicePromise>() => T;
   user: <T = UserPromise>() => T;
 }
@@ -850,7 +1220,9 @@ export interface Service {
   createdAt: DateTimeOutput;
   updatedAt: DateTimeOutput;
   name: String;
-  cost: String;
+  cost: Float;
+  description: String;
+  duration: Float;
 }
 
 export interface ServicePromise extends Promise<Service>, Fragmentable {
@@ -858,7 +1230,9 @@ export interface ServicePromise extends Promise<Service>, Fragmentable {
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
   name: () => Promise<String>;
-  cost: () => Promise<String>;
+  cost: () => Promise<Float>;
+  description: () => Promise<String>;
+  duration: () => Promise<Float>;
   postedBy: <T = UserPromise>() => T;
   appointments: <T = FragmentableArray<Appointment>>(args?: {
     where?: AppointmentWhereInput;
@@ -878,7 +1252,9 @@ export interface ServiceSubscription
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   name: () => Promise<AsyncIterator<String>>;
-  cost: () => Promise<AsyncIterator<String>>;
+  cost: () => Promise<AsyncIterator<Float>>;
+  description: () => Promise<AsyncIterator<String>>;
+  duration: () => Promise<AsyncIterator<Float>>;
   postedBy: <T = UserSubscription>() => T;
   appointments: <T = Promise<AsyncIterator<AppointmentSubscription>>>(args?: {
     where?: AppointmentWhereInput;
@@ -898,7 +1274,9 @@ export interface ServiceNullablePromise
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
   name: () => Promise<String>;
-  cost: () => Promise<String>;
+  cost: () => Promise<Float>;
+  description: () => Promise<String>;
+  duration: () => Promise<Float>;
   postedBy: <T = UserPromise>() => T;
   appointments: <T = FragmentableArray<Appointment>>(args?: {
     where?: AppointmentWhereInput;
@@ -913,14 +1291,16 @@ export interface ServiceNullablePromise
 
 export interface User {
   id: ID_Output;
-  name: String;
+  firstname: String;
+  lastname: String;
   email: String;
   password: String;
 }
 
 export interface UserPromise extends Promise<User>, Fragmentable {
   id: () => Promise<ID_Output>;
-  name: () => Promise<String>;
+  firstname: () => Promise<String>;
+  lastname: () => Promise<String>;
   email: () => Promise<String>;
   password: () => Promise<String>;
   services: <T = FragmentableArray<Service>>(args?: {
@@ -947,7 +1327,8 @@ export interface UserSubscription
   extends Promise<AsyncIterator<User>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  name: () => Promise<AsyncIterator<String>>;
+  firstname: () => Promise<AsyncIterator<String>>;
+  lastname: () => Promise<AsyncIterator<String>>;
   email: () => Promise<AsyncIterator<String>>;
   password: () => Promise<AsyncIterator<String>>;
   services: <T = Promise<AsyncIterator<ServiceSubscription>>>(args?: {
@@ -974,7 +1355,8 @@ export interface UserNullablePromise
   extends Promise<User | null>,
     Fragmentable {
   id: () => Promise<ID_Output>;
-  name: () => Promise<String>;
+  firstname: () => Promise<String>;
+  lastname: () => Promise<String>;
   email: () => Promise<String>;
   password: () => Promise<String>;
   services: <T = FragmentableArray<Service>>(args?: {
@@ -1072,6 +1454,88 @@ export interface AggregateAppointmentPromise
 
 export interface AggregateAppointmentSubscription
   extends Promise<AsyncIterator<AggregateAppointment>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface Client {
+  id: ID_Output;
+  firstname: String;
+  lastname: String;
+}
+
+export interface ClientPromise extends Promise<Client>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  firstname: () => Promise<String>;
+  lastname: () => Promise<String>;
+}
+
+export interface ClientSubscription
+  extends Promise<AsyncIterator<Client>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  firstname: () => Promise<AsyncIterator<String>>;
+  lastname: () => Promise<AsyncIterator<String>>;
+}
+
+export interface ClientNullablePromise
+  extends Promise<Client | null>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  firstname: () => Promise<String>;
+  lastname: () => Promise<String>;
+}
+
+export interface ClientConnection {
+  pageInfo: PageInfo;
+  edges: ClientEdge[];
+}
+
+export interface ClientConnectionPromise
+  extends Promise<ClientConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<ClientEdge>>() => T;
+  aggregate: <T = AggregateClientPromise>() => T;
+}
+
+export interface ClientConnectionSubscription
+  extends Promise<AsyncIterator<ClientConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<ClientEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateClientSubscription>() => T;
+}
+
+export interface ClientEdge {
+  node: Client;
+  cursor: String;
+}
+
+export interface ClientEdgePromise extends Promise<ClientEdge>, Fragmentable {
+  node: <T = ClientPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface ClientEdgeSubscription
+  extends Promise<AsyncIterator<ClientEdge>>,
+    Fragmentable {
+  node: <T = ClientSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateClient {
+  count: Int;
+}
+
+export interface AggregateClientPromise
+  extends Promise<AggregateClient>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateClientSubscription
+  extends Promise<AsyncIterator<AggregateClient>>,
     Fragmentable {
   count: () => Promise<AsyncIterator<Int>>;
 }
@@ -1227,18 +1691,77 @@ export interface AppointmentSubscriptionPayloadSubscription
 
 export interface AppointmentPreviousValues {
   id: ID_Output;
+  date: String;
+  start: String;
+  end: String;
+  completed?: Boolean;
 }
 
 export interface AppointmentPreviousValuesPromise
   extends Promise<AppointmentPreviousValues>,
     Fragmentable {
   id: () => Promise<ID_Output>;
+  date: () => Promise<String>;
+  start: () => Promise<String>;
+  end: () => Promise<String>;
+  completed: () => Promise<Boolean>;
 }
 
 export interface AppointmentPreviousValuesSubscription
   extends Promise<AsyncIterator<AppointmentPreviousValues>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
+  date: () => Promise<AsyncIterator<String>>;
+  start: () => Promise<AsyncIterator<String>>;
+  end: () => Promise<AsyncIterator<String>>;
+  completed: () => Promise<AsyncIterator<Boolean>>;
+}
+
+export interface ClientSubscriptionPayload {
+  mutation: MutationType;
+  node: Client;
+  updatedFields: String[];
+  previousValues: ClientPreviousValues;
+}
+
+export interface ClientSubscriptionPayloadPromise
+  extends Promise<ClientSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = ClientPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = ClientPreviousValuesPromise>() => T;
+}
+
+export interface ClientSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<ClientSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = ClientSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = ClientPreviousValuesSubscription>() => T;
+}
+
+export interface ClientPreviousValues {
+  id: ID_Output;
+  firstname: String;
+  lastname: String;
+}
+
+export interface ClientPreviousValuesPromise
+  extends Promise<ClientPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  firstname: () => Promise<String>;
+  lastname: () => Promise<String>;
+}
+
+export interface ClientPreviousValuesSubscription
+  extends Promise<AsyncIterator<ClientPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  firstname: () => Promise<AsyncIterator<String>>;
+  lastname: () => Promise<AsyncIterator<String>>;
 }
 
 export interface ServiceSubscriptionPayload {
@@ -1271,7 +1794,9 @@ export interface ServicePreviousValues {
   createdAt: DateTimeOutput;
   updatedAt: DateTimeOutput;
   name: String;
-  cost: String;
+  cost: Float;
+  description: String;
+  duration: Float;
 }
 
 export interface ServicePreviousValuesPromise
@@ -1281,7 +1806,9 @@ export interface ServicePreviousValuesPromise
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
   name: () => Promise<String>;
-  cost: () => Promise<String>;
+  cost: () => Promise<Float>;
+  description: () => Promise<String>;
+  duration: () => Promise<Float>;
 }
 
 export interface ServicePreviousValuesSubscription
@@ -1291,7 +1818,9 @@ export interface ServicePreviousValuesSubscription
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   name: () => Promise<AsyncIterator<String>>;
-  cost: () => Promise<AsyncIterator<String>>;
+  cost: () => Promise<AsyncIterator<Float>>;
+  description: () => Promise<AsyncIterator<String>>;
+  duration: () => Promise<AsyncIterator<Float>>;
 }
 
 export interface UserSubscriptionPayload {
@@ -1321,7 +1850,8 @@ export interface UserSubscriptionPayloadSubscription
 
 export interface UserPreviousValues {
   id: ID_Output;
-  name: String;
+  firstname: String;
+  lastname: String;
   email: String;
   password: String;
 }
@@ -1330,7 +1860,8 @@ export interface UserPreviousValuesPromise
   extends Promise<UserPreviousValues>,
     Fragmentable {
   id: () => Promise<ID_Output>;
-  name: () => Promise<String>;
+  firstname: () => Promise<String>;
+  lastname: () => Promise<String>;
   email: () => Promise<String>;
   password: () => Promise<String>;
 }
@@ -1339,7 +1870,8 @@ export interface UserPreviousValuesSubscription
   extends Promise<AsyncIterator<UserPreviousValues>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  name: () => Promise<AsyncIterator<String>>;
+  firstname: () => Promise<AsyncIterator<String>>;
+  lastname: () => Promise<AsyncIterator<String>>;
   email: () => Promise<AsyncIterator<String>>;
   password: () => Promise<AsyncIterator<String>>;
 }
@@ -1349,6 +1881,16 @@ The `ID` scalar type represents a unique identifier, often used to refetch an ob
 */
 export type ID_Input = string | number;
 export type ID_Output = string;
+
+/*
+The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
+*/
+export type String = string;
+
+/*
+The `Boolean` scalar type represents `true` or `false`.
+*/
+export type Boolean = boolean;
 
 /*
 DateTime scalar input type, allowing Date
@@ -1361,19 +1903,14 @@ DateTime scalar output type, which is always a string
 export type DateTimeOutput = string;
 
 /*
-The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
+The `Float` scalar type represents signed double-precision fractional values as specified by [IEEE 754](https://en.wikipedia.org/wiki/IEEE_floating_point).
 */
-export type String = string;
+export type Float = number;
 
 /*
 The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1.
 */
 export type Int = number;
-
-/*
-The `Boolean` scalar type represents `true` or `false`.
-*/
-export type Boolean = boolean;
 
 export type Long = string;
 
@@ -1388,6 +1925,10 @@ export const models: Model[] = [
   },
   {
     name: "User",
+    embedded: false
+  },
+  {
+    name: "Client",
     embedded: false
   },
   {

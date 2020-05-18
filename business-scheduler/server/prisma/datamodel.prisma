@@ -3,22 +3,36 @@ type Service {
     createdAt: DateTime! @createdAt
     updatedAt: DateTime! @updatedAt
     name: String!
-    cost: String!
+    cost: Float!
+    description: String!
+    duration: Float!
     postedBy: User
     appointments: [Appointment!]!
 }
 
 type User{
     id: ID! @id
-    name: String!
+    firstname: String!
+    lastname: String!
     email: String! @unique
     password: String!
     services: [Service!]!
     appointments: [Appointment!]!
 }
 
+type Client{
+    id: ID! @id
+    firstname: String!
+    lastname: String!
+
+}
+
 type Appointment{
     id: ID! @id
+    date: String!
+    start: String!
+    end: String!
+    completed: Boolean
     service: Service!
     user: User!
 }

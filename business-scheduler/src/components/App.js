@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import ServiceList from './ServiceList'
 import CreateService from './CreateService'
+import Calendar from './Calendar'
 import Sidenav from './Sidenav'
 import '../styles/App.scss'
 import {
@@ -30,8 +31,8 @@ class App extends Component {
           <Sidenav className="sidenav" />
           
             <Switch >
-              <PrivateRoute exact path="/"  ><ServiceList className="content"/></PrivateRoute>
-              <PrivateRoute  path="/create" ><CreateService className="content"/></PrivateRoute>
+              <PrivateRoute exact path="/"  ><Calendar className="content"/></PrivateRoute>
+              <PrivateRoute  path="/create" ><ServiceList className="content"/></PrivateRoute>
               <Route  path="/login" component={Login} />
             </Switch>
           </div>

@@ -3,7 +3,6 @@ type Query {
     servicefeed: [Service!]!
      # Fetch a single link by its `id`
     service(id:ID!): Service
-
 }
 
 type Mutation {
@@ -12,7 +11,7 @@ type Mutation {
     updateService(id: ID!, cost: String, name: String): Service
     deleteService(id: ID!): Service
     #auth
-    signup(email: String!, password: String!, name: String!): AuthPayload
+    signup(email: String!, password: String!,firstname:String!, lastname: String!): AuthPayload
     login(email: String!, password:String!): AuthPayload
     appointment(serviceId: ID!): Appointment
 }
@@ -20,7 +19,9 @@ type Mutation {
 type Service {
     id: ID!
     name: String!
-    cost: String!
+    cost: Float!
+    description:String
+    duration:Float!
     postedBy: User
     appointments: [Appointment!]!
 }
@@ -32,15 +33,27 @@ type AuthPayload{
 
 type User {
     id: ID!
-    name: String!
+    firstname:String!
+    lastname:String!
     email: String!
     services: [Service!]!
 }
 
 type Appointment{
     id: ID!
+    date: String!
+    start: String!
+    end: String!
+    completed: Boolean
     service: Service!
     user: User!
+    
+}
+
+type Client{
+    id: ID!
+    firstname:String!
+    lastname:String!
 }
 
 type Subscription {

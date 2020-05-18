@@ -2,11 +2,15 @@ import React, { Component } from 'react'
 import { NavLink } from 'react-router-dom'
 import { withRouter } from 'react-router'
 import { AUTH_TOKEN } from '../constants'
+import CreateService from './CreateService'
+import SidenavButtons from './functions/SidenavButtons'
 import Gravatar from 'react-gravatar'
 import '../styles/Sidenav.scss'
+
 class Sidenav extends Component {
   render() {
     const authToken = localStorage.getItem(AUTH_TOKEN)
+    // const [modalShow, setModalShow ]= React.useState(false)
     return (
       <React.Fragment>
         {authToken && (
@@ -52,8 +56,10 @@ class Sidenav extends Component {
               </div>
             </div>
             <div id="nav-buttons">
-              <button>Add new client</button>
-              <button>Create new service</button>
+              <SidenavButtons buttonName="clients" />
+              <SidenavButtons buttonName="services" />
+              {/* <button onClick={()=> setModalShow(true)}>Create new service</button>
+              <CreateService show={modalShow} onHide={() => setModalShow(false) }/> */}
             </div>
             <div id="nav-user-info">
               <div id="nav-gravatar" >
