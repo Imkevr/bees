@@ -3,6 +3,7 @@ import { AUTH_TOKEN } from '../constants'
 import { Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
 import '../styles/Login.scss'
+import AppointLogo from '../images/appointes.png'
 
 class Login extends Component {
     state = {
@@ -11,7 +12,7 @@ class Login extends Component {
         password: '',
         firstname: '',
         lastname: '',
-       
+
     }
 
     render() {
@@ -34,8 +35,11 @@ class Login extends Component {
             <div id="login-container">
 
                 <div id="side">
-                    {/* <h4> BEES </h4>
-                    <h5> You're Business Scheduler  </h5> */}
+                    <img src={AppointLogo} id="appointes-logo" />
+                    <div id="side-caption">
+                        <h1> Appoint </h1>
+                        <h3> You're Business Scheduler  </h3>
+                    </div>
                 </div>
                 <div id="login">
                     <div id="login-form">
@@ -44,25 +48,28 @@ class Login extends Component {
                         </div>
                         <div className="fields">
                             {!login && (
-                                <div className="form-group">
-                                    <label>Firstname:</label>
-                                    <input
-                                        className="form-control"
-                                        value={firstname}
-                                        onChange={e => this.setState({ firstname: e.target.value })}
-                                        type="text"
-                                        placeholder="Your firstname"
-                                    />
-                                    <label>Lastname:</label>
-                                    <input
-                                        className="form-control"
-                                        value={lastname}
-                                        onChange={e => this.setState({ lastname: e.target.value })}
-                                        type="text"
-                                        placeholder="Your lastname"
-                                    />
-                                   
-                                </div>
+                                <React.Fragment>
+                                    <div className="form-group">
+                                        <label>Firstname:</label>
+                                        <input
+                                            className="form-control"
+                                            value={firstname}
+                                            onChange={e => this.setState({ firstname: e.target.value })}
+                                            type="text"
+                                            placeholder="Your firstname"
+                                        />
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Lastname:</label>
+                                        <input
+                                            className="form-control"
+                                            value={lastname}
+                                            onChange={e => this.setState({ lastname: e.target.value })}
+                                            type="text"
+                                            placeholder="Your lastname"
+                                        />
+                                    </div>
+                                </React.Fragment>
 
                             )}
                             <div className="form-group">
@@ -97,7 +104,7 @@ class Login extends Component {
                             >
                                 {mutation => (
                                     <div className="button" onClick={mutation}>
-                                        <p>   {login ? 'Login' : 'Sign Up'}</p>
+                                        {login ? 'Login' : 'Sign Up'}
                                     </div>
                                 )}
                             </Mutation>

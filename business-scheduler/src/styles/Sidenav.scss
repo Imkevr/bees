@@ -13,108 +13,132 @@
 
     #nav-head {
         height: 10%;
+        width: 100%;
         display: flex;
-        flex-direction: row;
+        align-content: center;
 
-        p {
-            width: 50%;
+        #appointes-logo {
+            width: 80px;
+            margin: auto;
+
+
         }
 
-        h5 {
-            width: 50%;
+    }
+
+
+    #nav-links {
+        height: 50%;
+
+
+        #nav-links-container {
+           height:100%;
+           display: flex;
+           flex-direction: column;
+           margin-top:50px;
+
+
+            .link {
+                width: 100%;
+                text-decoration: none;
+
+                .item-link {
+                    width: 80%;
+                    display: flex;
+                    flex-direction: row;
+                    margin: 30px auto;
+
+                    .nav-link-icon {
+                        width: 30%;
+                        color: $black;
+                    }
+
+                    p {
+                        width: 70%;
+
+                        color: $black;
+                        margin: auto 0;
+
+                    }
+
+                    &:hover {
+                        color: $blue;
+                    }
+
+
+                }
+
+            }
+
+        }
+
+    }
+
+    #nav-buttons {
+        height: 20%;
+
+        button {
+            width: 98%;
+            color: $black;
+            font-size: .9em;
+            margin: 10px auto;
+            background-color: $blue;
+            border: none;
+            padding: 10px;
+            font-weight: 500;
+            border: solid 5px $blue;
+            border-radius: 5px;
+            -webkit-box-shadow: 1px 5px 23px -2px rgba(199, 199, 199, 1);
+            -moz-box-shadow: 1px 5px 23px -2px rgba(199, 199, 199, 1);
+            box-shadow: 1px 5px 23px -2px rgba(199, 199, 199, 1);
+
+            &:hover {
+                color: $plain-white;
+            }
         }
     }
 
-    #nav-links {
-        height: 40%;
-        display: flex;
-        flex-direction: column;
 
-        .item-link {
-            width: 100%;
+    #nav-logout {
+        height: 20%;
+
+        #nav-logout-content {
+            height: 10%;
             display: flex;
             flex-direction: row;
-            margin: 30px 0;
+            margin-top: 180px;
 
-            .nav-link-icon{
-                width:30%;
+            #nav-gravatar {
+                width: 40%;
+                margin: auto;
+
+                #gravatar {
+                    border-radius: 100%;
+                }
             }
 
-            .link {
-                width:70%;
-                text-decoration: none;
-                color: $black;
-                margin: auto 0;
+            #svg {
+                width: 20%;
+                display: flex;
+                flex-direction: row-reverse;
+                align-self: center;
+                margin-top: 34px;
+                margin-left: -20px;
+                cursor: pointer;
             }
+
+            #logout {
+                width: 40%;
+                cursor: pointer;
+                margin: auto;
+                margin-top: 12px;
+                margin-left:8px;
+
+            }
+
             &:hover {
                 color: $blue;
             }
-        }
-
-    }
-    #nav-buttons{
-        height:30%;
-        button{
-            width:98%;
-            margin:10px auto;
-            background-color: $blue;
-            border: none;
-            padding:10px;
-            font-weight: 500;
-            border: solid 5px $blue;
-            border-radius:5px;
-            -webkit-box-shadow: 1px 5px 23px -2px rgba(199,199,199,1);
-            -moz-box-shadow: 1px 5px 23px -2px rgba(199,199,199,1);
-            box-shadow: 1px 5px 23px -2px rgba(199,199,199,1);
-
-            &:hover{
-                color:$plain-white;
-            }
-        }
-    }
-
-    #nav-user-info {
-        height: 15%;
-        display: flex;
-        flex-direction: row;
-
-        #nav-gravatar {
-            width: 40%;
-            margin: auto;
-
-            #gravatar {
-                border-radius: 100%;
-            }
-        }
-
-        h6 {
-            width: 60%;
-            margin: auto;
-        }
-    }
-
-    #nav-logout {
-        height: 5%;
-        display: flex;
-        flex-direction: row;
-
-        #svg {
-            width: 40%;
-            display: flex;
-            flex-direction: row-reverse;
-            align-self: center;
-            margin-left:-10px;
-        }
-
-        #logout {
-            width: 60%;
-            cursor: pointer;
-            margin: auto;
-
-        }
-
-        &:hover {
-            color: $blue;
         }
     }
 }

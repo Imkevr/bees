@@ -6,20 +6,22 @@ import CreateService from './CreateService'
 import SidenavButtons from './functions/SidenavButtons'
 import Gravatar from 'react-gravatar'
 import '../styles/Sidenav.scss'
+import AppointLogo from '../images/appointes.png'
 
 class Sidenav extends Component {
   render() {
     const authToken = localStorage.getItem(AUTH_TOKEN)
-    // const [modalShow, setModalShow ]= React.useState(false)
+
     return (
       <React.Fragment>
         {authToken && (
           <div id="nav-container">
             <div id="nav-head">
-              <p>BS</p>
-              <h5>Business scheduler</h5>
+              <img src={AppointLogo} id="appointes-logo" />
             </div>
             <div id="nav-links">
+              <div id="nav-links-container">
+            <NavLink exact={true} to="/" activeClassName="active" className="link">
               <div className="item-link">
                 <div className="nav-link-icon">
                   <svg class="bi bi-kanban" width="1.5em" height="1.5em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -29,10 +31,12 @@ class Sidenav extends Component {
                     <rect width="3" height="12" x="10.5" y="2" rx="1" />
                   </svg>
                 </div>
-                <NavLink exact={true} to="/" activeClassName="active" className="link">
-                  Calender
+               
+                  <p>Calender</p>
+                  </div>
               </NavLink>
-              </div>
+             
+              <NavLink exact={true} to="/create" activeClassName="active" className="link">
               <div className="item-link" >
                 <div className="nav-link-icon">
                   <svg class="bi bi-pencil-square" width="1.5em" height="1.5em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -40,50 +44,52 @@ class Sidenav extends Component {
                     <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 002.5 15h11a1.5 1.5 0 001.5-1.5v-6a.5.5 0 00-1 0v6a.5.5 0 01-.5.5h-11a.5.5 0 01-.5-.5v-11a.5.5 0 01.5-.5H9a.5.5 0 000-1H2.5A1.5 1.5 0 001 2.5v11z" clip-rule="evenodd" />
                   </svg>
                 </div>
-                <NavLink exact={true} to="/create" activeClassName="active" className="link">
-                  Services
+               
+                 <p>Services</p> 
+                  </div>
             </NavLink>
-              </div>
-              <div className="item-link">
-                <div className="nav-link-icon">
-                  <svg class="bi bi-people" width="1.5em" height="1.5em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1h8zm-7.995-.944v-.002.002zM7.022 13h7.956a.274.274 0 00.014-.002l.008-.002c-.002-.264-.167-1.03-.76-1.72C13.688 10.629 12.718 10 11 10c-1.717 0-2.687.63-3.24 1.276-.593.69-.759 1.457-.76 1.72a1.05 1.05 0 00.022.004zm7.973.056v-.002.002zM11 7a2 2 0 100-4 2 2 0 000 4zm3-2a3 3 0 11-6 0 3 3 0 016 0zM6.936 9.28a5.88 5.88 0 00-1.23-.247A7.35 7.35 0 005 9c-4 0-5 3-5 4 0 .667.333 1 1 1h4.216A2.238 2.238 0 015 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816zM4.92 10c-1.668.02-2.615.64-3.16 1.276C1.163 11.97 1 12.739 1 13h3c0-1.045.323-2.086.92-3zM1.5 5.5a3 3 0 116 0 3 3 0 01-6 0zm3-2a2 2 0 100 4 2 2 0 000-4z" clip-rule="evenodd" />
-                  </svg>
+             
+
+              <NavLink exact={true} to="/create" activeClassName="active" className="link">
+                <div className="item-link">
+                  <div className="nav-link-icon">
+                    <svg class="bi bi-people" width="1.5em" height="1.5em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1h8zm-7.995-.944v-.002.002zM7.022 13h7.956a.274.274 0 00.014-.002l.008-.002c-.002-.264-.167-1.03-.76-1.72C13.688 10.629 12.718 10 11 10c-1.717 0-2.687.63-3.24 1.276-.593.69-.759 1.457-.76 1.72a1.05 1.05 0 00.022.004zm7.973.056v-.002.002zM11 7a2 2 0 100-4 2 2 0 000 4zm3-2a3 3 0 11-6 0 3 3 0 016 0zM6.936 9.28a5.88 5.88 0 00-1.23-.247A7.35 7.35 0 005 9c-4 0-5 3-5 4 0 .667.333 1 1 1h4.216A2.238 2.238 0 015 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816zM4.92 10c-1.668.02-2.615.64-3.16 1.276C1.163 11.97 1 12.739 1 13h3c0-1.045.323-2.086.92-3zM1.5 5.5a3 3 0 116 0 3 3 0 01-6 0zm3-2a2 2 0 100 4 2 2 0 000-4z" clip-rule="evenodd" />
+                    </svg>
+                  </div>
+
+                  <p> Clients</p>
                 </div>
-                <NavLink exact={true} to="/create" activeClassName="active" className="link">
-                  Clients
-            </NavLink>
-              </div>
+              </NavLink>
+
             </div>
             <div id="nav-buttons">
               <SidenavButtons buttonName="clients" />
               <SidenavButtons buttonName="services" />
-              {/* <button onClick={()=> setModalShow(true)}>Create new service</button>
-              <CreateService show={modalShow} onHide={() => setModalShow(false) }/> */}
-            </div>
-            <div id="nav-user-info">
-              <div id="nav-gravatar" >
-                <Gravatar email="ivanrompa@gmail.com" id="gravatar" />
-              </div>
-              <h6>Imke</h6>
             </div>
             <div id="nav-logout">
-              <div id="svg">
-                <svg className="bi bi-box-arrow-in-right" width="1.5em" height="1.5em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                  <path fill-rule="evenodd" d="M8.146 11.354a.5.5 0 010-.708L10.793 8 8.146 5.354a.5.5 0 11.708-.708l3 3a.5.5 0 010 .708l-3 3a.5.5 0 01-.708 0z" clip-rule="evenodd" />
-                  <path fill-rule="evenodd" d="M1 8a.5.5 0 01.5-.5h9a.5.5 0 010 1h-9A.5.5 0 011 8z" clip-rule="evenodd" />
-                  <path fill-rule="evenodd" d="M13.5 14.5A1.5 1.5 0 0015 13V3a1.5 1.5 0 00-1.5-1.5h-8A1.5 1.5 0 004 3v1.5a.5.5 0 001 0V3a.5.5 0 01.5-.5h8a.5.5 0 01.5.5v10a.5.5 0 01-.5.5h-8A.5.5 0 015 13v-1.5a.5.5 0 00-1 0V13a1.5 1.5 0 001.5 1.5h8z" clip-rule="evenodd" />
-                </svg>
-              </div>
-              <div
-                id="logout"
-                onClick={() => {
-                  localStorage.removeItem(AUTH_TOKEN)
-                  this.props.history.push(`/Login`)
-                }}
-              >
-                logout
+              <div id="nav-logout-content">
+                <div id="nav-gravatar" >
+                  <Gravatar email="ivanrompa@gmail.com" id="gravatar" />
+                </div>
+                <div id="svg">
+                  <svg className="bi bi-box-arrow-in-right" width="1.5em" height="1.5em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M8.146 11.354a.5.5 0 010-.708L10.793 8 8.146 5.354a.5.5 0 11.708-.708l3 3a.5.5 0 010 .708l-3 3a.5.5 0 01-.708 0z" clip-rule="evenodd" />
+                    <path fill-rule="evenodd" d="M1 8a.5.5 0 01.5-.5h9a.5.5 0 010 1h-9A.5.5 0 011 8z" clip-rule="evenodd" />
+                    <path fill-rule="evenodd" d="M13.5 14.5A1.5 1.5 0 0015 13V3a1.5 1.5 0 00-1.5-1.5h-8A1.5 1.5 0 004 3v1.5a.5.5 0 001 0V3a.5.5 0 01.5-.5h8a.5.5 0 01.5.5v10a.5.5 0 01-.5.5h-8A.5.5 0 015 13v-1.5a.5.5 0 00-1 0V13a1.5 1.5 0 001.5 1.5h8z" clip-rule="evenodd" />
+                  </svg>
+                </div>
+                <div
+                  id="logout"
+                  onClick={() => {
+                    localStorage.removeItem(AUTH_TOKEN)
+                    this.props.history.push(`/Login`)
+                  }}
+                >
+                  logout
           </div>
+              </div>
+            </div>
             </div>
           </div>
         )}
