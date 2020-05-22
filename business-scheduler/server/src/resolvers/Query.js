@@ -3,6 +3,8 @@ function servicefeed(parent, args, context, info){
 }
 
 
+
 module.exports={
     servicefeed,
+   
 }

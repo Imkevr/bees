@@ -31,17 +31,19 @@ class CreateServiceModal extends React.Component {
         return (
             <React.Fragment>
                 {
-                    this.props.usageName === "services" ?
+                    this.props.usagename === "services" ?
                         (
                             <Modal
+                            {...this.props}
                                 size="lg"
                                 aria-labelledby="contained-modal-create-service"
                                 centered
-                            >
-                                <Modal.Header closeButton>
+                                     >
+                                <Modal.Header closeButton >
                                     <Modal.Title id="contained-modal-title-vcenter">Create service</Modal.Title>
                                 </Modal.Header>
                                 <Modal.Body>
+                                    <p>test</p>
                                     {console.log("inside make service modal")}
                                     <div className="flex flex-column mt3">
                                         <input
@@ -73,6 +75,7 @@ class CreateServiceModal extends React.Component {
                             </Modal>
                         ) : (
                             <Modal
+                            {...this.props}
                                 size="lg"
                                 aria-labelledby="contained-modal-create-service"
                                 centered

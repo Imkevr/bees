@@ -3,27 +3,31 @@ type Query {
     servicefeed: [Service!]!
      # Fetch a single link by its `id`
     service(id:ID!): Service
+    user(id:ID!):User
 }
 
 type Mutation {
     #service
-    postService(name: String!, cost:String!): Service!
+    postService(name: String!, cost:Float!,description:String!,duration:Float! ): Service!
     updateService(id: ID!, cost: String, name: String): Service
     deleteService(id: ID!): Service
     #auth
     signup(email: String!, password: String!,firstname:String!, lastname: String!): AuthPayload
     login(email: String!, password:String!): AuthPayload
-    appointment(serviceId: ID!): Appointment
+    appointment(serviceId: ID!, start:String!, end:String!, date:String!, completed:Boolean): Appointment
 }
 
 type Service {
     id: ID!
+    createdAt: String! 
+    updatedAt: String! 
     name: String!
     cost: Float!
     description:String
     duration:Float!
     postedBy: User
     appointments: [Appointment!]!
+
 }
 
 type AuthPayload{
@@ -37,6 +41,7 @@ type User {
     lastname:String!
     email: String!
     services: [Service!]!
+
 }
 
 type Appointment{
@@ -46,14 +51,14 @@ type Appointment{
     end: String!
     completed: Boolean
     service: Service!
-    user: User!
-    
+    user: User!    
 }
 
 type Client{
     id: ID!
     firstname:String!
     lastname:String!
+    ClientForUser: User
 }
 
 type Subscription {

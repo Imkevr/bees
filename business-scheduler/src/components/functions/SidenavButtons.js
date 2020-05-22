@@ -9,7 +9,7 @@ export default function SidenavButtons(props) {
             <CreateServiceModal
                 show={modalShow}
                 onHide={() => setModalShow(false)}
-                usageName={props.buttonName}
+                usagename={props.buttonName}
             />
         </React.Fragment>
     )
