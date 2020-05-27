@@ -31,7 +31,7 @@ class CreateServiceModal extends React.Component {
         return (
             <React.Fragment>
                 {
-                    this.props.usagename === "services" ?
+                    this.props.modelUsage === "service" ?
                         (
                             <Modal
                             {...this.props}

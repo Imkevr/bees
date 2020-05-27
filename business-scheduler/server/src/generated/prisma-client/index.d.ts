@@ -20,6 +20,7 @@ export interface Exists {
   client: (where?: ClientWhereInput) => Promise<boolean>;
   service: (where?: ServiceWhereInput) => Promise<boolean>;
   user: (where?: UserWhereInput) => Promise<boolean>;
+  calendarSettings: (where?: calendarSettingsWhereInput) => Promise<boolean>;
 }
 
 export interface Node {}
@@ -119,6 +120,27 @@ export interface Prisma {
     first?: Int;
     last?: Int;
   }) => UserConnectionPromise;
+  calendarSettings: (
+    where: calendarSettingsWhereUniqueInput
+  ) => calendarSettingsNullablePromise;
+  calendarSettingses: (args?: {
+    where?: calendarSettingsWhereInput;
+    orderBy?: calendarSettingsOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<calendarSettings>;
+  calendarSettingsesConnection: (args?: {
+    where?: calendarSettingsWhereInput;
+    orderBy?: calendarSettingsOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => calendarSettingsConnectionPromise;
   node: (args: { id: ID_Output }) => Node;
 
   /**
@@ -191,6 +213,28 @@ export interface Prisma {
   }) => UserPromise;
   deleteUser: (where: UserWhereUniqueInput) => UserPromise;
   deleteManyUsers: (where?: UserWhereInput) => BatchPayloadPromise;
+  createcalendarSettings: (
+    data: calendarSettingsCreateInput
+  ) => calendarSettingsPromise;
+  updatecalendarSettings: (args: {
+    data: calendarSettingsUpdateInput;
+    where: calendarSettingsWhereUniqueInput;
+  }) => calendarSettingsPromise;
+  updateManycalendarSettingses: (args: {
+    data: calendarSettingsUpdateManyMutationInput;
+    where?: calendarSettingsWhereInput;
+  }) => BatchPayloadPromise;
+  upsertcalendarSettings: (args: {
+    where: calendarSettingsWhereUniqueInput;
+    create: calendarSettingsCreateInput;
+    update: calendarSettingsUpdateInput;
+  }) => calendarSettingsPromise;
+  deletecalendarSettings: (
+    where: calendarSettingsWhereUniqueInput
+  ) => calendarSettingsPromise;
+  deleteManycalendarSettingses: (
+    where?: calendarSettingsWhereInput
+  ) => BatchPayloadPromise;
 
   /**
    * Subscriptions
@@ -212,6 +256,9 @@ export interface Subscription {
   user: (
     where?: UserSubscriptionWhereInput
   ) => UserSubscriptionPayloadSubscription;
+  calendarSettings: (
+    where?: calendarSettingsSubscriptionWhereInput
+  ) => calendarSettingsSubscriptionPayloadSubscription;
 }
 
 export interface ClientConstructor<T> {
@@ -269,6 +316,14 @@ export type UserOrderByInput =
   | "email_DESC"
   | "password_ASC"
   | "password_DESC";
+
+export type calendarSettingsOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "workStart_ASC"
+  | "workStart_DESC"
+  | "workEnd_ASC"
+  | "workEnd_DESC";
 
 export type MutationType = "CREATED" | "UPDATED" | "DELETED";
 
@@ -568,6 +623,47 @@ export type UserWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
   email?: Maybe<String>;
 }>;
+
+export type calendarSettingsWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
+
+export interface calendarSettingsWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  workStart?: Maybe<Int>;
+  workStart_not?: Maybe<Int>;
+  workStart_in?: Maybe<Int[] | Int>;
+  workStart_not_in?: Maybe<Int[] | Int>;
+  workStart_lt?: Maybe<Int>;
+  workStart_lte?: Maybe<Int>;
+  workStart_gt?: Maybe<Int>;
+  workStart_gte?: Maybe<Int>;
+  workEnd?: Maybe<Int>;
+  workEnd_not?: Maybe<Int>;
+  workEnd_in?: Maybe<Int[] | Int>;
+  workEnd_not_in?: Maybe<Int[] | Int>;
+  workEnd_lt?: Maybe<Int>;
+  workEnd_lte?: Maybe<Int>;
+  workEnd_gt?: Maybe<Int>;
+  workEnd_gte?: Maybe<Int>;
+  forUser?: Maybe<UserWhereInput>;
+  AND?: Maybe<calendarSettingsWhereInput[] | calendarSettingsWhereInput>;
+  OR?: Maybe<calendarSettingsWhereInput[] | calendarSettingsWhereInput>;
+  NOT?: Maybe<calendarSettingsWhereInput[] | calendarSettingsWhereInput>;
+}
 
 export interface AppointmentCreateInput {
   id?: Maybe<ID_Input>;
@@ -1119,6 +1215,63 @@ export interface UserUpdateManyMutationInput {
   password?: Maybe<String>;
 }
 
+export interface calendarSettingsCreateInput {
+  id?: Maybe<ID_Input>;
+  workStart: Int;
+  workEnd: Int;
+  workDays?: Maybe<calendarSettingsCreateworkDaysInput>;
+  forUser?: Maybe<UserCreateOneInput>;
+}
+
+export interface calendarSettingsCreateworkDaysInput {
+  set?: Maybe<String[] | String>;
+}
+
+export interface UserCreateOneInput {
+  create?: Maybe<UserCreateInput>;
+  connect?: Maybe<UserWhereUniqueInput>;
+}
+
+export interface calendarSettingsUpdateInput {
+  workStart?: Maybe<Int>;
+  workEnd?: Maybe<Int>;
+  workDays?: Maybe<calendarSettingsUpdateworkDaysInput>;
+  forUser?: Maybe<UserUpdateOneInput>;
+}
+
+export interface calendarSettingsUpdateworkDaysInput {
+  set?: Maybe<String[] | String>;
+}
+
+export interface UserUpdateOneInput {
+  create?: Maybe<UserCreateInput>;
+  update?: Maybe<UserUpdateDataInput>;
+  upsert?: Maybe<UserUpsertNestedInput>;
+  delete?: Maybe<Boolean>;
+  disconnect?: Maybe<Boolean>;
+  connect?: Maybe<UserWhereUniqueInput>;
+}
+
+export interface UserUpdateDataInput {
+  firstname?: Maybe<String>;
+  lastname?: Maybe<String>;
+  email?: Maybe<String>;
+  password?: Maybe<String>;
+  services?: Maybe<ServiceUpdateManyWithoutPostedByInput>;
+  appointments?: Maybe<AppointmentUpdateManyWithoutUserInput>;
+}
+
+export interface UserUpsertNestedInput {
+  update: UserUpdateDataInput;
+  create: UserCreateInput;
+}
+
+export interface calendarSettingsUpdateManyMutationInput {
+  workStart?: Maybe<Int>;
+  workEnd?: Maybe<Int>;
+  workDays?: Maybe<calendarSettingsUpdateworkDaysInput>;
+}
+
 export interface AppointmentSubscriptionWhereInput {
   mutation_in?: Maybe<MutationType[] | MutationType>;
   updatedFields_contains?: Maybe<String>;
@@ -1167,6 +1320,26 @@ export interface UserSubscriptionWhereInput {
   AND?: Maybe<UserSubscriptionWhereInput[] | UserSubscriptionWhereInput>;
   OR?: Maybe<UserSubscriptionWhereInput[] | UserSubscriptionWhereInput>;
   NOT?: Maybe<UserSubscriptionWhereInput[] | UserSubscriptionWhereInput>;
+}
+
+export interface calendarSettingsSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<calendarSettingsWhereInput>;
+  AND?: Maybe<
+    | calendarSettingsSubscriptionWhereInput[]
+    | calendarSettingsSubscriptionWhereInput
+  >;
+  OR?: Maybe<
+    | calendarSettingsSubscriptionWhereInput[]
+    | calendarSettingsSubscriptionWhereInput
+  >;
+  NOT?: Maybe<
+    | calendarSettingsSubscriptionWhereInput[]
+    | calendarSettingsSubscriptionWhereInput
+  >;
 }
 
 export interface NodeNode {
@@ -1648,6 +1821,99 @@ export interface AggregateUserSubscription
   count: () => Promise<AsyncIterator<Int>>;
 }
 
+export interface calendarSettings {
+  id: ID_Output;
+  workStart: Int;
+  workEnd: Int;
+  workDays: String[];
+}
+
+export interface calendarSettingsPromise
+  extends Promise<calendarSettings>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  workStart: () => Promise<Int>;
+  workEnd: () => Promise<Int>;
+  workDays: () => Promise<String[]>;
+  forUser: <T = UserPromise>() => T;
+}
+
+export interface calendarSettingsSubscription
+  extends Promise<AsyncIterator<calendarSettings>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  workStart: () => Promise<AsyncIterator<Int>>;
+  workEnd: () => Promise<AsyncIterator<Int>>;
+  workDays: () => Promise<AsyncIterator<String[]>>;
+  forUser: <T = UserSubscription>() => T;
+}
+
+export interface calendarSettingsNullablePromise
+  extends Promise<calendarSettings | null>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  workStart: () => Promise<Int>;
+  workEnd: () => Promise<Int>;
+  workDays: () => Promise<String[]>;
+  forUser: <T = UserPromise>() => T;
+}
+
+export interface calendarSettingsConnection {
+  pageInfo: PageInfo;
+  edges: calendarSettingsEdge[];
+}
+
+export interface calendarSettingsConnectionPromise
+  extends Promise<calendarSettingsConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<calendarSettingsEdge>>() => T;
+  aggregate: <T = AggregatecalendarSettingsPromise>() => T;
+}
+
+export interface calendarSettingsConnectionSubscription
+  extends Promise<AsyncIterator<calendarSettingsConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<calendarSettingsEdgeSubscription>>>() => T;
+  aggregate: <T = AggregatecalendarSettingsSubscription>() => T;
+}
+
+export interface calendarSettingsEdge {
+  node: calendarSettings;
+  cursor: String;
+}
+
+export interface calendarSettingsEdgePromise
+  extends Promise<calendarSettingsEdge>,
+    Fragmentable {
+  node: <T = calendarSettingsPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface calendarSettingsEdgeSubscription
+  extends Promise<AsyncIterator<calendarSettingsEdge>>,
+    Fragmentable {
+  node: <T = calendarSettingsSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregatecalendarSettings {
+  count: Int;
+}
+
+export interface AggregatecalendarSettingsPromise
+  extends Promise<AggregatecalendarSettings>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregatecalendarSettingsSubscription
+  extends Promise<AsyncIterator<AggregatecalendarSettings>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
 export interface BatchPayload {
   count: Long;
 }
@@ -1876,6 +2142,56 @@ export interface UserPreviousValuesSubscription
   password: () => Promise<AsyncIterator<String>>;
 }
 
+export interface calendarSettingsSubscriptionPayload {
+  mutation: MutationType;
+  node: calendarSettings;
+  updatedFields: String[];
+  previousValues: calendarSettingsPreviousValues;
+}
+
+export interface calendarSettingsSubscriptionPayloadPromise
+  extends Promise<calendarSettingsSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = calendarSettingsPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = calendarSettingsPreviousValuesPromise>() => T;
+}
+
+export interface calendarSettingsSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<calendarSettingsSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = calendarSettingsSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = calendarSettingsPreviousValuesSubscription>() => T;
+}
+
+export interface calendarSettingsPreviousValues {
+  id: ID_Output;
+  workStart: Int;
+  workEnd: Int;
+  workDays: String[];
+}
+
+export interface calendarSettingsPreviousValuesPromise
+  extends Promise<calendarSettingsPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  workStart: () => Promise<Int>;
+  workEnd: () => Promise<Int>;
+  workDays: () => Promise<String[]>;
+}
+
+export interface calendarSettingsPreviousValuesSubscription
+  extends Promise<AsyncIterator<calendarSettingsPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  workStart: () => Promise<AsyncIterator<Int>>;
+  workEnd: () => Promise<AsyncIterator<Int>>;
+  workDays: () => Promise<AsyncIterator<String[]>>;
+}
+
 /*
 The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID.
 */
@@ -1921,6 +2237,10 @@ export type Long = string;
 export const models: Model[] = [
   {
     name: "Service",
+    embedded: false
+  },
+  {
+    name: "calendarSettings",
     embedded: false
   },
   {

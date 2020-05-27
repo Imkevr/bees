@@ -1,9 +1,12 @@
+scalar DateTime
+
 type Query {
     info: String!
     servicefeed: [Service!]!
      # Fetch a single link by its `id`
     service(id:ID!): Service
-    user(id:ID!):User
+    user: User
+    
 }
 
 type Mutation {
@@ -19,8 +22,8 @@ type Mutation {
 
 type Service {
     id: ID!
-    createdAt: String! 
-    updatedAt: String! 
+    createdAt: DateTime! 
+    updatedAt: DateTime! 
     name: String!
     cost: Float!
     description:String
@@ -29,6 +32,15 @@ type Service {
     appointments: [Appointment!]!
 
 }
+
+type calendarSettings{
+    id:ID!
+    workStart: Int!
+    workEnd: Int!
+    workDays:[String!]
+    forUser:User
+}
+
 
 type AuthPayload{
     token: String
@@ -47,8 +59,8 @@ type User {
 type Appointment{
     id: ID!
     date: String!
-    start: String!
-    end: String!
+    start: DateTime!
+    end: DateTime!
     completed: Boolean
     service: Service!
     user: User!    

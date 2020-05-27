@@ -21,7 +21,8 @@ constructor(props){
                                     <Modal.Title id="contained-modal-title-vcenter">Confirm new appointment</Modal.Title>
                                 </Modal.Header>
                                 <Modal.Body>
-                                    <p>{this.props.object.start}</p>
+                                    {/* <p>{this.props.object.start}</p> */}
+                                    {console.log("test")}
                                     {console.log(this.props.object.start)}
                                     {console.log("inside create appointment modal")}
                                     <button  onClick={this.props.onHide}>Submit</button>

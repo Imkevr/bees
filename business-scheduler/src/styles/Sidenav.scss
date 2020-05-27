@@ -28,14 +28,14 @@
 
 
     #nav-links {
-        height: 50%;
+        height: 40%;
 
 
         #nav-links-container {
-           height:100%;
-           display: flex;
-           flex-direction: column;
-           margin-top:50px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            margin-top: 50px;
 
 
             .link {
@@ -47,17 +47,24 @@
                     display: flex;
                     flex-direction: row;
                     margin: 30px auto;
+                    margin-left: 10px;
 
                     .nav-link-icon {
                         width: 30%;
                         color: $black;
+
+                        svg {
+                            color:$black;
+                            font-size: 1em;
+                            margin-bottom: 8px;
+                        }
                     }
 
                     p {
                         width: 70%;
-
                         color: $black;
                         margin: auto 0;
+                        margin-left: 32px;
 
                     }
 
@@ -75,17 +82,21 @@
     }
 
     #nav-buttons {
-        height: 20%;
+        height: 30%;
+        display: flex;
+        flex-direction: row;
 
         button {
-            width: 98%;
+            width: 110%;
+            height: 50%;
             color: $black;
             font-size: .9em;
-            margin: 10px auto;
+            margin-top: 10px;
+            margin-left: 20px;
+            padding: 12px;
             background-color: $blue;
             border: none;
-            padding: 10px;
-            font-weight: 500;
+            font-weight: 600;
             border: solid 5px $blue;
             border-radius: 5px;
             -webkit-box-shadow: 1px 5px 23px -2px rgba(199, 199, 199, 1);
@@ -100,13 +111,13 @@
 
 
     #nav-logout {
-        height: 20%;
+        height: 30%;
 
         #nav-logout-content {
             height: 10%;
             display: flex;
             flex-direction: row;
-            margin-top: 180px;
+            margin-top: 250px;
 
             #nav-gravatar {
                 width: 40%;
@@ -117,27 +128,27 @@
                 }
             }
 
-            #svg {
-                width: 20%;
+            #logout-group {
+                cursor: pointer;
                 display: flex;
-                flex-direction: row-reverse;
-                align-self: center;
-                margin-top: 34px;
-                margin-left: -20px;
-                cursor: pointer;
-            }
+                flex-direction: row;
+                &:hover {
+                    color: $blue;
+                }
 
-            #logout {
-                width: 40%;
-                cursor: pointer;
-                margin: auto;
-                margin-top: 12px;
-                margin-left:8px;
-
-            }
-
-            &:hover {
-                color: $blue;
+                #logout {
+                    width: 40%;
+                    font-weight:500;
+                     margin-top: 12px;
+                    
+                }
+                #svg {
+                    width: 20%;
+                    font-size: 0.9em;
+                    color:$black;
+                }
+            
+                
             }
         }
     }

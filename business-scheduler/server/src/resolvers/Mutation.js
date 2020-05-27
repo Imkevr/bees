@@ -30,7 +30,7 @@ async function login(parent, args, context, info){
     }
 }
 
-async function appointment(parent, context, args, info){
+async function appointment(parent, args, context, info){
     const userId = getUserId(context)
     return context.prisma.createAppointment({
         start:args.start,
@@ -54,9 +54,19 @@ function postService(parent, args, context, info){
 }
 
 
+
+function deleteService(parent, args, context, info){
+    const userId = getUserId(context)
+    return context.prisma.deleteService({
+        id:args.id,
+    })
+}
+
+
 module.exports={
     signup,
     login,
     postService,
+    deleteService,
     appointment,
 }

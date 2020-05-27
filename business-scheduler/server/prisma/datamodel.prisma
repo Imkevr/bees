@@ -10,6 +10,15 @@ type Service {
     appointments: [Appointment!]!
 }
 
+type calendarSettings{
+    id:ID! @id
+    workStart: Int!
+    workEnd: Int!
+    workDays:[String!]! @scalarList(strategy: RELATION)
+    forUser:User
+}
+
+
 type User{
     id: ID! @id
     firstname: String!
@@ -30,9 +39,10 @@ type Client{
 type Appointment{
     id: ID! @id
     date: String!
-    start: String!
-    end: String!
+    start: DateTime!
+    end: DateTime!
     completed: Boolean
     service: Service!
     user: User!
+    
 }

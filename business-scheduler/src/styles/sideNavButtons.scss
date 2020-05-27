@@ -1,0 +1,10 @@
+@import './colors';
+
+a{
+    cursor: pointer;
+    color:$black;
+
+    &:hover{
+   background-color: $blue-light;
+    }
+}

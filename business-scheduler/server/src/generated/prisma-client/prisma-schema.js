@@ -7,6 +7,10 @@ module.exports = {
   count: Int!
 }
 
+type AggregatecalendarSettings {
+  count: Int!
+}
+
 type AggregateClient {
   count: Int!
 }
@@ -345,6 +349,129 @@ type BatchPayload {
   count: Long!
 }
 
+type calendarSettings {
+  id: ID!
+  workStart: Int!
+  workEnd: Int!
+  workDays: [String!]!
+  forUser: User
+}
+
+type calendarSettingsConnection {
+  pageInfo: PageInfo!
+  edges: [calendarSettingsEdge]!
+  aggregate: AggregatecalendarSettings!
+}
+
+input calendarSettingsCreateInput {
+  id: ID
+  workStart: Int!
+  workEnd: Int!
+  workDays: calendarSettingsCreateworkDaysInput
+  forUser: UserCreateOneInput
+}
+
+input calendarSettingsCreateworkDaysInput {
+  set: [String!]
+}
+
+type calendarSettingsEdge {
+  node: calendarSettings!
+  cursor: String!
+}
+
+enum calendarSettingsOrderByInput {
+  id_ASC
+  id_DESC
+  workStart_ASC
+  workStart_DESC
+  workEnd_ASC
+  workEnd_DESC
+}
+
+type calendarSettingsPreviousValues {
+  id: ID!
+  workStart: Int!
+  workEnd: Int!
+  workDays: [String!]!
+}
+
+type calendarSettingsSubscriptionPayload {
+  mutation: MutationType!
+  node: calendarSettings
+  updatedFields: [String!]
+  previousValues: calendarSettingsPreviousValues
+}
+
+input calendarSettingsSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: calendarSettingsWhereInput
+  AND: [calendarSettingsSubscriptionWhereInput!]
+  OR: [calendarSettingsSubscriptionWhereInput!]
+  NOT: [calendarSettingsSubscriptionWhereInput!]
+}
+
+input calendarSettingsUpdateInput {
+  workStart: Int
+  workEnd: Int
+  workDays: calendarSettingsUpdateworkDaysInput
+  forUser: UserUpdateOneInput
+}
+
+input calendarSettingsUpdateManyMutationInput {
+  workStart: Int
+  workEnd: Int
+  workDays: calendarSettingsUpdateworkDaysInput
+}
+
+input calendarSettingsUpdateworkDaysInput {
+  set: [String!]
+}
+
+input calendarSettingsWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  workStart: Int
+  workStart_not: Int
+  workStart_in: [Int!]
+  workStart_not_in: [Int!]
+  workStart_lt: Int
+  workStart_lte: Int
+  workStart_gt: Int
+  workStart_gte: Int
+  workEnd: Int
+  workEnd_not: Int
+  workEnd_in: [Int!]
+  workEnd_not_in: [Int!]
+  workEnd_lt: Int
+  workEnd_lte: Int
+  workEnd_gt: Int
+  workEnd_gte: Int
+  forUser: UserWhereInput
+  AND: [calendarSettingsWhereInput!]
+  OR: [calendarSettingsWhereInput!]
+  NOT: [calendarSettingsWhereInput!]
+}
+
+input calendarSettingsWhereUniqueInput {
+  id: ID
+}
+
 type Client {
   id: ID!
   firstname: String!
@@ -492,6 +619,12 @@ type Mutation {
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   deleteUser(where: UserWhereUniqueInput!): User
   deleteManyUsers(where: UserWhereInput): BatchPayload!
+  createcalendarSettings(data: calendarSettingsCreateInput!): calendarSettings!
+  updatecalendarSettings(data: calendarSettingsUpdateInput!, where: calendarSettingsWhereUniqueInput!): calendarSettings
+  updateManycalendarSettingses(data: calendarSettingsUpdateManyMutationInput!, where: calendarSettingsWhereInput): BatchPayload!
+  upsertcalendarSettings(where: calendarSettingsWhereUniqueInput!, create: calendarSettingsCreateInput!, update: calendarSettingsUpdateInput!): calendarSettings!
+  deletecalendarSettings(where: calendarSettingsWhereUniqueInput!): calendarSettings
+  deleteManycalendarSettingses(where: calendarSettingsWhereInput): BatchPayload!
 }
 
 enum MutationType {
@@ -524,6 +657,9 @@ type Query {
   user(where: UserWhereUniqueInput!): User
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
+  calendarSettings(where: calendarSettingsWhereUniqueInput!): calendarSettings
+  calendarSettingses(where: calendarSettingsWhereInput, orderBy: calendarSettingsOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [calendarSettings]!
+  calendarSettingsesConnection(where: calendarSettingsWhereInput, orderBy: calendarSettingsOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): calendarSettingsConnection!
   node(id: ID!): Node
 }
 
@@ -885,6 +1021,7 @@ type Subscription {
   client(where: ClientSubscriptionWhereInput): ClientSubscriptionPayload
   service(where: ServiceSubscriptionWhereInput): ServiceSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
+  calendarSettings(where: calendarSettingsSubscriptionWhereInput): calendarSettingsSubscriptionPayload
 }
 
 type User {
@@ -911,6 +1048,11 @@ input UserCreateInput {
   password: String!
   services: ServiceCreateManyWithoutPostedByInput
   appointments: AppointmentCreateManyWithoutUserInput
+}
+
+input UserCreateOneInput {
+  create: UserCreateInput
+  connect: UserWhereUniqueInput
 }
 
 input UserCreateOneWithoutAppointmentsInput {
@@ -985,6 +1127,15 @@ input UserSubscriptionWhereInput {
   NOT: [UserSubscriptionWhereInput!]
 }
 
+input UserUpdateDataInput {
+  firstname: String
+  lastname: String
+  email: String
+  password: String
+  services: ServiceUpdateManyWithoutPostedByInput
+  appointments: AppointmentUpdateManyWithoutUserInput
+}
+
 input UserUpdateInput {
   firstname: String
   lastname: String
@@ -999,6 +1150,15 @@ input UserUpdateManyMutationInput {
   lastname: String
   email: String
   password: String
+}
+
+input UserUpdateOneInput {
+  create: UserCreateInput
+  update: UserUpdateDataInput
+  upsert: UserUpsertNestedInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: UserWhereUniqueInput
 }
 
 input UserUpdateOneRequiredWithoutAppointmentsInput {
@@ -1031,6 +1191,11 @@ input UserUpdateWithoutServicesDataInput {
   email: String
   password: String
   appointments: AppointmentUpdateManyWithoutUserInput
+}
+
+input UserUpsertNestedInput {
+  update: UserUpdateDataInput!
+  create: UserCreateInput!
 }
 
 input UserUpsertWithoutAppointmentsInput {
