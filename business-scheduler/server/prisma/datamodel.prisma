@@ -7,7 +7,6 @@ type Service {
     description: String!
     duration: Float!
     postedBy: User
-    appointments: [Appointment!]!
 }
 
 type calendarSettings{
@@ -26,14 +25,13 @@ type User{
     email: String! @unique
     password: String!
     services: [Service!]!
-    appointments: [Appointment!]!
+    
 }
 
 type Client{
     id: ID! @id
     firstname: String!
     lastname: String!
-
 }
 
 type Appointment{
@@ -44,5 +42,6 @@ type Appointment{
     completed: Boolean
     service: Service!
     user: User!
+    client: Client!
     
 }
