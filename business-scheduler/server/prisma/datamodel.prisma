@@ -5,16 +5,16 @@ type Service {
     name: String!
     cost: Float!
     description: String!
-    duration: Float!
+    hours: Int!
+    minutes: Int!
     postedBy: User
 }
 
 type calendarSettings{
-    id:ID! @id
+    id: ID! @id
     workStart: Int!
     workEnd: Int!
-    workDays:[String!]! @scalarList(strategy: RELATION)
-    forUser:User
+    forUser:User!
 }
 
 
@@ -30,6 +30,7 @@ type User{
 
 type Client{
     id: ID! @id
+    age: Int!
     firstname: String!
     lastname: String!
 }

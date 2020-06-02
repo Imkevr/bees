@@ -33,10 +33,10 @@ async function login(parent, args, context, info){
 async function appointment(parent, args, context, info){
     const userId = getUserId(context)
     return context.prisma.createAppointment({
+        date:args.date,
         start:args.start,
         end:args.end,
-        date:args.date,
-        completed: false,
+        completed: args.completed,
         user: {connect: { id:userId}},
         service: {connect: { id: args.serviceId}},
     })
@@ -48,7 +48,8 @@ function postService(parent, args, context, info){
         cost: args.cost,
         name: args.name,
         description:args.description,
-        duration:args.duration,
+        hours: args.hours,
+        minutes: args.minutes,
         postedBy: { connect: {id: userId}},
     })
 }

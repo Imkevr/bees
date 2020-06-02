@@ -179,8 +179,7 @@ type calendarSettings {
   id: ID!
   workStart: Int!
   workEnd: Int!
-  workDays: [String!]!
-  forUser: User
+  forUser: User!
 }
 
 type calendarSettingsConnection {
@@ -193,12 +192,7 @@ input calendarSettingsCreateInput {
   id: ID
   workStart: Int!
   workEnd: Int!
-  workDays: calendarSettingsCreateworkDaysInput
-  forUser: UserCreateOneInput
-}
-
-input calendarSettingsCreateworkDaysInput {
-  set: [String!]
+  forUser: UserCreateOneInput!
 }
 
 type calendarSettingsEdge {
@@ -219,7 +213,6 @@ type calendarSettingsPreviousValues {
   id: ID!
   workStart: Int!
   workEnd: Int!
-  workDays: [String!]!
 }
 
 type calendarSettingsSubscriptionPayload {
@@ -243,18 +236,12 @@ input calendarSettingsSubscriptionWhereInput {
 input calendarSettingsUpdateInput {
   workStart: Int
   workEnd: Int
-  workDays: calendarSettingsUpdateworkDaysInput
-  forUser: UserUpdateOneInput
+  forUser: UserUpdateOneRequiredInput
 }
 
 input calendarSettingsUpdateManyMutationInput {
   workStart: Int
   workEnd: Int
-  workDays: calendarSettingsUpdateworkDaysInput
-}
-
-input calendarSettingsUpdateworkDaysInput {
-  set: [String!]
 }
 
 input calendarSettingsWhereInput {
@@ -300,6 +287,7 @@ input calendarSettingsWhereUniqueInput {
 
 type Client {
   id: ID!
+  age: Int!
   firstname: String!
   lastname: String!
 }
@@ -312,6 +300,7 @@ type ClientConnection {
 
 input ClientCreateInput {
   id: ID
+  age: Int!
   firstname: String!
   lastname: String!
 }
@@ -329,6 +318,8 @@ type ClientEdge {
 enum ClientOrderByInput {
   id_ASC
   id_DESC
+  age_ASC
+  age_DESC
   firstname_ASC
   firstname_DESC
   lastname_ASC
@@ -337,6 +328,7 @@ enum ClientOrderByInput {
 
 type ClientPreviousValues {
   id: ID!
+  age: Int!
   firstname: String!
   lastname: String!
 }
@@ -360,16 +352,19 @@ input ClientSubscriptionWhereInput {
 }
 
 input ClientUpdateDataInput {
+  age: Int
   firstname: String
   lastname: String
 }
 
 input ClientUpdateInput {
+  age: Int
   firstname: String
   lastname: String
 }
 
 input ClientUpdateManyMutationInput {
+  age: Int
   firstname: String
   lastname: String
 }
@@ -401,6 +396,14 @@ input ClientWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
+  age: Int
+  age_not: Int
+  age_in: [Int!]
+  age_not_in: [Int!]
+  age_lt: Int
+  age_lte: Int
+  age_gt: Int
+  age_gte: Int
   firstname: String
   firstname_not: String
   firstname_in: [String!]
@@ -518,7 +521,8 @@ type Service {
   name: String!
   cost: Float!
   description: String!
-  duration: Float!
+  hours: Int!
+  minutes: Int!
   postedBy: User
 }
 
@@ -533,7 +537,8 @@ input ServiceCreateInput {
   name: String!
   cost: Float!
   description: String!
-  duration: Float!
+  hours: Int!
+  minutes: Int!
   postedBy: UserCreateOneWithoutServicesInput
 }
 
@@ -552,7 +557,8 @@ input ServiceCreateWithoutPostedByInput {
   name: String!
   cost: Float!
   description: String!
-  duration: Float!
+  hours: Int!
+  minutes: Int!
 }
 
 type ServiceEdge {
@@ -573,8 +579,10 @@ enum ServiceOrderByInput {
   cost_DESC
   description_ASC
   description_DESC
-  duration_ASC
-  duration_DESC
+  hours_ASC
+  hours_DESC
+  minutes_ASC
+  minutes_DESC
 }
 
 type ServicePreviousValues {
@@ -584,7 +592,8 @@ type ServicePreviousValues {
   name: String!
   cost: Float!
   description: String!
-  duration: Float!
+  hours: Int!
+  minutes: Int!
 }
 
 input ServiceScalarWhereInput {
@@ -654,14 +663,22 @@ input ServiceScalarWhereInput {
   description_not_starts_with: String
   description_ends_with: String
   description_not_ends_with: String
-  duration: Float
-  duration_not: Float
-  duration_in: [Float!]
-  duration_not_in: [Float!]
-  duration_lt: Float
-  duration_lte: Float
-  duration_gt: Float
-  duration_gte: Float
+  hours: Int
+  hours_not: Int
+  hours_in: [Int!]
+  hours_not_in: [Int!]
+  hours_lt: Int
+  hours_lte: Int
+  hours_gt: Int
+  hours_gte: Int
+  minutes: Int
+  minutes_not: Int
+  minutes_in: [Int!]
+  minutes_not_in: [Int!]
+  minutes_lt: Int
+  minutes_lte: Int
+  minutes_gt: Int
+  minutes_gte: Int
   AND: [ServiceScalarWhereInput!]
   OR: [ServiceScalarWhereInput!]
   NOT: [ServiceScalarWhereInput!]
@@ -689,7 +706,8 @@ input ServiceUpdateDataInput {
   name: String
   cost: Float
   description: String
-  duration: Float
+  hours: Int
+  minutes: Int
   postedBy: UserUpdateOneWithoutServicesInput
 }
 
@@ -697,7 +715,8 @@ input ServiceUpdateInput {
   name: String
   cost: Float
   description: String
-  duration: Float
+  hours: Int
+  minutes: Int
   postedBy: UserUpdateOneWithoutServicesInput
 }
 
@@ -705,14 +724,16 @@ input ServiceUpdateManyDataInput {
   name: String
   cost: Float
   description: String
-  duration: Float
+  hours: Int
+  minutes: Int
 }
 
 input ServiceUpdateManyMutationInput {
   name: String
   cost: Float
   description: String
-  duration: Float
+  hours: Int
+  minutes: Int
 }
 
 input ServiceUpdateManyWithoutPostedByInput {
@@ -743,7 +764,8 @@ input ServiceUpdateWithoutPostedByDataInput {
   name: String
   cost: Float
   description: String
-  duration: Float
+  hours: Int
+  minutes: Int
 }
 
 input ServiceUpdateWithWhereUniqueWithoutPostedByInput {
@@ -829,14 +851,22 @@ input ServiceWhereInput {
   description_not_starts_with: String
   description_ends_with: String
   description_not_ends_with: String
-  duration: Float
-  duration_not: Float
-  duration_in: [Float!]
-  duration_not_in: [Float!]
-  duration_lt: Float
-  duration_lte: Float
-  duration_gt: Float
-  duration_gte: Float
+  hours: Int
+  hours_not: Int
+  hours_in: [Int!]
+  hours_not_in: [Int!]
+  hours_lt: Int
+  hours_lte: Int
+  hours_gt: Int
+  hours_gte: Int
+  minutes: Int
+  minutes_not: Int
+  minutes_in: [Int!]
+  minutes_not_in: [Int!]
+  minutes_lt: Int
+  minutes_lte: Int
+  minutes_gt: Int
+  minutes_gte: Int
   postedBy: UserWhereInput
   AND: [ServiceWhereInput!]
   OR: [ServiceWhereInput!]
@@ -962,15 +992,6 @@ input UserUpdateManyMutationInput {
   lastname: String
   email: String
   password: String
-}
-
-input UserUpdateOneInput {
-  create: UserCreateInput
-  update: UserUpdateDataInput
-  upsert: UserUpsertNestedInput
-  delete: Boolean
-  disconnect: Boolean
-  connect: UserWhereUniqueInput
 }
 
 input UserUpdateOneRequiredInput {

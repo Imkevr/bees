@@ -3,17 +3,14 @@ scalar DateTime
 type Query {
     info: String!
     servicefeed: [Service!]!
-     # Fetch a single link by its `id`
     service(id:ID!): Service
     user: User  
 }
 
 type Mutation {
-    #service
-    postService(name: String!, cost:Float!,description:String!,duration:Float! ): Service!
+    postService(name: String!, cost:Float!,description:String!,hours: Int!, minutes: Int! ): Service!
     updateService(id: ID!, cost: String, name: String): Service
     deleteService(id: ID!): Service
-    #auth
     signup(email: String!, password: String!,firstname:String!, lastname: String!): AuthPayload
     login(email: String!, password:String!): AuthPayload
     appointment(serviceId: ID!, start:String!, end:String!, date:String!, completed:Boolean): Appointment
@@ -26,16 +23,17 @@ type Service {
     name: String!
     cost: Float!
     description:String
-    duration:Float!
-    postedBy: User
+    hours: Int!
+    minutes: Int!
+    postedBy: User!
 }
+
 
 type calendarSettings{
     id:ID!
     workStart: Int!
     workEnd: Int!
-    workDays:[String!]
-    forUser:User
+    forUser:User!
 }
 
 
@@ -66,6 +64,7 @@ type Appointment{
 
 type Client{
     id: ID!
+    age: Int!
     firstname:String!
     lastname:String!
     ClientForUser: User

@@ -79,7 +79,7 @@ class Sidenav extends Component {
               <div id="nav-logout">
                 <div id="nav-logout-content">
                   <div id="nav-gravatar" >
-                    <Gravatar />
+                    {/* <Gravatar /> */}
                   </div>
                   <div id="logout-group">
                     <div

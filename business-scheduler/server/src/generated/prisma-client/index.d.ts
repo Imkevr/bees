@@ -282,8 +282,10 @@ export type ServiceOrderByInput =
   | "cost_DESC"
   | "description_ASC"
   | "description_DESC"
-  | "duration_ASC"
-  | "duration_DESC";
+  | "hours_ASC"
+  | "hours_DESC"
+  | "minutes_ASC"
+  | "minutes_DESC";
 
 export type AppointmentOrderByInput =
   | "id_ASC"
@@ -300,6 +302,8 @@ export type AppointmentOrderByInput =
 export type ClientOrderByInput =
   | "id_ASC"
   | "id_DESC"
+  | "age_ASC"
+  | "age_DESC"
   | "firstname_ASC"
   | "firstname_DESC"
   | "lastname_ASC"
@@ -398,14 +402,22 @@ export interface ServiceWhereInput {
   description_not_starts_with?: Maybe<String>;
   description_ends_with?: Maybe<String>;
   description_not_ends_with?: Maybe<String>;
-  duration?: Maybe<Float>;
-  duration_not?: Maybe<Float>;
-  duration_in?: Maybe<Float[] | Float>;
-  duration_not_in?: Maybe<Float[] | Float>;
-  duration_lt?: Maybe<Float>;
-  duration_lte?: Maybe<Float>;
-  duration_gt?: Maybe<Float>;
-  duration_gte?: Maybe<Float>;
+  hours?: Maybe<Int>;
+  hours_not?: Maybe<Int>;
+  hours_in?: Maybe<Int[] | Int>;
+  hours_not_in?: Maybe<Int[] | Int>;
+  hours_lt?: Maybe<Int>;
+  hours_lte?: Maybe<Int>;
+  hours_gt?: Maybe<Int>;
+  hours_gte?: Maybe<Int>;
+  minutes?: Maybe<Int>;
+  minutes_not?: Maybe<Int>;
+  minutes_in?: Maybe<Int[] | Int>;
+  minutes_not_in?: Maybe<Int[] | Int>;
+  minutes_lt?: Maybe<Int>;
+  minutes_lte?: Maybe<Int>;
+  minutes_gt?: Maybe<Int>;
+  minutes_gte?: Maybe<Int>;
   postedBy?: Maybe<UserWhereInput>;
   AND?: Maybe<ServiceWhereInput[] | ServiceWhereInput>;
   OR?: Maybe<ServiceWhereInput[] | ServiceWhereInput>;
@@ -561,6 +573,14 @@ export interface ClientWhereInput {
   id_not_starts_with?: Maybe<ID_Input>;
   id_ends_with?: Maybe<ID_Input>;
   id_not_ends_with?: Maybe<ID_Input>;
+  age?: Maybe<Int>;
+  age_not?: Maybe<Int>;
+  age_in?: Maybe<Int[] | Int>;
+  age_not_in?: Maybe<Int[] | Int>;
+  age_lt?: Maybe<Int>;
+  age_lte?: Maybe<Int>;
+  age_gt?: Maybe<Int>;
+  age_gte?: Maybe<Int>;
   firstname?: Maybe<String>;
   firstname_not?: Maybe<String>;
   firstname_in?: Maybe<String[] | String>;
@@ -669,7 +689,8 @@ export interface ServiceCreateInput {
   name: String;
   cost: Float;
   description: String;
-  duration: Float;
+  hours: Int;
+  minutes: Int;
   postedBy?: Maybe<UserCreateOneWithoutServicesInput>;
 }
 
@@ -712,7 +733,8 @@ export interface ServiceCreateWithoutPostedByInput {
   name: String;
   cost: Float;
   description: String;
-  duration: Float;
+  hours: Int;
+  minutes: Int;
 }
 
 export interface ClientCreateOneInput {
@@ -722,6 +744,7 @@ export interface ClientCreateOneInput {
 
 export interface ClientCreateInput {
   id?: Maybe<ID_Input>;
+  age: Int;
   firstname: String;
   lastname: String;
 }
@@ -747,7 +770,8 @@ export interface ServiceUpdateDataInput {
   name?: Maybe<String>;
   cost?: Maybe<Float>;
   description?: Maybe<String>;
-  duration?: Maybe<Float>;
+  hours?: Maybe<Int>;
+  minutes?: Maybe<Int>;
   postedBy?: Maybe<UserUpdateOneWithoutServicesInput>;
 }
 
@@ -824,7 +848,8 @@ export interface ServiceUpdateWithoutPostedByDataInput {
   name?: Maybe<String>;
   cost?: Maybe<Float>;
   description?: Maybe<String>;
-  duration?: Maybe<Float>;
+  hours?: Maybe<Int>;
+  minutes?: Maybe<Int>;
 }
 
 export interface ServiceUpsertWithWhereUniqueWithoutPostedByInput {
@@ -900,14 +925,22 @@ export interface ServiceScalarWhereInput {
   description_not_starts_with?: Maybe<String>;
   description_ends_with?: Maybe<String>;
   description_not_ends_with?: Maybe<String>;
-  duration?: Maybe<Float>;
-  duration_not?: Maybe<Float>;
-  duration_in?: Maybe<Float[] | Float>;
-  duration_not_in?: Maybe<Float[] | Float>;
-  duration_lt?: Maybe<Float>;
-  duration_lte?: Maybe<Float>;
-  duration_gt?: Maybe<Float>;
-  duration_gte?: Maybe<Float>;
+  hours?: Maybe<Int>;
+  hours_not?: Maybe<Int>;
+  hours_in?: Maybe<Int[] | Int>;
+  hours_not_in?: Maybe<Int[] | Int>;
+  hours_lt?: Maybe<Int>;
+  hours_lte?: Maybe<Int>;
+  hours_gt?: Maybe<Int>;
+  hours_gte?: Maybe<Int>;
+  minutes?: Maybe<Int>;
+  minutes_not?: Maybe<Int>;
+  minutes_in?: Maybe<Int[] | Int>;
+  minutes_not_in?: Maybe<Int[] | Int>;
+  minutes_lt?: Maybe<Int>;
+  minutes_lte?: Maybe<Int>;
+  minutes_gt?: Maybe<Int>;
+  minutes_gte?: Maybe<Int>;
   AND?: Maybe<ServiceScalarWhereInput[] | ServiceScalarWhereInput>;
   OR?: Maybe<ServiceScalarWhereInput[] | ServiceScalarWhereInput>;
   NOT?: Maybe<ServiceScalarWhereInput[] | ServiceScalarWhereInput>;
@@ -922,7 +955,8 @@ export interface ServiceUpdateManyDataInput {
   name?: Maybe<String>;
   cost?: Maybe<Float>;
   description?: Maybe<String>;
-  duration?: Maybe<Float>;
+  hours?: Maybe<Int>;
+  minutes?: Maybe<Int>;
 }
 
 export interface UserUpsertNestedInput {
@@ -938,6 +972,7 @@ export interface ClientUpdateOneRequiredInput {
 }
 
 export interface ClientUpdateDataInput {
+  age?: Maybe<Int>;
   firstname?: Maybe<String>;
   lastname?: Maybe<String>;
 }
@@ -955,11 +990,13 @@ export interface AppointmentUpdateManyMutationInput {
 }
 
 export interface ClientUpdateInput {
+  age?: Maybe<Int>;
   firstname?: Maybe<String>;
   lastname?: Maybe<String>;
 }
 
 export interface ClientUpdateManyMutationInput {
+  age?: Maybe<Int>;
   firstname?: Maybe<String>;
   lastname?: Maybe<String>;
 }
@@ -968,7 +1005,8 @@ export interface ServiceUpdateInput {
   name?: Maybe<String>;
   cost?: Maybe<Float>;
   description?: Maybe<String>;
-  duration?: Maybe<Float>;
+  hours?: Maybe<Int>;
+  minutes?: Maybe<Int>;
   postedBy?: Maybe<UserUpdateOneWithoutServicesInput>;
 }
 
@@ -976,7 +1014,8 @@ export interface ServiceUpdateManyMutationInput {
   name?: Maybe<String>;
   cost?: Maybe<Float>;
   description?: Maybe<String>;
-  duration?: Maybe<Float>;
+  hours?: Maybe<Int>;
+  minutes?: Maybe<Int>;
 }
 
 export interface UserUpdateInput {
@@ -998,38 +1037,18 @@ export interface calendarSettingsCreateInput {
   id?: Maybe<ID_Input>;
   workStart: Int;
   workEnd: Int;
-  workDays?: Maybe<calendarSettingsCreateworkDaysInput>;
-  forUser?: Maybe<UserCreateOneInput>;
-}
-
-export interface calendarSettingsCreateworkDaysInput {
-  set?: Maybe<String[] | String>;
+  forUser: UserCreateOneInput;
 }
 
 export interface calendarSettingsUpdateInput {
   workStart?: Maybe<Int>;
   workEnd?: Maybe<Int>;
-  workDays?: Maybe<calendarSettingsUpdateworkDaysInput>;
-  forUser?: Maybe<UserUpdateOneInput>;
-}
-
-export interface calendarSettingsUpdateworkDaysInput {
-  set?: Maybe<String[] | String>;
-}
-
-export interface UserUpdateOneInput {
-  create?: Maybe<UserCreateInput>;
-  update?: Maybe<UserUpdateDataInput>;
-  upsert?: Maybe<UserUpsertNestedInput>;
-  delete?: Maybe<Boolean>;
-  disconnect?: Maybe<Boolean>;
-  connect?: Maybe<UserWhereUniqueInput>;
+  forUser?: Maybe<UserUpdateOneRequiredInput>;
 }
 
 export interface calendarSettingsUpdateManyMutationInput {
   workStart?: Maybe<Int>;
   workEnd?: Maybe<Int>;
-  workDays?: Maybe<calendarSettingsUpdateworkDaysInput>;
 }
 
 export interface AppointmentSubscriptionWhereInput {
@@ -1158,7 +1177,8 @@ export interface Service {
   name: String;
   cost: Float;
   description: String;
-  duration: Float;
+  hours: Int;
+  minutes: Int;
 }
 
 export interface ServicePromise extends Promise<Service>, Fragmentable {
@@ -1168,7 +1188,8 @@ export interface ServicePromise extends Promise<Service>, Fragmentable {
   name: () => Promise<String>;
   cost: () => Promise<Float>;
   description: () => Promise<String>;
-  duration: () => Promise<Float>;
+  hours: () => Promise<Int>;
+  minutes: () => Promise<Int>;
   postedBy: <T = UserPromise>() => T;
 }
 
@@ -1181,7 +1202,8 @@ export interface ServiceSubscription
   name: () => Promise<AsyncIterator<String>>;
   cost: () => Promise<AsyncIterator<Float>>;
   description: () => Promise<AsyncIterator<String>>;
-  duration: () => Promise<AsyncIterator<Float>>;
+  hours: () => Promise<AsyncIterator<Int>>;
+  minutes: () => Promise<AsyncIterator<Int>>;
   postedBy: <T = UserSubscription>() => T;
 }
 
@@ -1194,7 +1216,8 @@ export interface ServiceNullablePromise
   name: () => Promise<String>;
   cost: () => Promise<Float>;
   description: () => Promise<String>;
-  duration: () => Promise<Float>;
+  hours: () => Promise<Int>;
+  minutes: () => Promise<Int>;
   postedBy: <T = UserPromise>() => T;
 }
 
@@ -1263,12 +1286,14 @@ export interface UserNullablePromise
 
 export interface Client {
   id: ID_Output;
+  age: Int;
   firstname: String;
   lastname: String;
 }
 
 export interface ClientPromise extends Promise<Client>, Fragmentable {
   id: () => Promise<ID_Output>;
+  age: () => Promise<Int>;
   firstname: () => Promise<String>;
   lastname: () => Promise<String>;
 }
@@ -1277,6 +1302,7 @@ export interface ClientSubscription
   extends Promise<AsyncIterator<Client>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
+  age: () => Promise<AsyncIterator<Int>>;
   firstname: () => Promise<AsyncIterator<String>>;
   lastname: () => Promise<AsyncIterator<String>>;
 }
@@ -1285,6 +1311,7 @@ export interface ClientNullablePromise
   extends Promise<Client | null>,
     Fragmentable {
   id: () => Promise<ID_Output>;
+  age: () => Promise<Int>;
   firstname: () => Promise<String>;
   lastname: () => Promise<String>;
 }
@@ -1534,7 +1561,6 @@ export interface calendarSettings {
   id: ID_Output;
   workStart: Int;
   workEnd: Int;
-  workDays: String[];
 }
 
 export interface calendarSettingsPromise
@@ -1543,7 +1569,6 @@ export interface calendarSettingsPromise
   id: () => Promise<ID_Output>;
   workStart: () => Promise<Int>;
   workEnd: () => Promise<Int>;
-  workDays: () => Promise<String[]>;
   forUser: <T = UserPromise>() => T;
 }
 
@@ -1553,7 +1578,6 @@ export interface calendarSettingsSubscription
   id: () => Promise<AsyncIterator<ID_Output>>;
   workStart: () => Promise<AsyncIterator<Int>>;
   workEnd: () => Promise<AsyncIterator<Int>>;
-  workDays: () => Promise<AsyncIterator<String[]>>;
   forUser: <T = UserSubscription>() => T;
 }
 
@@ -1563,7 +1587,6 @@ export interface calendarSettingsNullablePromise
   id: () => Promise<ID_Output>;
   workStart: () => Promise<Int>;
   workEnd: () => Promise<Int>;
-  workDays: () => Promise<String[]>;
   forUser: <T = UserPromise>() => T;
 }
 
@@ -1719,6 +1742,7 @@ export interface ClientSubscriptionPayloadSubscription
 
 export interface ClientPreviousValues {
   id: ID_Output;
+  age: Int;
   firstname: String;
   lastname: String;
 }
@@ -1727,6 +1751,7 @@ export interface ClientPreviousValuesPromise
   extends Promise<ClientPreviousValues>,
     Fragmentable {
   id: () => Promise<ID_Output>;
+  age: () => Promise<Int>;
   firstname: () => Promise<String>;
   lastname: () => Promise<String>;
 }
@@ -1735,6 +1760,7 @@ export interface ClientPreviousValuesSubscription
   extends Promise<AsyncIterator<ClientPreviousValues>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
+  age: () => Promise<AsyncIterator<Int>>;
   firstname: () => Promise<AsyncIterator<String>>;
   lastname: () => Promise<AsyncIterator<String>>;
 }
@@ -1771,7 +1797,8 @@ export interface ServicePreviousValues {
   name: String;
   cost: Float;
   description: String;
-  duration: Float;
+  hours: Int;
+  minutes: Int;
 }
 
 export interface ServicePreviousValuesPromise
@@ -1783,7 +1810,8 @@ export interface ServicePreviousValuesPromise
   name: () => Promise<String>;
   cost: () => Promise<Float>;
   description: () => Promise<String>;
-  duration: () => Promise<Float>;
+  hours: () => Promise<Int>;
+  minutes: () => Promise<Int>;
 }
 
 export interface ServicePreviousValuesSubscription
@@ -1795,7 +1823,8 @@ export interface ServicePreviousValuesSubscription
   name: () => Promise<AsyncIterator<String>>;
   cost: () => Promise<AsyncIterator<Float>>;
   description: () => Promise<AsyncIterator<String>>;
-  duration: () => Promise<AsyncIterator<Float>>;
+  hours: () => Promise<AsyncIterator<Int>>;
+  minutes: () => Promise<AsyncIterator<Int>>;
 }
 
 export interface UserSubscriptionPayload {
@@ -1880,7 +1909,6 @@ export interface calendarSettingsPreviousValues {
   id: ID_Output;
   workStart: Int;
   workEnd: Int;
-  workDays: String[];
 }
 
 export interface calendarSettingsPreviousValuesPromise
@@ -1889,7 +1917,6 @@ export interface calendarSettingsPreviousValuesPromise
   id: () => Promise<ID_Output>;
   workStart: () => Promise<Int>;
   workEnd: () => Promise<Int>;
-  workDays: () => Promise<String[]>;
 }
 
 export interface calendarSettingsPreviousValuesSubscription
@@ -1898,7 +1925,6 @@ export interface calendarSettingsPreviousValuesSubscription
   id: () => Promise<AsyncIterator<ID_Output>>;
   workStart: () => Promise<AsyncIterator<Int>>;
   workEnd: () => Promise<AsyncIterator<Int>>;
-  workDays: () => Promise<AsyncIterator<String[]>>;
 }
 
 /*

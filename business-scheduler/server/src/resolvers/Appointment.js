@@ -7,7 +7,7 @@ function user(parent, args, context){
 }
 
 function client(parent, args, context){
-    return msContentScript.prisma.appointment({id: parent.id}).client()
+    return context.prisma.appointment({id: parent.id}).client()
 }
 
 module.exports={
