@@ -1,7 +1,7 @@
-function ClientForUser(parent, args, context){
-    return context.prisma.service({id: parent.id}).postedBy()
+function user(parent, args, context){
+    return context.prisma.client({id: parent.id}).user()
 }
+
 module.exports={
-    ClientForUser,
-   
+    user,
 }

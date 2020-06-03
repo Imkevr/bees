@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import ServiceList from './ServiceList'
-import CreateService from './CreateService'
+import ClientListView from './ClientListView'
 import Calendar from './Calendar'
 import Sidenav from './Sidenav'
 import '../styles/App.scss'
@@ -32,7 +32,8 @@ class App extends Component {
           
             <Switch >
               <PrivateRoute exact path="/"  ><Calendar className="content"/></PrivateRoute>
-              <PrivateRoute  path="/create" ><ServiceList className="content"/></PrivateRoute>
+              <PrivateRoute  path="/servicelist" ><ServiceList className="content"/></PrivateRoute> //ClientList
+              <PrivateRoute  path="/clientlist" ><ClientListView className="content"/></PrivateRoute>
               <Route  path="/login" component={Login} />
             </Switch>
           </div>

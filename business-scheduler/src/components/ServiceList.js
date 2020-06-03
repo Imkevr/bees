@@ -12,6 +12,9 @@ class ServiceList extends Component {
           id
          name
           cost
+          hours
+          minutes
+          description
     
      }
     }
@@ -24,9 +27,9 @@ class ServiceList extends Component {
 
                    const servicesToRender = data.servicefeed
                    return (
-                       <div id="service-container"> 
+                       <ul id="service-container list-group-item"> 
                     {servicesToRender.map(service => <Service key={service.id} service={service} />)}
-                    </div>
+                    </ul>
                    )
                }}
            </Query>

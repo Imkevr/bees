@@ -5,9 +5,7 @@ import gql from 'graphql-tag'
 import '../styles/Services.scss'
 
 class ServiceList extends Component {
-    constructor(props) {
-        super(props);
-      }
+ 
     servicesToRender=[]
  
     handleServiceSelect = (event) => {

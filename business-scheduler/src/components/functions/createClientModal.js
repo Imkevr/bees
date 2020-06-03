@@ -4,7 +4,7 @@ import { Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
 
 
-class CreateServiceModal extends React.Component {
+class CreateClientModal extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -36,8 +36,7 @@ console.log('log state :' , name)
         return (
             <React.Fragment>
                 {
-                    this.props.modelUsage === "service" ?
-                        (
+                    
                             <Modal
                                 {...this.props}
                                 size="lg"
@@ -45,7 +44,7 @@ console.log('log state :' , name)
                                 centered
                             >
                                 <Modal.Header closeButton >
-                                    <Modal.Title id="contained-modal-title-vcenter">Create service</Modal.Title>
+                                    <Modal.Title id="contained-modal-title-vcenter">Create Client!!!</Modal.Title>
                                 </Modal.Header>
                                 <Modal.Body>
                                     <div className="flex flex-column mt3">
@@ -107,31 +106,13 @@ console.log('log state :' , name)
                                         {/* onCompleted={() => this.props.history.push('/')} */}
 
                                         {postMutation =>
-                                            <button onClick={postMutation ,this.props.onHide}>Submit</button>
+                                            <button onClick={postMutation , this.props.onHide}>Submit</button>
                                           
                                         }
                                     </Mutation>
                                 </Modal.Footer>
                             </Modal>
-                        ) : (
-                            <Modal
-                                {...this.props}
-                                size="lg"
-                                aria-labelledby="contained-modal-create-service"
-                                centered
-                            >
-                                <Modal.Header closeButton>
-                                    <Modal.Title id="contained-modal-title-vcenter">Make new client</Modal.Title>
-                                </Modal.Header>
-                                <Modal.Body>
-                                    {console.log("inside create client modal")}
-                                    <p>body</p>
-                                </Modal.Body>
-                                <Modal.Footer>
-                                    <p>footer</p>
-                                </Modal.Footer>
-                            </Modal>
-                        )
+                        
                 }
             </React.Fragment>
 
@@ -139,4 +120,4 @@ console.log('log state :' , name)
     }
 }
 
-export default CreateServiceModal;
+export default CreateClientModal;

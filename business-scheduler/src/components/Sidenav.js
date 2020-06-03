@@ -35,7 +35,7 @@ class Sidenav extends Component {
                   </div>
                 </NavLink>
 
-                <NavLink exact={true} to="/create" activeClassName="active" className="link">
+                <NavLink exact={true} to="/servicelist" activeClassName="active" className="link">
                   <div className="item-link" >
                     <div className="nav-link-icon">
                       <svg class="bi bi-pencil-square" width="1.5em" height="1.5em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -49,7 +49,7 @@ class Sidenav extends Component {
                 </NavLink>
 
 
-                <NavLink exact={true} to="/create" activeClassName="active" className="link">
+                <NavLink exact={true} to="/clientlist" activeClassName="active" className="link">
                   <div className="item-link">
                     <div className="nav-link-icon">
                       <svg class="bi bi-people" width="1.5em" height="1.5em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -79,25 +79,26 @@ class Sidenav extends Component {
               <div id="nav-logout">
                 <div id="nav-logout-content">
                   <div id="nav-gravatar" >
-                    {/* <Gravatar /> */}
+                    <Gravatar />
                   </div>
                   <div id="logout-group">
                     <div
                       id="logout"
                       onClick={() => {
                         localStorage.removeItem(AUTH_TOKEN)
-                        this.props.history.push(`/Login`)
+                         window.location = '/login'
                       }}
                     >
                       Logout
-                    </div>
-                    <div id="svg">
+                      <div id="svg">
                       <svg className="bi bi-box-arrow-in-right" width="1.5em" height="1.5em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" d="M8.146 11.354a.5.5 0 010-.708L10.793 8 8.146 5.354a.5.5 0 11.708-.708l3 3a.5.5 0 010 .708l-3 3a.5.5 0 01-.708 0z" clip-rule="evenodd" />
                         <path fill-rule="evenodd" d="M1 8a.5.5 0 01.5-.5h9a.5.5 0 010 1h-9A.5.5 0 011 8z" clip-rule="evenodd" />
                         <path fill-rule="evenodd" d="M13.5 14.5A1.5 1.5 0 0015 13V3a1.5 1.5 0 00-1.5-1.5h-8A1.5 1.5 0 004 3v1.5a.5.5 0 001 0V3a.5.5 0 01.5-.5h8a.5.5 0 01.5.5v10a.5.5 0 01-.5.5h-8A.5.5 0 015 13v-1.5a.5.5 0 00-1 0V13a1.5 1.5 0 001.5 1.5h8z" clip-rule="evenodd" />
                       </svg>
                     </div>
+                    </div>
+
                   </div>
                 </div>
               </div>

@@ -1,73 +1,83 @@
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
-const { APP_SECRET, getUserId} = require('../utils')
+const { APP_SECRET, getUserId } = require('../utils')
 
-async function signup(parent, args, context, info){
+async function signup(parent, args, context, info) {
     const hashedPassword = await bcrypt.hash(args.password, 10)
-    const {password, ...user} = await context.prisma.createUser({...args, password: hashedPassword})
-    const token = jwt.sign({userId: user.id}, APP_SECRET)
-    return{
+    const { password, ...user } = await context.prisma.createUser({ ...args, password: hashedPassword })
+    const token = jwt.sign({ userId: user.id }, APP_SECRET)
+    return {
         token,
         user,
     }
 }
 
-async function login(parent, args, context, info){
-    const {password, ...user}= await context.prisma.user({email: args.email})
-    if(!user){
+async function login(parent, args, context, info) {
+    const { password, ...user } = await context.prisma.user({ email: args.email })
+    if (!user) {
         throw new Error('No such user found')
     }
     const valid = await bcrypt.compare(args.password, password)
-    if (!valid){
-        throw new Error('Invalid password') 
+    if (!valid) {
+        throw new Error('Invalid password')
     }
 
-    const token = jwt.sign({userId: user.id}, APP_SECRET)
+    const token = jwt.sign({ userId: user.id }, APP_SECRET)
 
-    return{
-        token, 
+    return {
+        token,
         user,
     }
 }
 
-async function appointment(parent, args, context, info){
+async function appointment(parent, args, context, info) {
     const userId = getUserId(context)
     return context.prisma.createAppointment({
-        date:args.date,
-        start:args.start,
-        end:args.end,
+        date: args.date,
+        start: args.start,
+        end: args.end,
         completed: args.completed,
-        user: {connect: { id:userId}},
-        service: {connect: { id: args.serviceId}},
+        user: { connect: { id: userId } },
+        service: { connect: { id: args.serviceId } },
     })
 }
 
-function postService(parent, args, context, info){
+function postService(parent, args, context, info) {
     const userId = getUserId(context)
     return context.prisma.createService({
         cost: args.cost,
         name: args.name,
-        description:args.description,
+        description: args.description,
         hours: args.hours,
         minutes: args.minutes,
-        postedBy: { connect: {id: userId}},
+        postedBy: { connect: { id: userId } },
+    })
+}
+
+function postClient(parent, args, context, info) {
+    const userId = getUserId(context)
+    return context.prisma.createClient({
+        firstname: args.firstname,
+        lastname: args.lastname,
+        user: { connect: { id: userId } },
     })
 }
 
 
 
-function deleteService(parent, args, context, info){
+function deleteService(parent, args, context, info) {
     const userId = getUserId(context)
     return context.prisma.deleteService({
-        id:args.id,
+        id: args.id,
     })
 }
 
 
-module.exports={
+module.exports = {
     signup,
     login,
     postService,
     deleteService,
     appointment,
+    postClient
 }

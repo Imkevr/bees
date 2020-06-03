@@ -302,8 +302,6 @@ export type AppointmentOrderByInput =
 export type ClientOrderByInput =
   | "id_ASC"
   | "id_DESC"
-  | "age_ASC"
-  | "age_DESC"
   | "firstname_ASC"
   | "firstname_DESC"
   | "lastname_ASC"
@@ -418,7 +416,7 @@ export interface ServiceWhereInput {
   minutes_lte?: Maybe<Int>;
   minutes_gt?: Maybe<Int>;
   minutes_gte?: Maybe<Int>;
-  postedBy?: Maybe<UserWhereInput>;
+  user?: Maybe<UserWhereInput>;
   AND?: Maybe<ServiceWhereInput[] | ServiceWhereInput>;
   OR?: Maybe<ServiceWhereInput[] | ServiceWhereInput>;
   NOT?: Maybe<ServiceWhereInput[] | ServiceWhereInput>;
@@ -573,14 +571,6 @@ export interface ClientWhereInput {
   id_not_starts_with?: Maybe<ID_Input>;
   id_ends_with?: Maybe<ID_Input>;
   id_not_ends_with?: Maybe<ID_Input>;
-  age?: Maybe<Int>;
-  age_not?: Maybe<Int>;
-  age_in?: Maybe<Int[] | Int>;
-  age_not_in?: Maybe<Int[] | Int>;
-  age_lt?: Maybe<Int>;
-  age_lte?: Maybe<Int>;
-  age_gt?: Maybe<Int>;
-  age_gte?: Maybe<Int>;
   firstname?: Maybe<String>;
   firstname_not?: Maybe<String>;
   firstname_in?: Maybe<String[] | String>;
@@ -609,6 +599,7 @@ export interface ClientWhereInput {
   lastname_not_starts_with?: Maybe<String>;
   lastname_ends_with?: Maybe<String>;
   lastname_not_ends_with?: Maybe<String>;
+  user?: Maybe<UserWhereInput>;
   AND?: Maybe<ClientWhereInput[] | ClientWhereInput>;
   OR?: Maybe<ClientWhereInput[] | ClientWhereInput>;
   NOT?: Maybe<ClientWhereInput[] | ClientWhereInput>;
@@ -691,7 +682,7 @@ export interface ServiceCreateInput {
   description: String;
   hours: Int;
   minutes: Int;
-  postedBy?: Maybe<UserCreateOneWithoutServicesInput>;
+  user?: Maybe<UserCreateOneWithoutServicesInput>;
 }
 
 export interface UserCreateOneWithoutServicesInput {
@@ -718,17 +709,17 @@ export interface UserCreateInput {
   lastname: String;
   email: String;
   password: String;
-  services?: Maybe<ServiceCreateManyWithoutPostedByInput>;
+  services?: Maybe<ServiceCreateManyWithoutUserInput>;
 }
 
-export interface ServiceCreateManyWithoutPostedByInput {
+export interface ServiceCreateManyWithoutUserInput {
   create?: Maybe<
-    ServiceCreateWithoutPostedByInput[] | ServiceCreateWithoutPostedByInput
+    ServiceCreateWithoutUserInput[] | ServiceCreateWithoutUserInput
   >;
   connect?: Maybe<ServiceWhereUniqueInput[] | ServiceWhereUniqueInput>;
 }
 
-export interface ServiceCreateWithoutPostedByInput {
+export interface ServiceCreateWithoutUserInput {
   id?: Maybe<ID_Input>;
   name: String;
   cost: Float;
@@ -744,9 +735,9 @@ export interface ClientCreateOneInput {
 
 export interface ClientCreateInput {
   id?: Maybe<ID_Input>;
-  age: Int;
   firstname: String;
   lastname: String;
+  user: UserCreateOneInput;
 }
 
 export interface AppointmentUpdateInput {
@@ -772,7 +763,7 @@ export interface ServiceUpdateDataInput {
   description?: Maybe<String>;
   hours?: Maybe<Int>;
   minutes?: Maybe<Int>;
-  postedBy?: Maybe<UserUpdateOneWithoutServicesInput>;
+  user?: Maybe<UserUpdateOneWithoutServicesInput>;
 }
 
 export interface UserUpdateOneWithoutServicesInput {
@@ -813,24 +804,24 @@ export interface UserUpdateDataInput {
   lastname?: Maybe<String>;
   email?: Maybe<String>;
   password?: Maybe<String>;
-  services?: Maybe<ServiceUpdateManyWithoutPostedByInput>;
+  services?: Maybe<ServiceUpdateManyWithoutUserInput>;
 }
 
-export interface ServiceUpdateManyWithoutPostedByInput {
+export interface ServiceUpdateManyWithoutUserInput {
   create?: Maybe<
-    ServiceCreateWithoutPostedByInput[] | ServiceCreateWithoutPostedByInput
+    ServiceCreateWithoutUserInput[] | ServiceCreateWithoutUserInput
   >;
   delete?: Maybe<ServiceWhereUniqueInput[] | ServiceWhereUniqueInput>;
   connect?: Maybe<ServiceWhereUniqueInput[] | ServiceWhereUniqueInput>;
   set?: Maybe<ServiceWhereUniqueInput[] | ServiceWhereUniqueInput>;
   disconnect?: Maybe<ServiceWhereUniqueInput[] | ServiceWhereUniqueInput>;
   update?: Maybe<
-    | ServiceUpdateWithWhereUniqueWithoutPostedByInput[]
-    | ServiceUpdateWithWhereUniqueWithoutPostedByInput
+    | ServiceUpdateWithWhereUniqueWithoutUserInput[]
+    | ServiceUpdateWithWhereUniqueWithoutUserInput
   >;
   upsert?: Maybe<
-    | ServiceUpsertWithWhereUniqueWithoutPostedByInput[]
-    | ServiceUpsertWithWhereUniqueWithoutPostedByInput
+    | ServiceUpsertWithWhereUniqueWithoutUserInput[]
+    | ServiceUpsertWithWhereUniqueWithoutUserInput
   >;
   deleteMany?: Maybe<ServiceScalarWhereInput[] | ServiceScalarWhereInput>;
   updateMany?: Maybe<
@@ -839,12 +830,12 @@ export interface ServiceUpdateManyWithoutPostedByInput {
   >;
 }
 
-export interface ServiceUpdateWithWhereUniqueWithoutPostedByInput {
+export interface ServiceUpdateWithWhereUniqueWithoutUserInput {
   where: ServiceWhereUniqueInput;
-  data: ServiceUpdateWithoutPostedByDataInput;
+  data: ServiceUpdateWithoutUserDataInput;
 }
 
-export interface ServiceUpdateWithoutPostedByDataInput {
+export interface ServiceUpdateWithoutUserDataInput {
   name?: Maybe<String>;
   cost?: Maybe<Float>;
   description?: Maybe<String>;
@@ -852,10 +843,10 @@ export interface ServiceUpdateWithoutPostedByDataInput {
   minutes?: Maybe<Int>;
 }
 
-export interface ServiceUpsertWithWhereUniqueWithoutPostedByInput {
+export interface ServiceUpsertWithWhereUniqueWithoutUserInput {
   where: ServiceWhereUniqueInput;
-  update: ServiceUpdateWithoutPostedByDataInput;
-  create: ServiceCreateWithoutPostedByInput;
+  update: ServiceUpdateWithoutUserDataInput;
+  create: ServiceCreateWithoutUserInput;
 }
 
 export interface ServiceScalarWhereInput {
@@ -972,9 +963,9 @@ export interface ClientUpdateOneRequiredInput {
 }
 
 export interface ClientUpdateDataInput {
-  age?: Maybe<Int>;
   firstname?: Maybe<String>;
   lastname?: Maybe<String>;
+  user?: Maybe<UserUpdateOneRequiredInput>;
 }
 
 export interface ClientUpsertNestedInput {
@@ -990,13 +981,12 @@ export interface AppointmentUpdateManyMutationInput {
 }
 
 export interface ClientUpdateInput {
-  age?: Maybe<Int>;
   firstname?: Maybe<String>;
   lastname?: Maybe<String>;
+  user?: Maybe<UserUpdateOneRequiredInput>;
 }
 
 export interface ClientUpdateManyMutationInput {
-  age?: Maybe<Int>;
   firstname?: Maybe<String>;
   lastname?: Maybe<String>;
 }
@@ -1007,7 +997,7 @@ export interface ServiceUpdateInput {
   description?: Maybe<String>;
   hours?: Maybe<Int>;
   minutes?: Maybe<Int>;
-  postedBy?: Maybe<UserUpdateOneWithoutServicesInput>;
+  user?: Maybe<UserUpdateOneWithoutServicesInput>;
 }
 
 export interface ServiceUpdateManyMutationInput {
@@ -1023,7 +1013,7 @@ export interface UserUpdateInput {
   lastname?: Maybe<String>;
   email?: Maybe<String>;
   password?: Maybe<String>;
-  services?: Maybe<ServiceUpdateManyWithoutPostedByInput>;
+  services?: Maybe<ServiceUpdateManyWithoutUserInput>;
 }
 
 export interface UserUpdateManyMutationInput {
@@ -1190,7 +1180,7 @@ export interface ServicePromise extends Promise<Service>, Fragmentable {
   description: () => Promise<String>;
   hours: () => Promise<Int>;
   minutes: () => Promise<Int>;
-  postedBy: <T = UserPromise>() => T;
+  user: <T = UserPromise>() => T;
 }
 
 export interface ServiceSubscription
@@ -1204,7 +1194,7 @@ export interface ServiceSubscription
   description: () => Promise<AsyncIterator<String>>;
   hours: () => Promise<AsyncIterator<Int>>;
   minutes: () => Promise<AsyncIterator<Int>>;
-  postedBy: <T = UserSubscription>() => T;
+  user: <T = UserSubscription>() => T;
 }
 
 export interface ServiceNullablePromise
@@ -1218,7 +1208,7 @@ export interface ServiceNullablePromise
   description: () => Promise<String>;
   hours: () => Promise<Int>;
   minutes: () => Promise<Int>;
-  postedBy: <T = UserPromise>() => T;
+  user: <T = UserPromise>() => T;
 }
 
 export interface User {
@@ -1286,34 +1276,33 @@ export interface UserNullablePromise
 
 export interface Client {
   id: ID_Output;
-  age: Int;
   firstname: String;
   lastname: String;
 }
 
 export interface ClientPromise extends Promise<Client>, Fragmentable {
   id: () => Promise<ID_Output>;
-  age: () => Promise<Int>;
   firstname: () => Promise<String>;
   lastname: () => Promise<String>;
+  user: <T = UserPromise>() => T;
 }
 
 export interface ClientSubscription
   extends Promise<AsyncIterator<Client>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  age: () => Promise<AsyncIterator<Int>>;
   firstname: () => Promise<AsyncIterator<String>>;
   lastname: () => Promise<AsyncIterator<String>>;
+  user: <T = UserSubscription>() => T;
 }
 
 export interface ClientNullablePromise
   extends Promise<Client | null>,
     Fragmentable {
   id: () => Promise<ID_Output>;
-  age: () => Promise<Int>;
   firstname: () => Promise<String>;
   lastname: () => Promise<String>;
+  user: <T = UserPromise>() => T;
 }
 
 export interface AppointmentConnection {
@@ -1742,7 +1731,6 @@ export interface ClientSubscriptionPayloadSubscription
 
 export interface ClientPreviousValues {
   id: ID_Output;
-  age: Int;
   firstname: String;
   lastname: String;
 }
@@ -1751,7 +1739,6 @@ export interface ClientPreviousValuesPromise
   extends Promise<ClientPreviousValues>,
     Fragmentable {
   id: () => Promise<ID_Output>;
-  age: () => Promise<Int>;
   firstname: () => Promise<String>;
   lastname: () => Promise<String>;
 }
@@ -1760,7 +1747,6 @@ export interface ClientPreviousValuesSubscription
   extends Promise<AsyncIterator<ClientPreviousValues>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  age: () => Promise<AsyncIterator<Int>>;
   firstname: () => Promise<AsyncIterator<String>>;
   lastname: () => Promise<AsyncIterator<String>>;
 }

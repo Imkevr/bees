@@ -30,9 +30,9 @@ type User{
 
 type Client{
     id: ID! @id
-    age: Int!
     firstname: String!
     lastname: String!
+    user: User!
 }
 
 type Appointment{

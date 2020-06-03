@@ -3,12 +3,14 @@ scalar DateTime
 type Query {
     info: String!
     servicefeed: [Service!]!
-    service(id:ID!): Service
-    user: User  
+    service(id:ID!): Service!
+    user: User!
+    clientfeed:[Client!]! 
 }
 
 type Mutation {
     postService(name: String!, cost:Float!,description:String!,hours: Int!, minutes: Int! ): Service!
+    postClient(firstname:String!, lastname:String!):Client!
     updateService(id: ID!, cost: String, name: String): Service
     deleteService(id: ID!): Service
     signup(email: String!, password: String!,firstname:String!, lastname: String!): AuthPayload
@@ -64,10 +66,9 @@ type Appointment{
 
 type Client{
     id: ID!
-    age: Int!
     firstname:String!
     lastname:String!
-    ClientForUser: User
+    user: User!
 }
 
 type Subscription {

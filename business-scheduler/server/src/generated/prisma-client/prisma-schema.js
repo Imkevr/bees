@@ -287,9 +287,9 @@ input calendarSettingsWhereUniqueInput {
 
 type Client {
   id: ID!
-  age: Int!
   firstname: String!
   lastname: String!
+  user: User!
 }
 
 type ClientConnection {
@@ -300,9 +300,9 @@ type ClientConnection {
 
 input ClientCreateInput {
   id: ID
-  age: Int!
   firstname: String!
   lastname: String!
+  user: UserCreateOneInput!
 }
 
 input ClientCreateOneInput {
@@ -318,8 +318,6 @@ type ClientEdge {
 enum ClientOrderByInput {
   id_ASC
   id_DESC
-  age_ASC
-  age_DESC
   firstname_ASC
   firstname_DESC
   lastname_ASC
@@ -328,7 +326,6 @@ enum ClientOrderByInput {
 
 type ClientPreviousValues {
   id: ID!
-  age: Int!
   firstname: String!
   lastname: String!
 }
@@ -352,19 +349,18 @@ input ClientSubscriptionWhereInput {
 }
 
 input ClientUpdateDataInput {
-  age: Int
   firstname: String
   lastname: String
+  user: UserUpdateOneRequiredInput
 }
 
 input ClientUpdateInput {
-  age: Int
   firstname: String
   lastname: String
+  user: UserUpdateOneRequiredInput
 }
 
 input ClientUpdateManyMutationInput {
-  age: Int
   firstname: String
   lastname: String
 }
@@ -396,14 +392,6 @@ input ClientWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  age: Int
-  age_not: Int
-  age_in: [Int!]
-  age_not_in: [Int!]
-  age_lt: Int
-  age_lte: Int
-  age_gt: Int
-  age_gte: Int
   firstname: String
   firstname_not: String
   firstname_in: [String!]
@@ -432,6 +420,7 @@ input ClientWhereInput {
   lastname_not_starts_with: String
   lastname_ends_with: String
   lastname_not_ends_with: String
+  user: UserWhereInput
   AND: [ClientWhereInput!]
   OR: [ClientWhereInput!]
   NOT: [ClientWhereInput!]
@@ -523,7 +512,7 @@ type Service {
   description: String!
   hours: Int!
   minutes: Int!
-  postedBy: User
+  user: User
 }
 
 type ServiceConnection {
@@ -539,11 +528,11 @@ input ServiceCreateInput {
   description: String!
   hours: Int!
   minutes: Int!
-  postedBy: UserCreateOneWithoutServicesInput
+  user: UserCreateOneWithoutServicesInput
 }
 
-input ServiceCreateManyWithoutPostedByInput {
-  create: [ServiceCreateWithoutPostedByInput!]
+input ServiceCreateManyWithoutUserInput {
+  create: [ServiceCreateWithoutUserInput!]
   connect: [ServiceWhereUniqueInput!]
 }
 
@@ -552,7 +541,7 @@ input ServiceCreateOneInput {
   connect: ServiceWhereUniqueInput
 }
 
-input ServiceCreateWithoutPostedByInput {
+input ServiceCreateWithoutUserInput {
   id: ID
   name: String!
   cost: Float!
@@ -708,7 +697,7 @@ input ServiceUpdateDataInput {
   description: String
   hours: Int
   minutes: Int
-  postedBy: UserUpdateOneWithoutServicesInput
+  user: UserUpdateOneWithoutServicesInput
 }
 
 input ServiceUpdateInput {
@@ -717,7 +706,7 @@ input ServiceUpdateInput {
   description: String
   hours: Int
   minutes: Int
-  postedBy: UserUpdateOneWithoutServicesInput
+  user: UserUpdateOneWithoutServicesInput
 }
 
 input ServiceUpdateManyDataInput {
@@ -736,14 +725,14 @@ input ServiceUpdateManyMutationInput {
   minutes: Int
 }
 
-input ServiceUpdateManyWithoutPostedByInput {
-  create: [ServiceCreateWithoutPostedByInput!]
+input ServiceUpdateManyWithoutUserInput {
+  create: [ServiceCreateWithoutUserInput!]
   delete: [ServiceWhereUniqueInput!]
   connect: [ServiceWhereUniqueInput!]
   set: [ServiceWhereUniqueInput!]
   disconnect: [ServiceWhereUniqueInput!]
-  update: [ServiceUpdateWithWhereUniqueWithoutPostedByInput!]
-  upsert: [ServiceUpsertWithWhereUniqueWithoutPostedByInput!]
+  update: [ServiceUpdateWithWhereUniqueWithoutUserInput!]
+  upsert: [ServiceUpsertWithWhereUniqueWithoutUserInput!]
   deleteMany: [ServiceScalarWhereInput!]
   updateMany: [ServiceUpdateManyWithWhereNestedInput!]
 }
@@ -760,7 +749,7 @@ input ServiceUpdateOneRequiredInput {
   connect: ServiceWhereUniqueInput
 }
 
-input ServiceUpdateWithoutPostedByDataInput {
+input ServiceUpdateWithoutUserDataInput {
   name: String
   cost: Float
   description: String
@@ -768,9 +757,9 @@ input ServiceUpdateWithoutPostedByDataInput {
   minutes: Int
 }
 
-input ServiceUpdateWithWhereUniqueWithoutPostedByInput {
+input ServiceUpdateWithWhereUniqueWithoutUserInput {
   where: ServiceWhereUniqueInput!
-  data: ServiceUpdateWithoutPostedByDataInput!
+  data: ServiceUpdateWithoutUserDataInput!
 }
 
 input ServiceUpsertNestedInput {
@@ -778,10 +767,10 @@ input ServiceUpsertNestedInput {
   create: ServiceCreateInput!
 }
 
-input ServiceUpsertWithWhereUniqueWithoutPostedByInput {
+input ServiceUpsertWithWhereUniqueWithoutUserInput {
   where: ServiceWhereUniqueInput!
-  update: ServiceUpdateWithoutPostedByDataInput!
-  create: ServiceCreateWithoutPostedByInput!
+  update: ServiceUpdateWithoutUserDataInput!
+  create: ServiceCreateWithoutUserInput!
 }
 
 input ServiceWhereInput {
@@ -867,7 +856,7 @@ input ServiceWhereInput {
   minutes_lte: Int
   minutes_gt: Int
   minutes_gte: Int
-  postedBy: UserWhereInput
+  user: UserWhereInput
   AND: [ServiceWhereInput!]
   OR: [ServiceWhereInput!]
   NOT: [ServiceWhereInput!]
@@ -906,7 +895,7 @@ input UserCreateInput {
   lastname: String!
   email: String!
   password: String!
-  services: ServiceCreateManyWithoutPostedByInput
+  services: ServiceCreateManyWithoutUserInput
 }
 
 input UserCreateOneInput {
@@ -976,7 +965,7 @@ input UserUpdateDataInput {
   lastname: String
   email: String
   password: String
-  services: ServiceUpdateManyWithoutPostedByInput
+  services: ServiceUpdateManyWithoutUserInput
 }
 
 input UserUpdateInput {
@@ -984,7 +973,7 @@ input UserUpdateInput {
   lastname: String
   email: String
   password: String
-  services: ServiceUpdateManyWithoutPostedByInput
+  services: ServiceUpdateManyWithoutUserInput
 }
 
 input UserUpdateManyMutationInput {
