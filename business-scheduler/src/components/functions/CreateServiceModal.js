@@ -107,7 +107,7 @@ console.log('log state :' , name)
                                         {/* onCompleted={() => this.props.history.push('/')} */}
 
                                         {postMutation =>
-                                            <button onClick={postMutation ,this.props.onHide}>Submit</button>
+                                            <button onClick={() => {postMutation(); this.props.onHide()}}>Submit</button>
                                           
                                         }
                                     </Mutation>

@@ -8,6 +8,7 @@ import '../styles/Sidenav.scss'
 import AppointLogo from '../images/appointes.png'
 
 class Sidenav extends Component {
+  
   render() {
     const authToken = localStorage.getItem(AUTH_TOKEN)
 
@@ -76,8 +77,11 @@ class Sidenav extends Component {
 
 
               </div>
+             
               <div id="nav-logout">
+              
                 <div id="nav-logout-content">
+                <hr></hr>
                   <div id="nav-gravatar" >
                     <Gravatar />
                   </div>
