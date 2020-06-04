@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import CreateServiceModal from './functions/CreateServiceModal'
+import UpdateServiceModal from './functions/UpdateServiceModal'
 
 class Service extends Component {
   constructor() {
@@ -30,7 +30,7 @@ class Service extends Component {
           <button>delete </button>
         </li>
         {this.state.openPopUp &&
-        <CreateServiceModal service={this.state.service} onHide={() => this.setState({ openPopUp: false, object: null })} show />}
+        <UpdateServiceModal service={this.state.service} onHide={() => this.setState({ openPopUp: false, object: null })} show />}
       </React.Fragment>
     )
   }

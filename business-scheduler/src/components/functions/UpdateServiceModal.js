@@ -4,25 +4,26 @@ import { Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
 
 
-class CreateServiceModal extends React.Component {
+class UpdateServiceModal extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: '',
-            cost: '',
-            hours: '',
-            minutes: '',
-            description: '',
+            id: this.props.service.id,
+            name:this.props.service.name ,
+            cost: this.props.service.cost,
+            hours: this.props.service.hours,
+            minutes: this.props.service.minutes,
+            description: this.props.service.description,
 
         };
 
     }
-
+    
     render() {
-        const { name, cost, description, hours, minutes } = this.state
+        const {id, name, cost, description, hours, minutes } = this.state
         const POST_MUTATION = gql`
-   mutation PostMutation($cost: Float!, $name: String!, $hours: Int!, $minutes:Int!, $description: String! ) {
-   postService(cost: $cost, name: $name, minutes: $minutes, hours: $hours, description:$description) {
+   mutation PostMutation($id:ID!, $cost: Float!, $name: String!, $hours: Int!, $minutes:Int!, $description: String! ) {
+   postService(id:$id, cost: $cost, name: $name, minutes: $minutes, hours: $hours, description:$description) {
      id
      cost
      name
@@ -42,7 +43,7 @@ class CreateServiceModal extends React.Component {
                                 centered
                             >
                                 <Modal.Header closeButton >
-                                    <Modal.Title id="contained-modal-title-vcenter">Create service</Modal.Title>
+                                    <Modal.Title id="contained-modal-title-vcenter">Update service</Modal.Title>
                                 </Modal.Header>
                                 <Modal.Body>
                                     <div className="flex flex-column mt3">
@@ -100,7 +101,7 @@ class CreateServiceModal extends React.Component {
                                 </Modal.Body>
                                 <Modal.Footer>
                                     <Mutation mutation={POST_MUTATION}
-                                        variables={{ cost, name, description, hours, minutes }}>
+                                        variables={{id, cost, name, description, hours, minutes }}>
                                         {/* onCompleted={() => this.props.history.push('/')} */}
 
                                         {postMutation =>
@@ -118,4 +119,4 @@ class CreateServiceModal extends React.Component {
     }
 }
 
-export default CreateServiceModal;
+export default UpdateServiceModal;

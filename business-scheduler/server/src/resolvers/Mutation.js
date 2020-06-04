@@ -70,15 +70,19 @@ function postClient(parent, args, context, info) {
         user: { connect: { id: userId } },
     })
 }
-
-
-
-function deleteService(parent, args, context, info) {
-    const userId = getUserId(context)
-    return context.prisma.deleteService({
-        id: args.id,
-    })
-}
+function updateService(parent, args, context, info){
+    return context.prisma.mutation.updateService({
+            cost: args.cost,
+            name: args.name,
+            description: args.description,
+            hours: args.hours,
+            minutes: args.minutes,
+        
+        where: {
+                id: args.where.id  	
+          }
+      }, info)
+    }
 
 
 module.exports = {
@@ -88,5 +92,6 @@ module.exports = {
     deleteService,
     appointment,
     postClient,
-    deleteService
+    deleteService,
+    updateService
 }
