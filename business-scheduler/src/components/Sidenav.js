@@ -71,7 +71,7 @@ class Sidenav extends Component {
                   <div class="dropdown-menu dropdown">
                     <SidenavButtons usage="client" />
                     <SidenavButtons usage="service" />
-                    <SidenavButtons usage="appointment" />
+                    {/* <SidenavButtons usage="appointment" /> */}
                   </div>
                 </div>
 

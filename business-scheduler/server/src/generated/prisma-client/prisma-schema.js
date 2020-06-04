@@ -512,7 +512,7 @@ type Service {
   description: String!
   hours: Int!
   minutes: Int!
-  user: User
+  postedBy: User
 }
 
 type ServiceConnection {
@@ -528,11 +528,11 @@ input ServiceCreateInput {
   description: String!
   hours: Int!
   minutes: Int!
-  user: UserCreateOneWithoutServicesInput
+  postedBy: UserCreateOneWithoutServicesInput
 }
 
-input ServiceCreateManyWithoutUserInput {
-  create: [ServiceCreateWithoutUserInput!]
+input ServiceCreateManyWithoutPostedByInput {
+  create: [ServiceCreateWithoutPostedByInput!]
   connect: [ServiceWhereUniqueInput!]
 }
 
@@ -541,7 +541,7 @@ input ServiceCreateOneInput {
   connect: ServiceWhereUniqueInput
 }
 
-input ServiceCreateWithoutUserInput {
+input ServiceCreateWithoutPostedByInput {
   id: ID
   name: String!
   cost: Float!
@@ -697,7 +697,7 @@ input ServiceUpdateDataInput {
   description: String
   hours: Int
   minutes: Int
-  user: UserUpdateOneWithoutServicesInput
+  postedBy: UserUpdateOneWithoutServicesInput
 }
 
 input ServiceUpdateInput {
@@ -706,7 +706,7 @@ input ServiceUpdateInput {
   description: String
   hours: Int
   minutes: Int
-  user: UserUpdateOneWithoutServicesInput
+  postedBy: UserUpdateOneWithoutServicesInput
 }
 
 input ServiceUpdateManyDataInput {
@@ -725,14 +725,14 @@ input ServiceUpdateManyMutationInput {
   minutes: Int
 }
 
-input ServiceUpdateManyWithoutUserInput {
-  create: [ServiceCreateWithoutUserInput!]
+input ServiceUpdateManyWithoutPostedByInput {
+  create: [ServiceCreateWithoutPostedByInput!]
   delete: [ServiceWhereUniqueInput!]
   connect: [ServiceWhereUniqueInput!]
   set: [ServiceWhereUniqueInput!]
   disconnect: [ServiceWhereUniqueInput!]
-  update: [ServiceUpdateWithWhereUniqueWithoutUserInput!]
-  upsert: [ServiceUpsertWithWhereUniqueWithoutUserInput!]
+  update: [ServiceUpdateWithWhereUniqueWithoutPostedByInput!]
+  upsert: [ServiceUpsertWithWhereUniqueWithoutPostedByInput!]
   deleteMany: [ServiceScalarWhereInput!]
   updateMany: [ServiceUpdateManyWithWhereNestedInput!]
 }
@@ -749,7 +749,7 @@ input ServiceUpdateOneRequiredInput {
   connect: ServiceWhereUniqueInput
 }
 
-input ServiceUpdateWithoutUserDataInput {
+input ServiceUpdateWithoutPostedByDataInput {
   name: String
   cost: Float
   description: String
@@ -757,9 +757,9 @@ input ServiceUpdateWithoutUserDataInput {
   minutes: Int
 }
 
-input ServiceUpdateWithWhereUniqueWithoutUserInput {
+input ServiceUpdateWithWhereUniqueWithoutPostedByInput {
   where: ServiceWhereUniqueInput!
-  data: ServiceUpdateWithoutUserDataInput!
+  data: ServiceUpdateWithoutPostedByDataInput!
 }
 
 input ServiceUpsertNestedInput {
@@ -767,10 +767,10 @@ input ServiceUpsertNestedInput {
   create: ServiceCreateInput!
 }
 
-input ServiceUpsertWithWhereUniqueWithoutUserInput {
+input ServiceUpsertWithWhereUniqueWithoutPostedByInput {
   where: ServiceWhereUniqueInput!
-  update: ServiceUpdateWithoutUserDataInput!
-  create: ServiceCreateWithoutUserInput!
+  update: ServiceUpdateWithoutPostedByDataInput!
+  create: ServiceCreateWithoutPostedByInput!
 }
 
 input ServiceWhereInput {
@@ -856,7 +856,7 @@ input ServiceWhereInput {
   minutes_lte: Int
   minutes_gt: Int
   minutes_gte: Int
-  user: UserWhereInput
+  postedBy: UserWhereInput
   AND: [ServiceWhereInput!]
   OR: [ServiceWhereInput!]
   NOT: [ServiceWhereInput!]
@@ -895,7 +895,7 @@ input UserCreateInput {
   lastname: String!
   email: String!
   password: String!
-  services: ServiceCreateManyWithoutUserInput
+  services: ServiceCreateManyWithoutPostedByInput
 }
 
 input UserCreateOneInput {
@@ -965,7 +965,7 @@ input UserUpdateDataInput {
   lastname: String
   email: String
   password: String
-  services: ServiceUpdateManyWithoutUserInput
+  services: ServiceUpdateManyWithoutPostedByInput
 }
 
 input UserUpdateInput {
@@ -973,7 +973,7 @@ input UserUpdateInput {
   lastname: String
   email: String
   password: String
-  services: ServiceUpdateManyWithoutUserInput
+  services: ServiceUpdateManyWithoutPostedByInput
 }
 
 input UserUpdateManyMutationInput {

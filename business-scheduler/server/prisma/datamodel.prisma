@@ -40,7 +40,7 @@ type Appointment{
     date: String!
     start: DateTime!
     end: DateTime!
-    completed: Boolean
+    completed: Boolean @default(value: false)
     service: Service!
     user: User!
     client: Client!

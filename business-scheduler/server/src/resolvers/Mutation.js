@@ -36,7 +36,6 @@ async function appointment(parent, args, context, info) {
         date: args.date,
         start: args.start,
         end: args.end,
-        completed: args.completed,
         user: { connect: { id: userId } },
         service: { connect: { id: args.serviceId } },
     })
@@ -53,6 +52,15 @@ function postService(parent, args, context, info) {
         postedBy: { connect: { id: userId } },
     })
 }
+function deleteService(parent, args, context, info) {
+    const userId = getUserId(context)
+    return context.prisma.deleteService(
+    {
+      where: { id: args.id }
+    },
+      info
+    );
+  }
 
 function postClient(parent, args, context, info) {
     const userId = getUserId(context)
@@ -79,5 +87,6 @@ module.exports = {
     postService,
     deleteService,
     appointment,
-    postClient
+    postClient,
+    deleteService
 }

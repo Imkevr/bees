@@ -17,16 +17,16 @@ class CreateClientModal extends React.Component {
 
     render() {
         const { firstname, lastname } = this.state
-        const POST_MUTATION = gql`
+        const CLIENT_POST_MUTATION = gql`
    mutation PostClient($lastname: String!, $firstname: String!) {
-   postService(lastname: $lastname, firstname: $firstname) {
+   postClient(lastname: $lastname, firstname: $firstname) {
      id
      firstname
      lastname
    }
  }
      `
-        console.log('log state :', name)
+     
         return (
             <React.Fragment>
                 {
@@ -43,59 +43,30 @@ class CreateClientModal extends React.Component {
                         <Modal.Body>
                             <div className="flex flex-column mt3">
                                 <section>
-                                    <label>Name:</label>
+                                    <label>firstname:</label>
                                     <input
                                         className="mb2"
-                                        value={name}
-                                        onChange={e => this.setState({ name: e.target.value })}
+                                        value={firstname}
+                                        onChange={e => this.setState({ firstname: e.target.value })}
                                         type="text"
                                         placeholder="A name for the service"
                                     />
                                 </section>
                                 <section>
-                                    <label>Cost:</label>
+                                    <label>lastname:</label>
                                     <input
                                         className="mb2"
-                                        value={cost}
-                                        onChange={e => this.setState({ cost: parseFloat(e.target.value) })}
+                                        value={lastname}
+                                        onChange={e => this.setState({ lastname: e.target.value})}
                                         type="text"
                                         placeholder="The service cost"
                                     />
                                 </section>
-                                <section>
-                                    <label>Description:</label>
-                                    <input
-                                        className="mb2"
-                                        value={description}
-                                        onChange={e => this.setState({ description: e.target.value })}
-                                        type="text"
-                                        placeholder="The service description"
-                                    />
-                                </section>
-                                <section>
-                                    <label>Hour:</label>
-                                    <input
-                                        className="mb2"
-                                        value={hours}
-                                        onChange={e => this.setState({ hours: Number(e.target.value) })}
-                                        type="text"
-                                        placeholder="The service hours"
-                                    />
-                                </section>
-                                <section>
-                                    <label>Minutes:</label>
-                                    <input
-                                        className="mb2"
-                                        value={minutes}
-                                        onChange={e => this.setState({ minutes: Number(e.target.value) })}
-                                        type="text"
-                                        placeholder="The service minutes"
-                                    />
-                                </section>
+                                
                             </div>
                         </Modal.Body>
                         <Modal.Footer>
-                            <Mutation mutation={POST_MUTATION}
+                            <Mutation mutation={CLIENT_POST_MUTATION}
                                 variables={{ lastname, firstname}}>
                                 {/* onCompleted={() => this.props.history.push('/')} */}
 
