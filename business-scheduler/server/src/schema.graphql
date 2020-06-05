@@ -10,15 +10,19 @@ type Query {
 }
 
 type Mutation {
+    #--- Service mutation's
     postService(name: String!, cost:Float!,description:String!,hours: Int!, minutes: Int! ): Service!
     deleteService(id: ID!): Service!
     updateService(id:ID! ,name: String, cost:Float,description:String,hours: Int, minutes: Int): Service!
 
+    #--- Client mutation's
     postClient(firstname:String!, lastname:String!):Client!
 
+     #--- Signup & login mutation's
     signup(email: String!, password: String!,firstname:String!, lastname: String!): AuthPayload
     login(email: String!, password:String!): AuthPayload
 
+     #--- Appointment mutation's
     appointment(serviceId: ID!,clientId:ID, start:DateTime!, end:DateTime!, completed:Boolean): Appointment
     deleteAppointment(id:ID!):Appointment
 }
@@ -35,14 +39,12 @@ type Service {
     postedBy: User!
 }
 
-
 type calendarSettings{
     id:ID!
     workStart: Int!
     workEnd: Int!
     forUser:User!
 }
-
 
 type AuthPayload{
     token: String

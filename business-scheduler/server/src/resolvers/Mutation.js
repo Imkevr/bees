@@ -2,6 +2,7 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const { APP_SECRET, getUserId } = require('../utils')
 
+///---------- Signup & login Mutation's
 async function signup(parent, args, context, info) {
     const hashedPassword = await bcrypt.hash(args.password, 10)
     const { password, ...user } = await context.prisma.createUser({ ...args, password: hashedPassword })
@@ -29,7 +30,7 @@ async function login(parent, args, context, info) {
         user,
     }
 }
-
+///---------- Appointment Mutation's
 async function appointment(parent, args, context, info) {
     const userId = getUserId(context)
     return context.prisma.createAppointment({
@@ -50,7 +51,7 @@ function deleteAppointment(parent, args, context, info) {
         info
     );
 }
-
+///---------- Service Mutation's
 function postService(parent, args, context, info) {
     const userId = getUserId(context)
     return context.prisma.createService({
@@ -62,27 +63,9 @@ function postService(parent, args, context, info) {
         postedBy: { connect: { id: userId } },
     })
 }
-function deleteService(parent, args, context, info) {
-    const userId = getUserId(context)
-    return context.prisma.deleteService(
-        {
-            where: { id: args.id }
-        },
-        info
-    );
-}
 
-function postClient(parent, args, context, info) {
-    const userId = getUserId(context)
-    return context.prisma.createClient({
-        firstname: args.firstname,
-        lastname: args.lastname,
-        user: { connect: { id: userId } },
-    })
-}
-function updateService(root, args, context, info) {
-    return context.prisma.mutation.updateService({
-        
+function updateService(parent, args, context, info) {
+    return context.prisma.updateService({
             where: { id: args.id },
             data:{cost: args.cost,
                 name: args.name,
@@ -93,6 +76,27 @@ function updateService(root, args, context, info) {
         info
     )
         }
+
+function deleteService(parent, args, context, info) {
+    const userId = getUserId(context)
+    return context.prisma.deleteService(
+        {
+            where: { id: args.id }
+        },
+        info
+    );
+}
+
+///---------- Client Mutation's
+function postClient(parent, args, context, info) {
+    const userId = getUserId(context)
+    return context.prisma.createClient({
+        firstname: args.firstname,
+        lastname: args.lastname,
+        user: { connect: { id: userId } },
+    })
+}
+
 
 
 module.exports = {
