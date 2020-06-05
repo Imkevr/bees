@@ -40,14 +40,9 @@ class CalenderModal extends React.Component {
     this.props.onRemove();
   }
 
-  // handleSave = () => {
-  //   const fullname = this.fullname.value;
-  //   const phone = this.phone.value;
-  //   this.props.onSave({
-  //     fullname,
-  //     phone,
-  //   });
-  // }
+  handleSave = () => {
+
+  }
 
 
   render() {
@@ -100,7 +95,7 @@ class CalenderModal extends React.Component {
           {/* onCompleted={() => this.props.history.push('/')} */}
 
           {postMutation =>
-             <button className="modal__button__blue" onClick={postMutation}>{action}</button>
+             <button className="modal__button__blue" onClick={() => {postMutation(); this.handleRemove()}}>{action}</button>
           }
         </Mutation>
           <button className="modal__button__cancel" onClick={this.handleRemove}>Cancel</button>
