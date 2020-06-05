@@ -17,8 +17,11 @@ function user(parent, args, context, info){
 function clientfeed(parent, args, context, info){
     const userId = getUserId(context)
     return context.prisma.clients({where: {user: {id: userId}}})
+}
 
-     
+function appointmentfeed(parent, args, context, info){
+    const  userId= getUserId(context)
+    return context.prisma.appointments({where: {user: {id:userId}}})
 }
 
 
@@ -26,6 +29,7 @@ module.exports={
     servicefeed,
     service,
     user,
-    clientfeed
+    clientfeed,
+    appointmentfeed
    
 }

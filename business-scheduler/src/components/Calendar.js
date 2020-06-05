@@ -51,6 +51,8 @@ export default class Calendar extends React.Component {
       selectedIntervals: selectedIntervals.concat(intervals),
       lastUid: lastUid + newIntervals.length
     })
+    console.log('selectedIntervals', this.state.selectedIntervals)
+    console.log('lastUid', this.state.lastUid)
   }
 
   render() {

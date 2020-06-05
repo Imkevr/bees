@@ -22,7 +22,7 @@ class Service extends Component {
     return (
       <React.Fragment>
         <li class="list-group-item">
-          {this.props.service.id} <br />
+          {this.props.service.name} <br />
           price: {this.props.service.cost} euro <br />
           duration: {this.props.service.hours}u{this.props.service.minutes}<br />
            description: {this.props.service.description}<br />

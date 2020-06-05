@@ -6,19 +6,21 @@ type Query {
     service(id:ID!): Service!
     user: User!
     clientfeed:[Client!]! 
+    appointmentfeed:[Appointment!]!
 }
 
 type Mutation {
     postService(name: String!, cost:Float!,description:String!,hours: Int!, minutes: Int! ): Service!
     deleteService(id: ID!): Service!
-    updateService(id: ID!, name: String!,cost:Float!,description:String!,hours: Int!, minutes: Int!): Service!
+    updateService(id:ID! ,name: String, cost:Float,description:String,hours: Int, minutes: Int): Service!
 
     postClient(firstname:String!, lastname:String!):Client!
 
     signup(email: String!, password: String!,firstname:String!, lastname: String!): AuthPayload
     login(email: String!, password:String!): AuthPayload
 
-    appointment(serviceId: ID!, start:String!, end:String!, date:String!, completed:Boolean): Appointment
+    appointment(serviceId: ID!,clientId:ID, start:DateTime!, end:DateTime!, completed:Boolean): Appointment
+    deleteAppointment(id:ID!):Appointment
 }
 
 type Service {
@@ -58,7 +60,6 @@ type User {
 
 type Appointment{
     id: ID!
-    date: String!
     start: DateTime!
     end: DateTime!
     completed: Boolean

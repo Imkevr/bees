@@ -33,12 +33,22 @@ async function login(parent, args, context, info) {
 async function appointment(parent, args, context, info) {
     const userId = getUserId(context)
     return context.prisma.createAppointment({
-        date: args.date,
         start: args.start,
         end: args.end,
         user: { connect: { id: userId } },
         service: { connect: { id: args.serviceId } },
+        client:{connect:{id: args.clientId}}
     })
+}
+function deleteAppointment(parent, args, context, info) {
+    const userId = getUserId(context)
+    return context.prisma.updateAppointment(
+        {
+            where: { id: args.id },
+            data:{completed: true}
+        },
+        info
+    );
 }
 
 function postService(parent, args, context, info) {
@@ -55,12 +65,12 @@ function postService(parent, args, context, info) {
 function deleteService(parent, args, context, info) {
     const userId = getUserId(context)
     return context.prisma.deleteService(
-    {
-      where: { id: args.id }
-    },
-      info
+        {
+            where: { id: args.id }
+        },
+        info
     );
-  }
+}
 
 function postClient(parent, args, context, info) {
     const userId = getUserId(context)
@@ -70,19 +80,19 @@ function postClient(parent, args, context, info) {
         user: { connect: { id: userId } },
     })
 }
-function updateService(parent, args, context, info){
+function updateService(root, args, context, info) {
     return context.prisma.mutation.updateService({
-            cost: args.cost,
-            name: args.name,
-            description: args.description,
-            hours: args.hours,
-            minutes: args.minutes,
         
-        where: {
-                id: args.where.id  	
-          }
-      }, info)
-    }
+            where: { id: args.id },
+            data:{cost: args.cost,
+                name: args.name,
+                description: args.description,
+                hours: args.hours,
+                minutes: args.minutes}
+        },
+        info
+    )
+        }
 
 
 module.exports = {
@@ -93,5 +103,6 @@ module.exports = {
     appointment,
     postClient,
     deleteService,
-    updateService
+    updateService,
+    deleteAppointment
 }

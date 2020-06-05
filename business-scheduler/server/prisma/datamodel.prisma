@@ -37,7 +37,6 @@ type Client{
 
 type Appointment{
     id: ID! @id
-    date: String!
     start: DateTime!
     end: DateTime!
     completed: Boolean @default(value: false)

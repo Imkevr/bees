@@ -25,7 +25,6 @@ type AggregateUser {
 
 type Appointment {
   id: ID!
-  date: String!
   start: DateTime!
   end: DateTime!
   completed: Boolean
@@ -42,7 +41,6 @@ type AppointmentConnection {
 
 input AppointmentCreateInput {
   id: ID
-  date: String!
   start: DateTime!
   end: DateTime!
   completed: Boolean
@@ -59,8 +57,6 @@ type AppointmentEdge {
 enum AppointmentOrderByInput {
   id_ASC
   id_DESC
-  date_ASC
-  date_DESC
   start_ASC
   start_DESC
   end_ASC
@@ -71,7 +67,6 @@ enum AppointmentOrderByInput {
 
 type AppointmentPreviousValues {
   id: ID!
-  date: String!
   start: DateTime!
   end: DateTime!
   completed: Boolean
@@ -96,7 +91,6 @@ input AppointmentSubscriptionWhereInput {
 }
 
 input AppointmentUpdateInput {
-  date: String
   start: DateTime
   end: DateTime
   completed: Boolean
@@ -106,7 +100,6 @@ input AppointmentUpdateInput {
 }
 
 input AppointmentUpdateManyMutationInput {
-  date: String
   start: DateTime
   end: DateTime
   completed: Boolean
@@ -127,20 +120,6 @@ input AppointmentWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  date: String
-  date_not: String
-  date_in: [String!]
-  date_not_in: [String!]
-  date_lt: String
-  date_lte: String
-  date_gt: String
-  date_gte: String
-  date_contains: String
-  date_not_contains: String
-  date_starts_with: String
-  date_not_starts_with: String
-  date_ends_with: String
-  date_not_ends_with: String
   start: DateTime
   start_not: DateTime
   start_in: [DateTime!]

@@ -290,8 +290,6 @@ export type ServiceOrderByInput =
 export type AppointmentOrderByInput =
   | "id_ASC"
   | "id_DESC"
-  | "date_ASC"
-  | "date_DESC"
   | "start_ASC"
   | "start_DESC"
   | "end_ASC"
@@ -516,20 +514,6 @@ export interface AppointmentWhereInput {
   id_not_starts_with?: Maybe<ID_Input>;
   id_ends_with?: Maybe<ID_Input>;
   id_not_ends_with?: Maybe<ID_Input>;
-  date?: Maybe<String>;
-  date_not?: Maybe<String>;
-  date_in?: Maybe<String[] | String>;
-  date_not_in?: Maybe<String[] | String>;
-  date_lt?: Maybe<String>;
-  date_lte?: Maybe<String>;
-  date_gt?: Maybe<String>;
-  date_gte?: Maybe<String>;
-  date_contains?: Maybe<String>;
-  date_not_contains?: Maybe<String>;
-  date_starts_with?: Maybe<String>;
-  date_not_starts_with?: Maybe<String>;
-  date_ends_with?: Maybe<String>;
-  date_not_ends_with?: Maybe<String>;
   start?: Maybe<DateTimeInput>;
   start_not?: Maybe<DateTimeInput>;
   start_in?: Maybe<DateTimeInput[] | DateTimeInput>;
@@ -661,7 +645,6 @@ export interface calendarSettingsWhereInput {
 
 export interface AppointmentCreateInput {
   id?: Maybe<ID_Input>;
-  date: String;
   start: DateTimeInput;
   end: DateTimeInput;
   completed?: Maybe<Boolean>;
@@ -741,7 +724,6 @@ export interface ClientCreateInput {
 }
 
 export interface AppointmentUpdateInput {
-  date?: Maybe<String>;
   start?: Maybe<DateTimeInput>;
   end?: Maybe<DateTimeInput>;
   completed?: Maybe<Boolean>;
@@ -974,7 +956,6 @@ export interface ClientUpsertNestedInput {
 }
 
 export interface AppointmentUpdateManyMutationInput {
-  date?: Maybe<String>;
   start?: Maybe<DateTimeInput>;
   end?: Maybe<DateTimeInput>;
   completed?: Maybe<Boolean>;
@@ -1117,7 +1098,6 @@ export interface NodeNode {
 
 export interface Appointment {
   id: ID_Output;
-  date: String;
   start: DateTimeOutput;
   end: DateTimeOutput;
   completed?: Boolean;
@@ -1125,7 +1105,6 @@ export interface Appointment {
 
 export interface AppointmentPromise extends Promise<Appointment>, Fragmentable {
   id: () => Promise<ID_Output>;
-  date: () => Promise<String>;
   start: () => Promise<DateTimeOutput>;
   end: () => Promise<DateTimeOutput>;
   completed: () => Promise<Boolean>;
@@ -1138,7 +1117,6 @@ export interface AppointmentSubscription
   extends Promise<AsyncIterator<Appointment>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  date: () => Promise<AsyncIterator<String>>;
   start: () => Promise<AsyncIterator<DateTimeOutput>>;
   end: () => Promise<AsyncIterator<DateTimeOutput>>;
   completed: () => Promise<AsyncIterator<Boolean>>;
@@ -1151,7 +1129,6 @@ export interface AppointmentNullablePromise
   extends Promise<Appointment | null>,
     Fragmentable {
   id: () => Promise<ID_Output>;
-  date: () => Promise<String>;
   start: () => Promise<DateTimeOutput>;
   end: () => Promise<DateTimeOutput>;
   completed: () => Promise<Boolean>;
@@ -1678,7 +1655,6 @@ export interface AppointmentSubscriptionPayloadSubscription
 
 export interface AppointmentPreviousValues {
   id: ID_Output;
-  date: String;
   start: DateTimeOutput;
   end: DateTimeOutput;
   completed?: Boolean;
@@ -1688,7 +1664,6 @@ export interface AppointmentPreviousValuesPromise
   extends Promise<AppointmentPreviousValues>,
     Fragmentable {
   id: () => Promise<ID_Output>;
-  date: () => Promise<String>;
   start: () => Promise<DateTimeOutput>;
   end: () => Promise<DateTimeOutput>;
   completed: () => Promise<Boolean>;
@@ -1698,7 +1673,6 @@ export interface AppointmentPreviousValuesSubscription
   extends Promise<AsyncIterator<AppointmentPreviousValues>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  date: () => Promise<AsyncIterator<String>>;
   start: () => Promise<AsyncIterator<DateTimeOutput>>;
   end: () => Promise<AsyncIterator<DateTimeOutput>>;
   completed: () => Promise<AsyncIterator<Boolean>>;
@@ -1920,11 +1894,6 @@ export type ID_Input = string | number;
 export type ID_Output = string;
 
 /*
-The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
-*/
-export type String = string;
-
-/*
 DateTime scalar input type, allowing Date
 */
 export type DateTimeInput = Date | string;
@@ -1938,6 +1907,11 @@ export type DateTimeOutput = string;
 The `Boolean` scalar type represents `true` or `false`.
 */
 export type Boolean = boolean;
+
+/*
+The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
+*/
+export type String = string;
 
 /*
 The `Float` scalar type represents signed double-precision fractional values as specified by [IEEE 754](https://en.wikipedia.org/wiki/IEEE_floating_point).
