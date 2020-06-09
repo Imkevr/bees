@@ -285,7 +285,9 @@ export type ServiceOrderByInput =
   | "hours_ASC"
   | "hours_DESC"
   | "minutes_ASC"
-  | "minutes_DESC";
+  | "minutes_DESC"
+  | "deleted_ASC"
+  | "deleted_DESC";
 
 export type AppointmentOrderByInput =
   | "id_ASC"
@@ -294,8 +296,8 @@ export type AppointmentOrderByInput =
   | "start_DESC"
   | "end_ASC"
   | "end_DESC"
-  | "completed_ASC"
-  | "completed_DESC";
+  | "deleted_ASC"
+  | "deleted_DESC";
 
 export type ClientOrderByInput =
   | "id_ASC"
@@ -303,7 +305,9 @@ export type ClientOrderByInput =
   | "firstname_ASC"
   | "firstname_DESC"
   | "lastname_ASC"
-  | "lastname_DESC";
+  | "lastname_DESC"
+  | "deleted_ASC"
+  | "deleted_DESC";
 
 export type UserOrderByInput =
   | "id_ASC"
@@ -415,6 +419,8 @@ export interface ServiceWhereInput {
   minutes_gt?: Maybe<Int>;
   minutes_gte?: Maybe<Int>;
   postedBy?: Maybe<UserWhereInput>;
+  deleted?: Maybe<Boolean>;
+  deleted_not?: Maybe<Boolean>;
   AND?: Maybe<ServiceWhereInput[] | ServiceWhereInput>;
   OR?: Maybe<ServiceWhereInput[] | ServiceWhereInput>;
   NOT?: Maybe<ServiceWhereInput[] | ServiceWhereInput>;
@@ -530,8 +536,8 @@ export interface AppointmentWhereInput {
   end_lte?: Maybe<DateTimeInput>;
   end_gt?: Maybe<DateTimeInput>;
   end_gte?: Maybe<DateTimeInput>;
-  completed?: Maybe<Boolean>;
-  completed_not?: Maybe<Boolean>;
+  deleted?: Maybe<Boolean>;
+  deleted_not?: Maybe<Boolean>;
   service?: Maybe<ServiceWhereInput>;
   user?: Maybe<UserWhereInput>;
   client?: Maybe<ClientWhereInput>;
@@ -584,6 +590,8 @@ export interface ClientWhereInput {
   lastname_ends_with?: Maybe<String>;
   lastname_not_ends_with?: Maybe<String>;
   user?: Maybe<UserWhereInput>;
+  deleted?: Maybe<Boolean>;
+  deleted_not?: Maybe<Boolean>;
   AND?: Maybe<ClientWhereInput[] | ClientWhereInput>;
   OR?: Maybe<ClientWhereInput[] | ClientWhereInput>;
   NOT?: Maybe<ClientWhereInput[] | ClientWhereInput>;
@@ -647,7 +655,7 @@ export interface AppointmentCreateInput {
   id?: Maybe<ID_Input>;
   start: DateTimeInput;
   end: DateTimeInput;
-  completed?: Maybe<Boolean>;
+  deleted?: Maybe<Boolean>;
   service: ServiceCreateOneInput;
   user: UserCreateOneInput;
   client: ClientCreateOneInput;
@@ -666,6 +674,7 @@ export interface ServiceCreateInput {
   hours: Int;
   minutes: Int;
   postedBy?: Maybe<UserCreateOneWithoutServicesInput>;
+  deleted?: Maybe<Boolean>;
 }
 
 export interface UserCreateOneWithoutServicesInput {
@@ -709,6 +718,7 @@ export interface ServiceCreateWithoutPostedByInput {
   description: String;
   hours: Int;
   minutes: Int;
+  deleted?: Maybe<Boolean>;
 }
 
 export interface ClientCreateOneInput {
@@ -721,12 +731,13 @@ export interface ClientCreateInput {
   firstname: String;
   lastname: String;
   user: UserCreateOneInput;
+  deleted?: Maybe<Boolean>;
 }
 
 export interface AppointmentUpdateInput {
   start?: Maybe<DateTimeInput>;
   end?: Maybe<DateTimeInput>;
-  completed?: Maybe<Boolean>;
+  deleted?: Maybe<Boolean>;
   service?: Maybe<ServiceUpdateOneRequiredInput>;
   user?: Maybe<UserUpdateOneRequiredInput>;
   client?: Maybe<ClientUpdateOneRequiredInput>;
@@ -746,6 +757,7 @@ export interface ServiceUpdateDataInput {
   hours?: Maybe<Int>;
   minutes?: Maybe<Int>;
   postedBy?: Maybe<UserUpdateOneWithoutServicesInput>;
+  deleted?: Maybe<Boolean>;
 }
 
 export interface UserUpdateOneWithoutServicesInput {
@@ -823,6 +835,7 @@ export interface ServiceUpdateWithoutPostedByDataInput {
   description?: Maybe<String>;
   hours?: Maybe<Int>;
   minutes?: Maybe<Int>;
+  deleted?: Maybe<Boolean>;
 }
 
 export interface ServiceUpsertWithWhereUniqueWithoutPostedByInput {
@@ -914,6 +927,8 @@ export interface ServiceScalarWhereInput {
   minutes_lte?: Maybe<Int>;
   minutes_gt?: Maybe<Int>;
   minutes_gte?: Maybe<Int>;
+  deleted?: Maybe<Boolean>;
+  deleted_not?: Maybe<Boolean>;
   AND?: Maybe<ServiceScalarWhereInput[] | ServiceScalarWhereInput>;
   OR?: Maybe<ServiceScalarWhereInput[] | ServiceScalarWhereInput>;
   NOT?: Maybe<ServiceScalarWhereInput[] | ServiceScalarWhereInput>;
@@ -930,6 +945,7 @@ export interface ServiceUpdateManyDataInput {
   description?: Maybe<String>;
   hours?: Maybe<Int>;
   minutes?: Maybe<Int>;
+  deleted?: Maybe<Boolean>;
 }
 
 export interface UserUpsertNestedInput {
@@ -948,6 +964,7 @@ export interface ClientUpdateDataInput {
   firstname?: Maybe<String>;
   lastname?: Maybe<String>;
   user?: Maybe<UserUpdateOneRequiredInput>;
+  deleted?: Maybe<Boolean>;
 }
 
 export interface ClientUpsertNestedInput {
@@ -958,18 +975,20 @@ export interface ClientUpsertNestedInput {
 export interface AppointmentUpdateManyMutationInput {
   start?: Maybe<DateTimeInput>;
   end?: Maybe<DateTimeInput>;
-  completed?: Maybe<Boolean>;
+  deleted?: Maybe<Boolean>;
 }
 
 export interface ClientUpdateInput {
   firstname?: Maybe<String>;
   lastname?: Maybe<String>;
   user?: Maybe<UserUpdateOneRequiredInput>;
+  deleted?: Maybe<Boolean>;
 }
 
 export interface ClientUpdateManyMutationInput {
   firstname?: Maybe<String>;
   lastname?: Maybe<String>;
+  deleted?: Maybe<Boolean>;
 }
 
 export interface ServiceUpdateInput {
@@ -979,6 +998,7 @@ export interface ServiceUpdateInput {
   hours?: Maybe<Int>;
   minutes?: Maybe<Int>;
   postedBy?: Maybe<UserUpdateOneWithoutServicesInput>;
+  deleted?: Maybe<Boolean>;
 }
 
 export interface ServiceUpdateManyMutationInput {
@@ -987,6 +1007,7 @@ export interface ServiceUpdateManyMutationInput {
   description?: Maybe<String>;
   hours?: Maybe<Int>;
   minutes?: Maybe<Int>;
+  deleted?: Maybe<Boolean>;
 }
 
 export interface UserUpdateInput {
@@ -1100,14 +1121,14 @@ export interface Appointment {
   id: ID_Output;
   start: DateTimeOutput;
   end: DateTimeOutput;
-  completed?: Boolean;
+  deleted?: Boolean;
 }
 
 export interface AppointmentPromise extends Promise<Appointment>, Fragmentable {
   id: () => Promise<ID_Output>;
   start: () => Promise<DateTimeOutput>;
   end: () => Promise<DateTimeOutput>;
-  completed: () => Promise<Boolean>;
+  deleted: () => Promise<Boolean>;
   service: <T = ServicePromise>() => T;
   user: <T = UserPromise>() => T;
   client: <T = ClientPromise>() => T;
@@ -1119,7 +1140,7 @@ export interface AppointmentSubscription
   id: () => Promise<AsyncIterator<ID_Output>>;
   start: () => Promise<AsyncIterator<DateTimeOutput>>;
   end: () => Promise<AsyncIterator<DateTimeOutput>>;
-  completed: () => Promise<AsyncIterator<Boolean>>;
+  deleted: () => Promise<AsyncIterator<Boolean>>;
   service: <T = ServiceSubscription>() => T;
   user: <T = UserSubscription>() => T;
   client: <T = ClientSubscription>() => T;
@@ -1131,7 +1152,7 @@ export interface AppointmentNullablePromise
   id: () => Promise<ID_Output>;
   start: () => Promise<DateTimeOutput>;
   end: () => Promise<DateTimeOutput>;
-  completed: () => Promise<Boolean>;
+  deleted: () => Promise<Boolean>;
   service: <T = ServicePromise>() => T;
   user: <T = UserPromise>() => T;
   client: <T = ClientPromise>() => T;
@@ -1146,6 +1167,7 @@ export interface Service {
   description: String;
   hours: Int;
   minutes: Int;
+  deleted?: Boolean;
 }
 
 export interface ServicePromise extends Promise<Service>, Fragmentable {
@@ -1158,6 +1180,7 @@ export interface ServicePromise extends Promise<Service>, Fragmentable {
   hours: () => Promise<Int>;
   minutes: () => Promise<Int>;
   postedBy: <T = UserPromise>() => T;
+  deleted: () => Promise<Boolean>;
 }
 
 export interface ServiceSubscription
@@ -1172,6 +1195,7 @@ export interface ServiceSubscription
   hours: () => Promise<AsyncIterator<Int>>;
   minutes: () => Promise<AsyncIterator<Int>>;
   postedBy: <T = UserSubscription>() => T;
+  deleted: () => Promise<AsyncIterator<Boolean>>;
 }
 
 export interface ServiceNullablePromise
@@ -1186,6 +1210,7 @@ export interface ServiceNullablePromise
   hours: () => Promise<Int>;
   minutes: () => Promise<Int>;
   postedBy: <T = UserPromise>() => T;
+  deleted: () => Promise<Boolean>;
 }
 
 export interface User {
@@ -1255,6 +1280,7 @@ export interface Client {
   id: ID_Output;
   firstname: String;
   lastname: String;
+  deleted?: Boolean;
 }
 
 export interface ClientPromise extends Promise<Client>, Fragmentable {
@@ -1262,6 +1288,7 @@ export interface ClientPromise extends Promise<Client>, Fragmentable {
   firstname: () => Promise<String>;
   lastname: () => Promise<String>;
   user: <T = UserPromise>() => T;
+  deleted: () => Promise<Boolean>;
 }
 
 export interface ClientSubscription
@@ -1271,6 +1298,7 @@ export interface ClientSubscription
   firstname: () => Promise<AsyncIterator<String>>;
   lastname: () => Promise<AsyncIterator<String>>;
   user: <T = UserSubscription>() => T;
+  deleted: () => Promise<AsyncIterator<Boolean>>;
 }
 
 export interface ClientNullablePromise
@@ -1280,6 +1308,7 @@ export interface ClientNullablePromise
   firstname: () => Promise<String>;
   lastname: () => Promise<String>;
   user: <T = UserPromise>() => T;
+  deleted: () => Promise<Boolean>;
 }
 
 export interface AppointmentConnection {
@@ -1657,7 +1686,7 @@ export interface AppointmentPreviousValues {
   id: ID_Output;
   start: DateTimeOutput;
   end: DateTimeOutput;
-  completed?: Boolean;
+  deleted?: Boolean;
 }
 
 export interface AppointmentPreviousValuesPromise
@@ -1666,7 +1695,7 @@ export interface AppointmentPreviousValuesPromise
   id: () => Promise<ID_Output>;
   start: () => Promise<DateTimeOutput>;
   end: () => Promise<DateTimeOutput>;
-  completed: () => Promise<Boolean>;
+  deleted: () => Promise<Boolean>;
 }
 
 export interface AppointmentPreviousValuesSubscription
@@ -1675,7 +1704,7 @@ export interface AppointmentPreviousValuesSubscription
   id: () => Promise<AsyncIterator<ID_Output>>;
   start: () => Promise<AsyncIterator<DateTimeOutput>>;
   end: () => Promise<AsyncIterator<DateTimeOutput>>;
-  completed: () => Promise<AsyncIterator<Boolean>>;
+  deleted: () => Promise<AsyncIterator<Boolean>>;
 }
 
 export interface ClientSubscriptionPayload {
@@ -1707,6 +1736,7 @@ export interface ClientPreviousValues {
   id: ID_Output;
   firstname: String;
   lastname: String;
+  deleted?: Boolean;
 }
 
 export interface ClientPreviousValuesPromise
@@ -1715,6 +1745,7 @@ export interface ClientPreviousValuesPromise
   id: () => Promise<ID_Output>;
   firstname: () => Promise<String>;
   lastname: () => Promise<String>;
+  deleted: () => Promise<Boolean>;
 }
 
 export interface ClientPreviousValuesSubscription
@@ -1723,6 +1754,7 @@ export interface ClientPreviousValuesSubscription
   id: () => Promise<AsyncIterator<ID_Output>>;
   firstname: () => Promise<AsyncIterator<String>>;
   lastname: () => Promise<AsyncIterator<String>>;
+  deleted: () => Promise<AsyncIterator<Boolean>>;
 }
 
 export interface ServiceSubscriptionPayload {
@@ -1759,6 +1791,7 @@ export interface ServicePreviousValues {
   description: String;
   hours: Int;
   minutes: Int;
+  deleted?: Boolean;
 }
 
 export interface ServicePreviousValuesPromise
@@ -1772,6 +1805,7 @@ export interface ServicePreviousValuesPromise
   description: () => Promise<String>;
   hours: () => Promise<Int>;
   minutes: () => Promise<Int>;
+  deleted: () => Promise<Boolean>;
 }
 
 export interface ServicePreviousValuesSubscription
@@ -1785,6 +1819,7 @@ export interface ServicePreviousValuesSubscription
   description: () => Promise<AsyncIterator<String>>;
   hours: () => Promise<AsyncIterator<Int>>;
   minutes: () => Promise<AsyncIterator<Int>>;
+  deleted: () => Promise<AsyncIterator<Boolean>>;
 }
 
 export interface UserSubscriptionPayload {

@@ -11,20 +11,23 @@ type Query {
 
 type Mutation {
     #--- Service mutation's
-    postService(name: String!, cost:Float!,description:String!,hours: Int!, minutes: Int! ): Service!
+    postService(name: String!, cost:Float!, description:String!, hours: Int!, minutes: Int! ): Service!
     deleteService(id: ID!): Service!
-    updateService(id:ID! ,name: String, cost:Float,description:String,hours: Int, minutes: Int): Service!
+    updateService(id:ID!, name: String, cost:Float, description:String, hours: Int, minutes: Int): Service!
 
     #--- Client mutation's
-    postClient(firstname:String!, lastname:String!):Client!
+    postClient(firstname:String!, lastname:String!): Client!
+    deleteClient(id:ID!): Client!
+    updateClient(id:ID!, firstname: String ,lastname: String): Client!
 
      #--- Signup & login mutation's
-    signup(email: String!, password: String!,firstname:String!, lastname: String!): AuthPayload
+    signup(email: String!, password: String!, firstname:String!, lastname: String!): AuthPayload
     login(email: String!, password:String!): AuthPayload
 
      #--- Appointment mutation's
-    appointment(serviceId: ID!,clientId:ID, start:DateTime!, end:DateTime!, completed:Boolean): Appointment
-    deleteAppointment(id:ID!):Appointment
+    appointment(serviceId: ID!, clientId:ID, start:DateTime!, end:DateTime!, completed:Boolean): Appointment
+    deleteAppointment(id:ID!): Appointment
+    updateAppointment(id:ID!): Appointment
 }
 
 type Service {
@@ -37,6 +40,7 @@ type Service {
     hours: Int!
     minutes: Int!
     postedBy: User!
+    deleted: Boolean
 }
 
 type calendarSettings{
@@ -62,12 +66,13 @@ type User {
 
 type Appointment{
     id: ID!
-    start: DateTime!
+    start: String!
     end: DateTime!
-    completed: Boolean
+    deleted: Boolean
     service: Service!
     user: User!    
     client: Client!
+    
 }
 
 type Client{
@@ -75,6 +80,7 @@ type Client{
     firstname:String!
     lastname:String!
     user: User!
+    deleted: Boolean
 }
 
 type Subscription {

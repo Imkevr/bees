@@ -49,7 +49,7 @@ class CalenderModal extends React.Component {
     const { start, end, clientId, serviceId } = this.state
     const APPOINTMENT_MUTATION = gql`
  mutation PostMutation($start: DateTime!,$end:DateTime!, $serviceId: ID!, $clientId:ID!) {
-  appointment(start: $start, end: $end, clientId: $clientId, serviceId:$serviceId) {
+  appointment(start: $start, end: $end, clientId:$clientId, serviceId:$serviceId) {
     id
     start
     end
@@ -58,13 +58,6 @@ class CalenderModal extends React.Component {
   }
 }
     `
-    console.log(this.state.serviceId)
-    console.log(this.state.clientId)
-    console.log(this.state.start)
-    console.log(this.state.end)
-    // const startHour = this.props.start.hour();
-    // const endHour = end.hour() <= 17 ? end.hour() : 17;
-    // var duration= this.state.selectedService.time? moment({h: this.state.selectedService.hours, m: this.state.selectedService.minutes}): ''
 
     const action = this.props.actionType === "create" ? "Book" : "Update"
     var endTime = this.props.start.clone().add(this.state.selectedService.hours, 'hours').add(this.state.selectedService.minutes, 'minutes')
@@ -73,7 +66,10 @@ class CalenderModal extends React.Component {
 
       <div className="customModal">
         <div className="modal-header">
+
           <h5 className="customModal__text">Shedule appointment - {this.props.start.format('Do MMMM.')}</h5>
+          { action === "Update"? <button className="modal__button__blue">Delete</button> :""}
+         
         </div>
         <div className="modal-container">
           <div className="selections">
@@ -82,7 +78,7 @@ class CalenderModal extends React.Component {
           </div>
           <div className="summary">
             <h6><span>Summary:</span></h6>
-            <div>{`${this.props.start.format('HH:mm')} - ${endTime.format('HH:mm')}`} </div>
+            <div> from {this.props.start.format('HH:mm')} to {endTime.format('HH:mm')} </div>
             <div>Service: {this.state.selectedService !== '' ? this.state.selectedService.name : ''}</div>
             <div>Service duration: {this.state.selectedService !== '' ? `${this.state.selectedService.hours} hour(s) and ${this.state.selectedService.minutes} minutes` : ' '}</div>
             <div>Cost: {this.state.selectedService !== '' ? `${this.state.selectedService.cost} euro ` : ''}</div>
@@ -90,14 +86,14 @@ class CalenderModal extends React.Component {
           </div>
         </div>
         <div className="modal-footer" >
-        <Mutation mutation={APPOINTMENT_MUTATION}
-          variables={{ start, end, clientId, serviceId }}>
-          {/* onCompleted={() => this.props.history.push('/')} */}
+       
+          <Mutation mutation={APPOINTMENT_MUTATION}
+            variables={{ start, end, clientId, serviceId }}>
+            {postMutation =>
+              <button className="modal__button__blue" onClick={() => { postMutation(); this.handleRemove() }}>{action}</button>
+            }
+          </Mutation>
 
-          {postMutation =>
-             <button className="modal__button__blue" onClick={() => {postMutation(); this.handleRemove()}}>{action}</button>
-          }
-        </Mutation>
           <button className="modal__button__cancel" onClick={this.handleRemove}>Cancel</button>
         </div>
       </div>

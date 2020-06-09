@@ -8,6 +8,7 @@ type Service {
     hours: Int!
     minutes: Int!
     postedBy: User
+    deleted: Boolean @default(value: false)
 }
 
 type calendarSettings{
@@ -26,6 +27,7 @@ type User{
     password: String!
     services: [Service!]!
     
+    
 }
 
 type Client{
@@ -33,13 +35,14 @@ type Client{
     firstname: String!
     lastname: String!
     user: User!
+    deleted: Boolean @default(value: false)
 }
 
 type Appointment{
     id: ID! @id
     start: DateTime!
     end: DateTime!
-    completed: Boolean @default(value: false)
+    deleted: Boolean @default(value: false)
     service: Service!
     user: User!
     client: Client!

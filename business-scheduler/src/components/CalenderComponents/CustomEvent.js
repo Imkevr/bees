@@ -1,19 +1,30 @@
 import React from 'react';
-import { Query } from 'react-apollo'
-import gql from 'graphql-tag'
+import moment from 'moment';
 
 
-        const CLIENT_FEED_QUERY = gql`
-     {
-        clientfeed {
-          id
-          firstname
-          lastname
-     }
+const CustomEvent = (props) => (
+  <div className="customEvent">
+    { props.start >= moment() ?   
+    <React.Fragment>
+    <p>{`${props.start.format('HH:mm')}-${props.end.format('HH:mm')}`}</p>
+    <p>{props.serviceName}</p>
+    <p>{props.cost} euro</p>
+    <p>Client: {props.client}</p> 
+    </React.Fragment>
+    :
+    <React.Fragment>
+    <p>{`${props.start.format('HH:mm')}-${props.end.format('HH:mm')}`}</p>
+    <p>{props.serviceName}</p>
+    <p>{props.cost} euro</p>
+    <p>Client: {props.client}</p> 
+    <p>disabled</p>
+    </React.Fragment>
+    
+
     }
-   `
-const CustomEvent = () => (
-  <div className="customEvent">BOOKED</div>
+
+    
+    </div>
 );
 
 export default CustomEvent;

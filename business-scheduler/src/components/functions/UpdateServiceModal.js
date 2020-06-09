@@ -21,9 +21,9 @@ class UpdateServiceModal extends React.Component {
     
     render() {
         const {id, name, cost, description, hours, minutes } = this.state
-        const POST_MUTATION = gql`
-   mutation PostMutation($id:ID!, $cost: Float!, $name: String!, $hours: Int!, $minutes:Int!, $description: String! ) {
-   postService(id:$id, cost: $cost, name: $name, minutes: $minutes, hours: $hours, description:$description) {
+        const UPDATE_MUTATION = gql`
+   mutation UpdateMutation($id:ID!, $cost: Float!, $name: String!, $hours: Int!, $minutes:Int!, $description: String! ) {
+   updateService(id:$id, cost: $cost, name: $name, minutes: $minutes, hours: $hours, description:$description) {
      id
      cost
      name
@@ -100,12 +100,12 @@ class UpdateServiceModal extends React.Component {
                                     </div>
                                 </Modal.Body>
                                 <Modal.Footer>
-                                    <Mutation mutation={POST_MUTATION}
+                                    <Mutation mutation={UPDATE_MUTATION}
                                         variables={{id, cost, name, description, hours, minutes }}>
                                         {/* onCompleted={() => this.props.history.push('/')} */}
 
-                                        {postMutation =>
-                                            <button onClick={() => {postMutation(); this.props.onHide()}}>Submit</button>
+                                        {updateMutation =>
+                                            <button onClick={() => {updateMutation(); this.props.onHide()}}>Submit</button>
                                           
                                         }
                                     </Mutation>

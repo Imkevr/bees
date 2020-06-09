@@ -27,7 +27,7 @@ type Appointment {
   id: ID!
   start: DateTime!
   end: DateTime!
-  completed: Boolean
+  deleted: Boolean
   service: Service!
   user: User!
   client: Client!
@@ -43,7 +43,7 @@ input AppointmentCreateInput {
   id: ID
   start: DateTime!
   end: DateTime!
-  completed: Boolean
+  deleted: Boolean
   service: ServiceCreateOneInput!
   user: UserCreateOneInput!
   client: ClientCreateOneInput!
@@ -61,15 +61,15 @@ enum AppointmentOrderByInput {
   start_DESC
   end_ASC
   end_DESC
-  completed_ASC
-  completed_DESC
+  deleted_ASC
+  deleted_DESC
 }
 
 type AppointmentPreviousValues {
   id: ID!
   start: DateTime!
   end: DateTime!
-  completed: Boolean
+  deleted: Boolean
 }
 
 type AppointmentSubscriptionPayload {
@@ -93,7 +93,7 @@ input AppointmentSubscriptionWhereInput {
 input AppointmentUpdateInput {
   start: DateTime
   end: DateTime
-  completed: Boolean
+  deleted: Boolean
   service: ServiceUpdateOneRequiredInput
   user: UserUpdateOneRequiredInput
   client: ClientUpdateOneRequiredInput
@@ -102,7 +102,7 @@ input AppointmentUpdateInput {
 input AppointmentUpdateManyMutationInput {
   start: DateTime
   end: DateTime
-  completed: Boolean
+  deleted: Boolean
 }
 
 input AppointmentWhereInput {
@@ -136,8 +136,8 @@ input AppointmentWhereInput {
   end_lte: DateTime
   end_gt: DateTime
   end_gte: DateTime
-  completed: Boolean
-  completed_not: Boolean
+  deleted: Boolean
+  deleted_not: Boolean
   service: ServiceWhereInput
   user: UserWhereInput
   client: ClientWhereInput
@@ -269,6 +269,7 @@ type Client {
   firstname: String!
   lastname: String!
   user: User!
+  deleted: Boolean
 }
 
 type ClientConnection {
@@ -282,6 +283,7 @@ input ClientCreateInput {
   firstname: String!
   lastname: String!
   user: UserCreateOneInput!
+  deleted: Boolean
 }
 
 input ClientCreateOneInput {
@@ -301,12 +303,15 @@ enum ClientOrderByInput {
   firstname_DESC
   lastname_ASC
   lastname_DESC
+  deleted_ASC
+  deleted_DESC
 }
 
 type ClientPreviousValues {
   id: ID!
   firstname: String!
   lastname: String!
+  deleted: Boolean
 }
 
 type ClientSubscriptionPayload {
@@ -331,17 +336,20 @@ input ClientUpdateDataInput {
   firstname: String
   lastname: String
   user: UserUpdateOneRequiredInput
+  deleted: Boolean
 }
 
 input ClientUpdateInput {
   firstname: String
   lastname: String
   user: UserUpdateOneRequiredInput
+  deleted: Boolean
 }
 
 input ClientUpdateManyMutationInput {
   firstname: String
   lastname: String
+  deleted: Boolean
 }
 
 input ClientUpdateOneRequiredInput {
@@ -400,6 +408,8 @@ input ClientWhereInput {
   lastname_ends_with: String
   lastname_not_ends_with: String
   user: UserWhereInput
+  deleted: Boolean
+  deleted_not: Boolean
   AND: [ClientWhereInput!]
   OR: [ClientWhereInput!]
   NOT: [ClientWhereInput!]
@@ -492,6 +502,7 @@ type Service {
   hours: Int!
   minutes: Int!
   postedBy: User
+  deleted: Boolean
 }
 
 type ServiceConnection {
@@ -508,6 +519,7 @@ input ServiceCreateInput {
   hours: Int!
   minutes: Int!
   postedBy: UserCreateOneWithoutServicesInput
+  deleted: Boolean
 }
 
 input ServiceCreateManyWithoutPostedByInput {
@@ -527,6 +539,7 @@ input ServiceCreateWithoutPostedByInput {
   description: String!
   hours: Int!
   minutes: Int!
+  deleted: Boolean
 }
 
 type ServiceEdge {
@@ -551,6 +564,8 @@ enum ServiceOrderByInput {
   hours_DESC
   minutes_ASC
   minutes_DESC
+  deleted_ASC
+  deleted_DESC
 }
 
 type ServicePreviousValues {
@@ -562,6 +577,7 @@ type ServicePreviousValues {
   description: String!
   hours: Int!
   minutes: Int!
+  deleted: Boolean
 }
 
 input ServiceScalarWhereInput {
@@ -647,6 +663,8 @@ input ServiceScalarWhereInput {
   minutes_lte: Int
   minutes_gt: Int
   minutes_gte: Int
+  deleted: Boolean
+  deleted_not: Boolean
   AND: [ServiceScalarWhereInput!]
   OR: [ServiceScalarWhereInput!]
   NOT: [ServiceScalarWhereInput!]
@@ -677,6 +695,7 @@ input ServiceUpdateDataInput {
   hours: Int
   minutes: Int
   postedBy: UserUpdateOneWithoutServicesInput
+  deleted: Boolean
 }
 
 input ServiceUpdateInput {
@@ -686,6 +705,7 @@ input ServiceUpdateInput {
   hours: Int
   minutes: Int
   postedBy: UserUpdateOneWithoutServicesInput
+  deleted: Boolean
 }
 
 input ServiceUpdateManyDataInput {
@@ -694,6 +714,7 @@ input ServiceUpdateManyDataInput {
   description: String
   hours: Int
   minutes: Int
+  deleted: Boolean
 }
 
 input ServiceUpdateManyMutationInput {
@@ -702,6 +723,7 @@ input ServiceUpdateManyMutationInput {
   description: String
   hours: Int
   minutes: Int
+  deleted: Boolean
 }
 
 input ServiceUpdateManyWithoutPostedByInput {
@@ -734,6 +756,7 @@ input ServiceUpdateWithoutPostedByDataInput {
   description: String
   hours: Int
   minutes: Int
+  deleted: Boolean
 }
 
 input ServiceUpdateWithWhereUniqueWithoutPostedByInput {
@@ -836,6 +859,8 @@ input ServiceWhereInput {
   minutes_gt: Int
   minutes_gte: Int
   postedBy: UserWhereInput
+  deleted: Boolean
+  deleted_not: Boolean
   AND: [ServiceWhereInput!]
   OR: [ServiceWhereInput!]
   NOT: [ServiceWhereInput!]
