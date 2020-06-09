@@ -18,7 +18,6 @@ export default class Calendar extends React.Component {
     this.state = {
       lastUid: 1,
       selectedIntervals: [this.appointmentToRender],
-      serviceDuration: 0,
       currentDay: moment(),
       showCalendarDay: moment(),
 
@@ -91,7 +90,7 @@ export default class Calendar extends React.Component {
   }
 
   render() {
-    
+
     // console.log('test',moment(this.selectedIntervals.start))
     const APPOINTMENT_FEED_QUERY = gql`
        {
@@ -104,21 +103,18 @@ export default class Calendar extends React.Component {
        }
       }
      `
-const start = 'start'
-const end = 'end'
     return (
       <React.Fragment>
 
         <div id="calendar-page">
           <div id='calendar-header'>
             <h3>Calendar </h3>
-            <h4>... Appointments today</h4>
             <Query query={APPOINTMENT_FEED_QUERY} >
               {({ loading, error, data }) => {
                 if (loading) return <div>Fetching</div>
                 if (error) return <div>Error</div>
-                if(data.appointmentfeed.length >= this.appointmentToRender){
-                data.appointmentfeed.map(appointment => this.appointmentToRender.push({start : moment(appointment.start), end: moment(appointment.end), client: appointment.client.firstname+' '+ appointment.client.lastname , cost: appointment.service.cost, serviceName: appointment.service.name} ))
+                if (data.appointmentfeed.length >= this.appointmentToRender) {
+                  data.appointmentfeed.map(appointment => this.appointmentToRender.push({ start: moment(appointment.start), end: moment(appointment.end), client: appointment.client.firstname + ' ' + appointment.client.lastname, cost: appointment.service.cost, serviceName: appointment.service.name }))
                 }
                 console.log('appointmentToRender', this.appointmentToRender)
 
@@ -148,13 +144,13 @@ const end = 'end'
             startTime={moment({ h: 8, m: 0 })}
             endTime={moment({ h: 21, m: 0 })}
             scaleUnit={30}
-            cellHeight={50}
+            cellHeight={80}
             numberOfDays={7}
-            // selectedIntervals={this.appointmentToRender}
             modalComponent={CalenderModal}
             eventSpacing={20}
-            selectedIntervals = {this.appointmentToRender}
+            selectedIntervals={this.appointmentToRender}
             eventComponent={CustomEvent}
+            scaleHeaderTitle="Time"
           />
           {console.log('test', this.appointmentToRender)}
         </div>
