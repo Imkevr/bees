@@ -38,7 +38,7 @@ class Login extends Component {
                     <img src={AppointLogo} id="appointes-logo" />
                     <div id="side-caption">
                         <h1> Appoint </h1>
-                        <h3> You're Business Scheduler  </h3>
+                        <h3> Your Business Scheduler  </h3>
                     </div>
                 </div>
                 <div id="login">

@@ -6,6 +6,7 @@ import gql from 'graphql-tag'
 import CustomEvent from './CalenderComponents/CustomEvent'
 
 import CalenderModal from './CalenderComponents/CalenderModal'
+import CustomHeaderCell from './CalenderComponents/CustomHeaderCell'
 
 import 'react-week-calendar/dist/style.css';
 import '../styles/Calender.scss'
@@ -17,20 +18,19 @@ export default class Calendar extends React.Component {
     super(props);
     this.state = {
       lastUid: 1,
-      selectedIntervals: [this.appointmentToRender],
       currentDay: moment(),
       showCalendarDay: moment(),
-
+      title:moment().format('MMMM')
     }
   }
 
-  handleMoveToCurrentDay = (event) => {
+  handleMoveToCurrentDay = () => {
     this.setState({
       showCalendarDay: moment(),
     })
   }
 
-  handleMoveToFutureDay = (event) => {
+  handleMoveToFutureDay = () => {
     const day = this.state.showCalendarDay.clone().add(7, 'days')
     console.log('day', this.state.showCalendarDay)
     this.setState({
@@ -38,7 +38,7 @@ export default class Calendar extends React.Component {
     })
     console.log('showCalendarDay', this.state.showCalendarDay)
   }
-  handleMoveToPreviousDay = (event) => {
+  handleMoveToPreviousDay = () => {
     const day = this.state.showCalendarDay.clone().subtract(7, 'days')
     if (day !== this.state.currentDay) {
       this.setState({
@@ -51,42 +51,6 @@ export default class Calendar extends React.Component {
 
       })
     }
-  }
-
-  handleEventRemove = (event) => {
-    const { selectedIntervals } = this.state;
-    const index = selectedIntervals.findIndex((interval) => interval.uid === event.uid);
-    if (index > -1) {
-      selectedIntervals.splice(index, 1);
-      this.setState({ selectedIntervals });
-    }
-  }
-
-  handleEventUpdate = (event) => {
-    const { selectedIntervals } = this.state;
-    const index = selectedIntervals.findIndex((interval) => interval.uid === event.uid);
-    if (index > -1) {
-      selectedIntervals[index] = event;
-      this.setState({ selectedIntervals });
-    }
-  }
-
-  handleSelect = (newIntervals) => {
-    const { lastUid, selectedIntervals } = this.state;
-    const intervals = newIntervals.map((interval, index) => {
-
-      return {
-        ...interval,
-        uid: lastUid + index
-      }
-    });
-
-    this.setState({
-      selectedIntervals: selectedIntervals.concat(intervals),
-      lastUid: lastUid + newIntervals.length
-    })
-    console.log('selectedIntervals', this.state.appointmentToRender)
-
   }
 
   render() {
@@ -108,7 +72,7 @@ export default class Calendar extends React.Component {
 
         <div id="calendar-page">
           <div id='calendar-header'>
-            <h3>Calendar </h3>
+            <h2>Calendar </h2>
             <Query query={APPOINTMENT_FEED_QUERY} >
               {({ loading, error, data }) => {
                 if (loading) return <div>Fetching</div>
@@ -127,18 +91,27 @@ export default class Calendar extends React.Component {
                 )
               }}
             </Query>
-            <div>
-
-              <button onClick={this.handleMoveToPreviousDay}>previous</button>
-              <button onClick={this.handleMoveToCurrentDay}>{this.state.currentDay.format(' ddd Do MMMM.')}</button>
-              <svg onClick={this.handleMoveToFutureDay} class="bi bi-arrow-right-circle" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                <path fill-rule="evenodd" d="M7.646 11.354a.5.5 0 0 1 0-.708L10.293 8 7.646 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0z" />
-                <path fill-rule="evenodd" d="M4.5 8a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5z" />
-              </svg>
-            </div>
-
           </div>
+          <div id="calendar-navigation-buttons">
+
+            <button type="button" onClick={this.handleMoveToPreviousDay} className="arrow btn" id="previous" data-toggle="tooltip" data-placement="left" title="previous 7 days">
+              <svg class="bi bi-arrow-90deg-left" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M6.104 2.396a.5.5 0 0 1 0 .708L3.457 5.75l2.647 2.646a.5.5 0 1 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 0 1 .708 0z" />
+                <path fill-rule="evenodd" d="M2.75 5.75a.5.5 0 0 1 .5-.5h6.5a2.5 2.5 0 0 1 2.5 2.5v5.5a.5.5 0 0 1-1 0v-5.5a1.5 1.5 0 0 0-1.5-1.5h-6.5a.5.5 0 0 1-.5-.5z" />
+              </svg>
+            </button>
+
+            <button type="button" onClick={this.handleMoveToCurrentDay} className="btn" id="today" data-toggle="tooltip" data-placement="top" title="Back to current day">{this.state.currentDay.format('Do MMMM YYYY')}</button>
+            
+            <button type="button" onClick={this.handleMoveToFutureDay} className="arrow btn" id="forward" data-toggle="tooltip" data-placement="right" title="Forward 7 days">
+              <svg class="bi bi-arrow-90deg-right" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M9.896 2.396a.5.5 0 0 0 0 .708l2.647 2.646-2.647 2.646a.5.5 0 1 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708 0z" />
+                <path fill-rule="evenodd" d="M13.25 5.75a.5.5 0 0 0-.5-.5h-6.5a2.5 2.5 0 0 0-2.5 2.5v5.5a.5.5 0 0 0 1 0v-5.5a1.5 1.5 0 0 1 1.5-1.5h6.5a.5.5 0 0 0 .5-.5z" />
+              </svg>
+            </button>
+          </div>
+
+
           <WeekCalendar
             firstDay={this.state.showCalendarDay}
             startTime={moment({ h: 8, m: 0 })}
@@ -150,7 +123,8 @@ export default class Calendar extends React.Component {
             eventSpacing={20}
             selectedIntervals={this.appointmentToRender}
             eventComponent={CustomEvent}
-            scaleHeaderTitle="Time"
+            scaleHeaderTitle={this.state.title}
+            headerCellComponent={CustomHeaderCell}
           />
           {console.log('test', this.appointmentToRender)}
         </div>

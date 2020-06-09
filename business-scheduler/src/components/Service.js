@@ -32,7 +32,7 @@ class Service extends Component {
   render() {
     return (
       <React.Fragment>
-        <li class="list-group-item">
+        <li class="list-group-item service-card">
           {this.props.service.name} <br />
           price: {this.props.service.cost} euro <br />
           duration: {this.props.service.hours}u{this.props.service.minutes}<br />
