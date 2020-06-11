@@ -16,7 +16,7 @@ class CreateServiceModal extends React.Component {
             description: '',
             color: '#B0C8F8',
 
-        };
+        }
 
     }
 
