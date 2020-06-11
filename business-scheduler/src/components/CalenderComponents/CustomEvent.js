@@ -4,7 +4,7 @@ import '../../styles/customEvent.scss'
 
 
 const CustomEvent = (props) => (
-  <div className={props.start >= moment() ? "appointment enable" : " appointment disabled"}>
+  <div className={props.start >= moment() ? "appointment" : " appointment disabled"} style={props.color !== null ? {borderTopColor : props.color} :{borderTopColor : '#B0C8F8'}}>
       <div  data-toggle="tooltip" data-placement="left" title="Click to update">
         <p className="service">{props.serviceName} - {props.cost} euro</p>
         <p className="client">{props.client}</p>

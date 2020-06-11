@@ -11,9 +11,9 @@ type Query {
 
 type Mutation {
     #--- Service mutation's
-    postService(name: String!, cost:Float!, description:String!, hours: Int!, minutes: Int! ): Service!
+    postService(name: String!, cost:Float!, description:String!, hours: Int!, minutes: Int!, color:String ): Service!
     deleteService(id: ID!): Service!
-    updateService(id:ID!, name: String, cost:Float, description:String, hours: Int, minutes: Int): Service!
+    updateService(id:ID!, name: String, cost:Float, description:String, hours: Int, minutes: Int, color:String): Service!
 
     #--- Client mutation's
     postClient(firstname:String!, lastname:String!): Client!
@@ -36,6 +36,7 @@ type Service {
     updatedAt: DateTime! 
     name: String!
     cost: Float!
+    color:String
     description:String
     hours: Int!
     minutes: Int!

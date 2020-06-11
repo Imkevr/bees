@@ -69,7 +69,7 @@ export default class Calendar extends React.Component {
             start
             end
             client{firstname lastname}
-            service{ cost name}
+            service{ cost name color}
        }
       }
      `
@@ -88,7 +88,7 @@ export default class Calendar extends React.Component {
                 if (loading) return <div>Fetching</div>
                 if (error) return <div>Error</div>
                 if (data.appointmentfeed.length >= this.appointmentToRender) {
-                  data.appointmentfeed.map(appointment => this.appointmentToRender.push({ start: moment(appointment.start), end: moment(appointment.end), client: appointment.client.firstname + ' ' + appointment.client.lastname, cost: appointment.service.cost, serviceName: appointment.service.name }))
+                  data.appointmentfeed.map(appointment => this.appointmentToRender.push({ start: moment(appointment.start), end: moment(appointment.end), client: appointment.client.firstname + ' ' + appointment.client.lastname, cost: appointment.service.cost, serviceName: appointment.service.name, color: appointment.service.color }))
                 }
                 console.log('appointmentToRender', this.appointmentToRender)
 

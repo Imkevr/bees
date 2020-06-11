@@ -30,11 +30,14 @@ class Service extends Component {
   }
 
   render() {
+    
     return (
       <React.Fragment>
         <tr>
-          <th scope="row"> {this.props.service.name}</th>
+          {/* {console.log(this.state.service.color)} */}
+          <th scope="row" style={this.props.service.color !== null ? {color: this.props.service.color} :{color: 'red'}}> {this.props.service.name}</th>
           <td>{this.props.service.hours} u {this.props.service.minutes}</td>
+        
           <td>	&#8364; {this.props.service.cost}</td>
           <td>
             <svg onClick={() => this.openUpdateService(this.props.service)} class="bi bi-pencil-square edit" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">

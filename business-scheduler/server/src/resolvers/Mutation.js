@@ -75,6 +75,7 @@ function postService(parent, args, context, info) {
         description: args.description,
         hours: args.hours,
         minutes: args.minutes,
+        color: args.color,
         postedBy: { connect: { id: userId } },
     })
 }

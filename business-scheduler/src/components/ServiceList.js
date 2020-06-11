@@ -15,6 +15,7 @@ class ServiceList extends Component {
           hours
           minutes
           description
+          color
     
      }
     }

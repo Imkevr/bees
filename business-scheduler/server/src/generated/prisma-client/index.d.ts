@@ -286,6 +286,8 @@ export type ServiceOrderByInput =
   | "hours_DESC"
   | "minutes_ASC"
   | "minutes_DESC"
+  | "color_ASC"
+  | "color_DESC"
   | "deleted_ASC"
   | "deleted_DESC";
 
@@ -418,6 +420,20 @@ export interface ServiceWhereInput {
   minutes_lte?: Maybe<Int>;
   minutes_gt?: Maybe<Int>;
   minutes_gte?: Maybe<Int>;
+  color?: Maybe<String>;
+  color_not?: Maybe<String>;
+  color_in?: Maybe<String[] | String>;
+  color_not_in?: Maybe<String[] | String>;
+  color_lt?: Maybe<String>;
+  color_lte?: Maybe<String>;
+  color_gt?: Maybe<String>;
+  color_gte?: Maybe<String>;
+  color_contains?: Maybe<String>;
+  color_not_contains?: Maybe<String>;
+  color_starts_with?: Maybe<String>;
+  color_not_starts_with?: Maybe<String>;
+  color_ends_with?: Maybe<String>;
+  color_not_ends_with?: Maybe<String>;
   postedBy?: Maybe<UserWhereInput>;
   deleted?: Maybe<Boolean>;
   deleted_not?: Maybe<Boolean>;
@@ -673,6 +689,7 @@ export interface ServiceCreateInput {
   description: String;
   hours: Int;
   minutes: Int;
+  color?: Maybe<String>;
   postedBy?: Maybe<UserCreateOneWithoutServicesInput>;
   deleted?: Maybe<Boolean>;
 }
@@ -718,6 +735,7 @@ export interface ServiceCreateWithoutPostedByInput {
   description: String;
   hours: Int;
   minutes: Int;
+  color?: Maybe<String>;
   deleted?: Maybe<Boolean>;
 }
 
@@ -756,6 +774,7 @@ export interface ServiceUpdateDataInput {
   description?: Maybe<String>;
   hours?: Maybe<Int>;
   minutes?: Maybe<Int>;
+  color?: Maybe<String>;
   postedBy?: Maybe<UserUpdateOneWithoutServicesInput>;
   deleted?: Maybe<Boolean>;
 }
@@ -835,6 +854,7 @@ export interface ServiceUpdateWithoutPostedByDataInput {
   description?: Maybe<String>;
   hours?: Maybe<Int>;
   minutes?: Maybe<Int>;
+  color?: Maybe<String>;
   deleted?: Maybe<Boolean>;
 }
 
@@ -927,6 +947,20 @@ export interface ServiceScalarWhereInput {
   minutes_lte?: Maybe<Int>;
   minutes_gt?: Maybe<Int>;
   minutes_gte?: Maybe<Int>;
+  color?: Maybe<String>;
+  color_not?: Maybe<String>;
+  color_in?: Maybe<String[] | String>;
+  color_not_in?: Maybe<String[] | String>;
+  color_lt?: Maybe<String>;
+  color_lte?: Maybe<String>;
+  color_gt?: Maybe<String>;
+  color_gte?: Maybe<String>;
+  color_contains?: Maybe<String>;
+  color_not_contains?: Maybe<String>;
+  color_starts_with?: Maybe<String>;
+  color_not_starts_with?: Maybe<String>;
+  color_ends_with?: Maybe<String>;
+  color_not_ends_with?: Maybe<String>;
   deleted?: Maybe<Boolean>;
   deleted_not?: Maybe<Boolean>;
   AND?: Maybe<ServiceScalarWhereInput[] | ServiceScalarWhereInput>;
@@ -945,6 +979,7 @@ export interface ServiceUpdateManyDataInput {
   description?: Maybe<String>;
   hours?: Maybe<Int>;
   minutes?: Maybe<Int>;
+  color?: Maybe<String>;
   deleted?: Maybe<Boolean>;
 }
 
@@ -997,6 +1032,7 @@ export interface ServiceUpdateInput {
   description?: Maybe<String>;
   hours?: Maybe<Int>;
   minutes?: Maybe<Int>;
+  color?: Maybe<String>;
   postedBy?: Maybe<UserUpdateOneWithoutServicesInput>;
   deleted?: Maybe<Boolean>;
 }
@@ -1007,6 +1043,7 @@ export interface ServiceUpdateManyMutationInput {
   description?: Maybe<String>;
   hours?: Maybe<Int>;
   minutes?: Maybe<Int>;
+  color?: Maybe<String>;
   deleted?: Maybe<Boolean>;
 }
 
@@ -1167,6 +1204,7 @@ export interface Service {
   description: String;
   hours: Int;
   minutes: Int;
+  color?: String;
   deleted?: Boolean;
 }
 
@@ -1179,6 +1217,7 @@ export interface ServicePromise extends Promise<Service>, Fragmentable {
   description: () => Promise<String>;
   hours: () => Promise<Int>;
   minutes: () => Promise<Int>;
+  color: () => Promise<String>;
   postedBy: <T = UserPromise>() => T;
   deleted: () => Promise<Boolean>;
 }
@@ -1194,6 +1233,7 @@ export interface ServiceSubscription
   description: () => Promise<AsyncIterator<String>>;
   hours: () => Promise<AsyncIterator<Int>>;
   minutes: () => Promise<AsyncIterator<Int>>;
+  color: () => Promise<AsyncIterator<String>>;
   postedBy: <T = UserSubscription>() => T;
   deleted: () => Promise<AsyncIterator<Boolean>>;
 }
@@ -1209,6 +1249,7 @@ export interface ServiceNullablePromise
   description: () => Promise<String>;
   hours: () => Promise<Int>;
   minutes: () => Promise<Int>;
+  color: () => Promise<String>;
   postedBy: <T = UserPromise>() => T;
   deleted: () => Promise<Boolean>;
 }
@@ -1791,6 +1832,7 @@ export interface ServicePreviousValues {
   description: String;
   hours: Int;
   minutes: Int;
+  color?: String;
   deleted?: Boolean;
 }
 
@@ -1805,6 +1847,7 @@ export interface ServicePreviousValuesPromise
   description: () => Promise<String>;
   hours: () => Promise<Int>;
   minutes: () => Promise<Int>;
+  color: () => Promise<String>;
   deleted: () => Promise<Boolean>;
 }
 
@@ -1819,6 +1862,7 @@ export interface ServicePreviousValuesSubscription
   description: () => Promise<AsyncIterator<String>>;
   hours: () => Promise<AsyncIterator<Int>>;
   minutes: () => Promise<AsyncIterator<Int>>;
+  color: () => Promise<AsyncIterator<String>>;
   deleted: () => Promise<AsyncIterator<Boolean>>;
 }
 

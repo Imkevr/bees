@@ -501,6 +501,7 @@ type Service {
   description: String!
   hours: Int!
   minutes: Int!
+  color: String
   postedBy: User
   deleted: Boolean
 }
@@ -518,6 +519,7 @@ input ServiceCreateInput {
   description: String!
   hours: Int!
   minutes: Int!
+  color: String
   postedBy: UserCreateOneWithoutServicesInput
   deleted: Boolean
 }
@@ -539,6 +541,7 @@ input ServiceCreateWithoutPostedByInput {
   description: String!
   hours: Int!
   minutes: Int!
+  color: String
   deleted: Boolean
 }
 
@@ -564,6 +567,8 @@ enum ServiceOrderByInput {
   hours_DESC
   minutes_ASC
   minutes_DESC
+  color_ASC
+  color_DESC
   deleted_ASC
   deleted_DESC
 }
@@ -577,6 +582,7 @@ type ServicePreviousValues {
   description: String!
   hours: Int!
   minutes: Int!
+  color: String
   deleted: Boolean
 }
 
@@ -663,6 +669,20 @@ input ServiceScalarWhereInput {
   minutes_lte: Int
   minutes_gt: Int
   minutes_gte: Int
+  color: String
+  color_not: String
+  color_in: [String!]
+  color_not_in: [String!]
+  color_lt: String
+  color_lte: String
+  color_gt: String
+  color_gte: String
+  color_contains: String
+  color_not_contains: String
+  color_starts_with: String
+  color_not_starts_with: String
+  color_ends_with: String
+  color_not_ends_with: String
   deleted: Boolean
   deleted_not: Boolean
   AND: [ServiceScalarWhereInput!]
@@ -694,6 +714,7 @@ input ServiceUpdateDataInput {
   description: String
   hours: Int
   minutes: Int
+  color: String
   postedBy: UserUpdateOneWithoutServicesInput
   deleted: Boolean
 }
@@ -704,6 +725,7 @@ input ServiceUpdateInput {
   description: String
   hours: Int
   minutes: Int
+  color: String
   postedBy: UserUpdateOneWithoutServicesInput
   deleted: Boolean
 }
@@ -714,6 +736,7 @@ input ServiceUpdateManyDataInput {
   description: String
   hours: Int
   minutes: Int
+  color: String
   deleted: Boolean
 }
 
@@ -723,6 +746,7 @@ input ServiceUpdateManyMutationInput {
   description: String
   hours: Int
   minutes: Int
+  color: String
   deleted: Boolean
 }
 
@@ -756,6 +780,7 @@ input ServiceUpdateWithoutPostedByDataInput {
   description: String
   hours: Int
   minutes: Int
+  color: String
   deleted: Boolean
 }
 
@@ -858,6 +883,20 @@ input ServiceWhereInput {
   minutes_lte: Int
   minutes_gt: Int
   minutes_gte: Int
+  color: String
+  color_not: String
+  color_in: [String!]
+  color_not_in: [String!]
+  color_lt: String
+  color_lte: String
+  color_gt: String
+  color_gte: String
+  color_contains: String
+  color_not_contains: String
+  color_starts_with: String
+  color_not_starts_with: String
+  color_ends_with: String
+  color_not_ends_with: String
   postedBy: UserWhereInput
   deleted: Boolean
   deleted_not: Boolean
