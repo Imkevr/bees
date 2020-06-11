@@ -1,0 +1,90 @@
+scalar DateTime
+
+type Query {
+    info: String!
+    servicefeed: [Service!]!
+    service(id:ID!): Service!
+    user: User!
+    clientfeed:[Client!]! 
+    appointmentfeed:[Appointment!]!
+}
+
+type Mutation {
+    #--- Service mutation's
+    postService(name: String!, cost:Float!, description:String!, hours: Int!, minutes: Int! ): Service!
+    deleteService(id: ID!): Service!
+    updateService(id:ID!, name: String, cost:Float, description:String, hours: Int, minutes: Int): Service!
+
+    #--- Client mutation's
+    postClient(firstname:String!, lastname:String!): Client!
+    deleteClient(id:ID!): Client!
+    updateClient(id:ID!, firstname: String ,lastname: String): Client!
+
+     #--- Signup & login mutation's
+    signup(email: String!, password: String!, firstname:String!, lastname: String!): AuthPayload
+    login(email: String!, password:String!): AuthPayload
+
+     #--- Appointment mutation's
+    appointment(serviceId: ID!, clientId:ID, start:DateTime!, end:DateTime!, completed:Boolean): Appointment
+    deleteAppointment(id:ID!): Appointment
+    updateAppointment(id:ID!): Appointment
+}
+
+type Service {
+    id: ID!
+    createdAt: DateTime! 
+    updatedAt: DateTime! 
+    name: String!
+    cost: Float!
+    description:String
+    hours: Int!
+    minutes: Int!
+    postedBy: User!
+    deleted: Boolean
+}
+
+type calendarSettings{
+    id:ID!
+    workStart: Int!
+    workEnd: Int!
+    forUser:User!
+}
+
+type AuthPayload{
+    token: String
+    user: User
+}
+
+type User {
+    id: ID!
+    firstname:String!
+    lastname:String!
+    email: String!
+    services: [Service!]
+
+}
+
+type Appointment{
+    id: ID!
+    start: String!
+    end: DateTime!
+    deleted: Boolean
+    service: Service!
+    user: User!    
+    client: Client!
+    
+}
+
+type Client{
+    id: ID!
+    firstname:String!
+    lastname:String!
+    user: User!
+    deleted: Boolean
+}
+
+type Subscription {
+  newService: Service
+  newAppointment: Appointment
+  userFeed: User
+}

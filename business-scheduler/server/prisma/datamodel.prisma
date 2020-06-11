@@ -1,0 +1,50 @@
+type Service {
+    id: ID! @id
+    createdAt: DateTime! @createdAt
+    updatedAt: DateTime! @updatedAt
+    name: String!
+    cost: Float!
+    description: String!
+    hours: Int!
+    minutes: Int!
+    postedBy: User
+    deleted: Boolean @default(value: false)
+}
+
+type calendarSettings{
+    id: ID! @id
+    workStart: Int!
+    workEnd: Int!
+    forUser:User!
+}
+
+
+type User{
+    id: ID! @id
+    firstname: String!
+    lastname: String!
+    email: String! @unique
+    password: String!
+    services: [Service!]!
+    
+    
+}
+
+type Client{
+    id: ID! @id
+    firstname: String!
+    lastname: String!
+    user: User!
+    deleted: Boolean @default(value: false)
+}
+
+type Appointment{
+    id: ID! @id
+    start: DateTime!
+    end: DateTime!
+    deleted: Boolean @default(value: false)
+    service: Service!
+    user: User!
+    client: Client!
+    
+}

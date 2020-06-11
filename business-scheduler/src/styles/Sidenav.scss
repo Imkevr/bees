@@ -1,0 +1,167 @@
+@import './_colors';
+
+
+
+#nav-container {
+    width: 12%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: $plain-white;
+    border-right: 1px solid #ECECEC;
+    padding: 20px;
+
+    #nav-head {
+        height: 10%;
+        width: 100%;
+        display: flex;
+        align-content: center;
+
+        #appointes-logo {
+            width: 80px;
+            margin: auto;
+
+
+        }
+
+    }
+
+
+    #nav-links {
+        height: 40%;
+
+
+        #nav-links-container {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            margin-top: 50px;
+
+
+            .link {
+                width: 100%;
+                text-decoration: none;
+
+                .item-link {
+                    width: 80%;
+                    display: flex;
+                    flex-direction: row;
+                    margin: 30px auto;
+                    margin-left: 10px;
+
+                    .nav-link-icon {
+                        width: 30%;
+                        color: $black;
+
+                        svg {
+                            color:$black;
+                            font-size: 1em;
+                            margin-bottom: 8px;
+                        }
+                    }
+
+                    p {
+                        width: 70%;
+                        color: $black;
+                        margin: auto 0;
+                        margin-left: 32px;
+
+                    }
+
+                    &:hover {
+                        color: $blue;
+                    }
+
+
+                }
+
+            }
+
+        }
+
+    }
+
+    #nav-buttons {
+        height: 30%;
+        display: flex;
+        flex-direction: row;
+
+        button {
+            width: 110%;
+            height: 50%;
+            color: $black;
+            font-size: .9em;
+            margin-top: 10px;
+            margin-left: 20px;
+            padding: 12px;
+            background-color: $blue;
+            border: none;
+            font-weight: 600;
+            border: solid 5px $blue;
+            border-radius: 5px;
+            -webkit-box-shadow: 1px 5px 23px -2px rgba(199, 199, 199, 1);
+            -moz-box-shadow: 1px 5px 23px -2px rgba(199, 199, 199, 1);
+            box-shadow: 1px 5px 23px -2px rgba(199, 199, 199, 1);
+
+            &:hover {
+                color: $plain-white;
+            }
+        }
+    }
+
+
+    #nav-logout {
+        height: 30%;
+
+        #nav-logout-content {
+            height: 10%;
+            display: flex;
+            flex-direction: row;
+            margin-top: 250px;
+
+            #nav-gravatar {
+                width: 40%;
+                margin: auto;
+
+                #gravatar {
+                    border-radius: 100%;
+                }
+            }
+
+            #logout-group {
+                width: 80%;
+                cursor: pointer;
+                display: flex;
+                flex-direction: row;
+                margin-left:10px;
+      
+
+                #logout {
+                    width: 60%;
+                    font-weight:500;
+                     margin-top: 12px;
+                     display: flex;
+                     flex-direction: row;
+                     #svg {
+                        width: 20%;
+                        font-size: 0.9em;
+                        color:$black;
+                        margin-left:4px;
+                    }
+                     
+                &:hover , &:hover #svg{
+                    color: $blue;
+                }
+                    
+                }
+               
+            
+                
+            }
+        }
+    }
+}
+
+.active {
+    color: $blue;
+}

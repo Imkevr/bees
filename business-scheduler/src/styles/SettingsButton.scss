@@ -1,0 +1,15 @@
+@import'../styles/colors';
+
+
+    svg {
+       margin-top:8px;
+        margin-left: 20px;
+        font-size: 1.5em;
+        color:$black;
+        cursor: pointer;
+
+        &:hover {
+            color: $blue;
+            border:none;
+        }
+    }

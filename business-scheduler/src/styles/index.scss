@@ -1,0 +1,17 @@
+@import './_colors';
+
+
+html, body, #app, #app>div ,.root{
+  height: 100%;
+  width:100%;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Montserrat', sans-serif;
+  color:$black;
+  overflow: hidden;
+}
+
+
+

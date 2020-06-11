@@ -1,0 +1,229 @@
+@import './colors';
+
+#calendar-page {
+    width: 88%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    // background-color: #F2F3F7;
+    background-color:$blue-light;
+    #calendar-header {
+        height: 10%;
+        display: flex;
+        flex-direction: row;
+        h2{
+            font-weight:600;
+            margin-top:50px;
+            margin-left:50px;
+            color:$blue-dark
+        }
+        #add-appointment-button{
+            width:200px;
+            height:50px;
+            button{
+                font-size: 1.4em;
+                color: $plain-white;
+                font-weight:600;
+        
+            }
+        }
+    }
+    #calendar-navigation-buttons{
+        height:10%;
+        margin: auto;
+        display: flex;
+        flex-direction: row;
+
+        button{
+            background-color: $plain-white;
+            border-color:$plain-white;
+            color: $black;
+            border-radius: 5px;
+            height:49px;
+            border:none;
+            -webkit-box-shadow: 1px 5px 23px -2px rgba(199, 199, 199, 1);
+            -moz-box-shadow: 1px 5px 23px -2px rgba(199, 199, 199, 1);
+            box-shadow: 1px 5px 23px -2px rgba(199, 199, 199, 1);
+            &:hover{
+                border-color:$blue-light;
+                background-color:$blue-light;
+
+            }
+        }
+         .arrow{
+            font-size: 1.5em;
+            padding:0;
+            font-weight: 800;
+            width:50px;
+            padding:6px;
+
+         }
+         #today{
+            padding: 12px 18px;
+            font-size: .9em;
+            font-weight: 600;
+         }
+        #previous{
+            margin-right:20px;
+        }
+        #forward{
+            margin-left:20px;
+        }
+
+    }
+
+    .weekCalendar {
+        width: 95%;
+        height: 95%;
+        margin: auto;
+        -webkit-box-shadow: 1px 5px 23px -2px rgba(199, 199, 199, 1);
+        -moz-box-shadow: 1px 5px 23px -2px rgba(199, 199, 199, 1);
+        box-shadow: 1px 5px 23px -2px rgba(199, 199, 199, 1);
+
+       
+        .weekCalendar__header , .weekCalendar__scaleHeader{
+            height: 60px;
+            line-height: 60px;
+
+        }
+        .weekCalendar__scaleHeader{
+            background-color: $plain-white;
+        }
+        .weekCalendar__content {
+            max-height: 100%;
+         background-color: #FCFBFE;
+
+        }
+        
+        .weekCalendar__scaleCell:first-of-type, .weekCalendar__content{
+            margin-top:32px;
+        }
+        .weekCalendar__scaleCell{
+            border-bottom: none;
+            
+           
+        }
+    }
+}
+
+.weekCalendar__headerColumn {
+
+    font-weight: 500;
+    background-color: #FCFBFE;
+    -webkit-box-shadow: 0px 7px 16px -2px rgba(235,232,235,1);
+    -moz-box-shadow: 0px 7px 16px -2px rgba(235,232,235,1);
+    box-shadow: 0px 7px 16px -2px rgba(235,232,235,1);
+    
+
+}
+
+.dayCell {
+    &:hover {
+        background-color: $blue-light
+    }
+}
+
+
+
+.customEvent {
+    width: 100%;
+    height: 100%;
+    background-color: $blue;
+}
+
+.calendarModal__content {
+    width: 60%;
+    height: 64%;
+    -webkit-box-shadow: 1px 5px 23px -2px rgba(199, 199, 199, 1);
+    -moz-box-shadow: 1px 5px 23px -2px rgba(199, 199, 199, 1);
+    box-shadow: 1px 5px 23px -2px rgba(199, 199, 199, 1);
+
+    .customModal {
+        display: flex;
+        flex-direction: column;
+
+        // padding: 10px;
+        .modal-header {
+            height: 20%;
+
+            h5 {
+                color: $black;
+                text-align: center;
+            }
+        }
+
+        .modal-container {
+            display: flex;
+            flex-direction: row;
+            padding: 30px 20px;
+            height: 70%;
+
+            .selections {
+                width: 50%;
+            }
+
+            .summary {
+
+                width: 50%;
+                text-align: start;
+                margin-left: 10%;
+
+                span {
+                    text-align: center;
+                }
+
+            }
+
+        }
+
+        .modal-footer {
+            display: flex;
+            flex-direction: row;
+            height: 20%;
+            margin: 0;
+
+            .modal__button__blue {
+                width: 10%;
+                height: 10%;
+                text-align:center;
+                color: $black;
+                background-color: $blue;
+                font-size: .9em;
+                padding: 12px;
+                font-weight: 600;
+                border: solid 5px $blue;
+                border-radius: 5px;
+                -webkit-box-shadow: 1px 5px 23px -2px rgba(199, 199, 199, 1);
+                -moz-box-shadow: 1px 5px 23px -2px rgba(199, 199, 199, 1);
+                box-shadow: 1px 5px 23px -2px rgba(199, 199, 199, 1);
+                margin: 0;
+
+                &:hover {
+                    color: $plain-white;
+                    background-color: $blue;
+                }
+
+
+            }
+
+            .modal__button__cancel {
+                width: 10%;
+                height: 10%;
+                color: $blue;
+                font-size: .9em;
+                font-weight: 600;
+                border: none;
+                background-color: rgba(0, 0, 0, 0);
+                margin: 0;
+            }
+        }
+    }
+}
+
+.dayCell{
+    background-color: #FCFBFE;
+}
+.calendarModal__backdrop {
+    background-color: rgba(0, 0, 0, 0);
+}
