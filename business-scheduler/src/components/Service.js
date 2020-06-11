@@ -35,7 +35,8 @@ class Service extends Component {
       <React.Fragment>
         <tr>
           {/* {console.log(this.state.service.color)} */}
-          <th scope="row" style={this.props.service.color !== null ? {color: this.props.service.color} :{color: 'red'}}> {this.props.service.name}</th>
+          <td> <div style={{width:'15px', height:'15px', border:'3px solid', borderColor:this.props.service.color, backgroundColor: this.props.service.color, borderRadius:"100%"}}></div></td>
+          <th scope="row" > {this.props.service.name}</th>
           <td>{this.props.service.hours} u {this.props.service.minutes}</td>
         
           <td>	&#8364; {this.props.service.cost}</td>

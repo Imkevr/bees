@@ -2,7 +2,7 @@ import React from 'react'
 import { Modal } from 'react-bootstrap'
 import { Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
-
+import '../../styles/CreateClientModal.scss'
 
 class UpdateClientModal extends React.Component {
     constructor(props) {
@@ -39,29 +39,29 @@ class UpdateClientModal extends React.Component {
                                     <Modal.Title id="contained-modal-title-vcenter">Update service</Modal.Title>
                                 </Modal.Header>
                                 <Modal.Body>
-                                    <div className="flex flex-column mt3">
-                                        <section>
-                                        <label>Firstname:</label>
-                                        <input
-                                            className="mb2"
-                                            value={firstname}
-                                            onChange={e => this.setState({ firstname: e.target.value })}
-                                            type="text"
-                                            placeholder="Client's firstname"
-                                        />
-                                        </section>
-                                        <section>
-                                        <label>Lastname:</label>
-                                        <input
-                                            className="mb2"
-                                            value={lastname}
-                                            onChange={e => this.setState({ lastname: e.target.value })}
-                                            type="text"
-                                            placeholder="Client's lastname"
-                                        />
-                                        </section>
-                                       
-                                    </div>
+                                <div className="flex flex-column mt3 client-row ">
+                                <section className="form-group firstname">
+                                    <label>Firstname:</label>
+                                    <input
+                                        className="form-control "
+                                        value={firstname}
+                                        onChange={e => this.setState({ firstname: e.target.value })}
+                                        type="text"
+                                        placeholder="A name for the service"
+                                    />
+                                </section>
+                                <section className="form-group lastname">
+                                    <label>Lastname:</label>
+                                    <input
+                                        className="form-control "
+                                        value={lastname}
+                                        onChange={e => this.setState({ lastname: e.target.value })}
+                                        type="text"
+                                        placeholder="The service cost"
+                                    />
+                                </section>
+
+                            </div>
                                 </Modal.Body>
                                 <Modal.Footer>
                                     <Mutation mutation={UPDATE_MUTATION}
@@ -69,7 +69,7 @@ class UpdateClientModal extends React.Component {
                                         {/* onCompleted={() => this.props.history.push('/')} */}
 
                                         {updateMutation =>
-                                            <button onClick={() => {updateMutation(); this.props.onHide()}}>Submit</button>
+                                            <button onClick={() => {updateMutation(); this.props.onHide()}} className="btn submit">Update</button>
                                           
                                         }
                                     </Mutation>

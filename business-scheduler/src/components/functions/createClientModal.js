@@ -2,6 +2,7 @@ import React from 'react'
 import { Modal } from 'react-bootstrap'
 import { Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
+import '../../styles/CreateClientModal.scss'
 
 
 class CreateClientModal extends React.Component {
@@ -26,7 +27,7 @@ class CreateClientModal extends React.Component {
    }
  }
      `
-     
+
         return (
             <React.Fragment>
                 {
@@ -38,40 +39,40 @@ class CreateClientModal extends React.Component {
                         centered
                     >
                         <Modal.Header closeButton >
-                            <Modal.Title id="contained-modal-title-vcenter">Create Client!!!</Modal.Title>
+                            <Modal.Title id="contained-modal-title-vcenter" className="title">Create a new client</Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
-                            <div className="flex flex-column mt3">
-                                <section>
-                                    <label>firstname:</label>
+                            <div className="flex flex-column mt3 client-row ">
+                                <section className="form-group firstname">
+                                    <label>Firstname:</label>
                                     <input
-                                        className="mb2"
+                                        className="form-control "
                                         value={firstname}
                                         onChange={e => this.setState({ firstname: e.target.value })}
                                         type="text"
                                         placeholder="A name for the service"
                                     />
                                 </section>
-                                <section>
-                                    <label>lastname:</label>
+                                <section className="form-group lastname">
+                                    <label>Lastname:</label>
                                     <input
-                                        className="mb2"
+                                        className="form-control "
                                         value={lastname}
-                                        onChange={e => this.setState({ lastname: e.target.value})}
+                                        onChange={e => this.setState({ lastname: e.target.value })}
                                         type="text"
                                         placeholder="The service cost"
                                     />
                                 </section>
-                                
+
                             </div>
                         </Modal.Body>
                         <Modal.Footer>
                             <Mutation mutation={CLIENT_POST_MUTATION}
-                                variables={{ lastname, firstname}}>
+                                variables={{ lastname, firstname }}>
                                 {/* onCompleted={() => this.props.history.push('/')} */}
 
                                 {postMutation =>
-                                     <button onClick={() => {postMutation(); this.props.onHide()}}>Submit</button>
+                                    <button onClick={() => { postMutation(); this.props.onHide() }} className="btn submit">Submit</button>
 
                                 }
                             </Mutation>

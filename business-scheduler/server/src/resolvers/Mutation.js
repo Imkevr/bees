@@ -88,7 +88,8 @@ function updateService(parent, args, context, info) {
             name: args.name,
             description: args.description,
             hours: args.hours,
-            minutes: args.minutes
+            minutes: args.minutes,
+            color: args.color
         }
     },
         info

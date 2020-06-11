@@ -70,6 +70,7 @@
                                     margin-left: 0px;
                                     color: $blue-dark;
                                     font-size:1.2em;
+                                    
                               }
                         }
                   }
@@ -78,6 +79,8 @@
                         tr {
                               th {
                                     padding: 20px;
+                                    font-weight: 600 !important;
+                                    color:$black;
                               }
 
                               td {

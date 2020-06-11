@@ -2,6 +2,7 @@ import React from 'react'
 import { Modal } from 'react-bootstrap'
 import { Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
+import '../../styles/DeleteModal.scss'
 
 
 class DeleteServiceModal extends React.Component {
@@ -32,26 +33,27 @@ class DeleteServiceModal extends React.Component {
                         centered
                     >
                         <Modal.Header closeButton >
-                            <Modal.Title id="contained-modal-title-vcenter">Delete {this.props.service.name}</Modal.Title>
+                            <Modal.Title id="contained-modal-title-vcenter" className="tittle">Delete service</Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
-                            <div>
-                                Are you sure you want to delete <span>{this.props.service.name}</span>
+                            <div className="delete-content"> 
+                                Are you sure you want to delete <span>{this.props.service.name}</span> ?
 
                             </div>
                         </Modal.Body>
                         <Modal.Footer>
+                        <button onClick={() => this.props.onHide() } className="btn no">No</button>
                             <Mutation mutation={DELETE_MUTATION}
                                 variables={{id}}>
                                 {/* onCompleted={() => this.props.history.push('/')} */}
 
                                 {deleteMutation =>
-                                    <button onClick={() => { deleteMutation(); this.props.onHide() }}>Yes</button>
+                                    <button onClick={() => { deleteMutation(); this.props.onHide() } }className="btn yes">Yes</button>
                                    
 
                                 }
                             </Mutation>
-                            <button onClick={() => this.props.onHide() }>No</button>
+                          
                         </Modal.Footer>
                     </Modal>
 

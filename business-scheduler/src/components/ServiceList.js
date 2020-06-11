@@ -56,7 +56,7 @@ class ServiceList extends Component {
                                     <table className="table">
                                         <thead>
                                             <tr>
-
+                                                <th scope="col"></th>
                                                 <th scope="col">Service name</th>
                                                 <th scope="col">Duration</th>
                                                 <th scope="col">Cost</th>

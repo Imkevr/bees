@@ -15,22 +15,24 @@ class UpdateServiceModal extends React.Component {
             hours: this.props.service.hours,
             minutes: this.props.service.minutes,
             description: this.props.service.description,
+            color: this.props.service.color
 
         };
 
     }
     
     render() {
-        const {id, name, cost, description, hours, minutes } = this.state
+        const {id, name, cost, description, hours, minutes , color} = this.state
         const UPDATE_MUTATION = gql`
-   mutation UpdateMutation($id:ID!, $cost: Float!, $name: String!, $hours: Int!, $minutes:Int!, $description: String! ) {
-   updateService(id:$id, cost: $cost, name: $name, minutes: $minutes, hours: $hours, description:$description) {
+   mutation UpdateMutation($id:ID!, $cost: Float!, $name: String!, $hours: Int!, $minutes:Int!, $description: String! , $color:String) {
+   updateService(id:$id, cost: $cost, name: $name, minutes: $minutes, hours: $hours, description:$description, color:$color) {
      id
      cost
      name
      description
      hours
      minutes
+     color
    }
  }
      `
@@ -64,7 +66,7 @@ class UpdateServiceModal extends React.Component {
                                         <div className="form-group color">
                                             <label for="color-input" className="col-2 col-form-label"> Color:</label>
                                             <div className="col-10">
-                                                <input className="form-control" type="color" value={this.state.color} id="color-input" onChange={e => this.setState({ color: e.target.value })} />
+                                                <input className="form-control" type="color" value={color} id="color-input" onChange={e => this.setState({ color: e.target.value })} />
                                             </div>
                                         </div>
                                     </div>
@@ -130,7 +132,7 @@ class UpdateServiceModal extends React.Component {
                                 </Modal.Body>
                                 <Modal.Footer>
                                     <Mutation mutation={UPDATE_MUTATION}
-                                        variables={{id, cost, name, description, hours, minutes }}>
+                                        variables={{id, cost, name, description, hours, minutes, color }}>
                                         {/* onCompleted={() => this.props.history.push('/')} */}
 
                                         {updateMutation =>
