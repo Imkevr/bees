@@ -25,9 +25,16 @@ class ClientList extends Component {
                     this.clientsToRender = data.clientfeed
                     return (
                         <React.Fragment>
-                 
-                              <ul class="list-group"> {this.clientsToRender.map(client => <Client key={client.id} client={client} />)}</ul> 
-                           
+                            <div className="container">
+                                <div className="row row-cols-5">
+                                   
+                                    {this.clientsToRender.map(client => <Client key={client.id} client={client} />)}
+                                    
+                                </div>
+                            </div>
+
+
+
                         </React.Fragment>
                     )
                 }}

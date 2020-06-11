@@ -33,10 +33,24 @@ class ServiceList extends Component {
                                     <h2>Services</h2>
                                     <button type="button" class="btn">Create new service</button>
                                 </div>
-                                <div className="service-content">
-                                    <ul id="service-container list-group-item">
-                                        {servicesToRender.map(service => <Service key={service.id} service={service} />)}
-                                    </ul>
+                                <div id="service-content">
+                                    <table className="table">
+                                        <thead>
+                                            <tr>
+
+                                                <th scope="col">Service name</th>
+                                                <th scope="col">Duration</th>
+                                                <th scope="col">Cost</th>
+                                                <th scope="col"></th>
+                                                <th scope="col"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            {servicesToRender.map(service => <Service key={service.id} service={service} />)}
+
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </React.Fragment>

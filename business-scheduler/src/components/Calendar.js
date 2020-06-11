@@ -7,6 +7,7 @@ import CustomEvent from './CalenderComponents/CustomEvent'
 
 import CalenderModal from './CalenderComponents/CalenderModal'
 import CustomHeaderCell from './CalenderComponents/CustomHeaderCell'
+import AppointmentPopup from './CalenderComponents/AppointmentPopup'
 
 import 'react-week-calendar/dist/style.css';
 import '../styles/Calender.scss'
@@ -20,9 +21,14 @@ export default class Calendar extends React.Component {
       lastUid: 1,
       currentDay: moment(),
       showCalendarDay: moment(),
-      title:moment().format('MMMM')
+      openPopUp:false,
+      
     }
   }
+  openPopUp= () => {
+    this.setState({openPopUp:true})
+    console.log("openPopup")
+}
 
   handleMoveToCurrentDay = () => {
     this.setState({
@@ -73,6 +79,10 @@ export default class Calendar extends React.Component {
         <div id="calendar-page">
           <div id='calendar-header'>
             <h2>Calendar </h2>
+            <div id="add-appointment-button">
+           {/* <button type="button" className="btn" onClick={() => this.openPopUp}>Make appointment</button>
+           {this.state.openPopUp && <AppointmentPopup onHide={() => this.setState({openPopUp: false})} />} */}
+          </div>
             <Query query={APPOINTMENT_FEED_QUERY} >
               {({ loading, error, data }) => {
                 if (loading) return <div>Fetching</div>
@@ -123,9 +133,10 @@ export default class Calendar extends React.Component {
             eventSpacing={20}
             selectedIntervals={this.appointmentToRender}
             eventComponent={CustomEvent}
-            scaleHeaderTitle={this.state.title}
+            scaleHeaderTitle={this.state.showCalendarDay.format('MMMM')}
             headerCellComponent={CustomHeaderCell}
           />
+         
           {console.log('test', this.appointmentToRender)}
         </div>
       </React.Fragment>

@@ -1,19 +1,101 @@
-#client-list-page{
-    width:88%;
-    height:100%;
+@import'./colors';
 
-    #client-list-header{
-        height:20%;
+#client-list-page {
+    width: 88%;
+    height: 100%;
+    background-color: $blue-light;
+
+    #client-list-header {
+        height: 18%;
         display: flex;
         flex-direction: row;
-       
-        h3{
-            margin: 3% 3%;
+
+        h3 {
+            width: 80%;
+            font-weight: 600;
+            margin-top: 50px;
+            margin-left: 50px;
+            color: $blue-dark
         }
-        button{
-            width:150px;
-            height:70px;
-           
+
+        button {
+            width: 200px;
+            height: 50px;
+            color: $black;
+            font-size: .9em;
+            margin: 45px 0px;
+            padding: 12px;
+            background-color: $blue;
+            font-weight: 700;
+            border: solid 5px $blue;
+            border-radius: 5px;
+            -webkit-box-shadow: 1px 5px 23px -2px rgba(199, 199, 199, 1);
+            -moz-box-shadow: 1px 5px 23px -2px rgba(199, 199, 199, 1);
+            box-shadow: 1px 5px 23px -2px rgba(199, 199, 199, 1);
+
+            &:hover {
+                  color: $plain-white;
+            }
+      }
+
+    }
+
+    #client-list-body {
+        height: 90%;
+        width: 95%;
+        margin: auto;
+        background-color: #FCFBFE;
+        -webkit-box-shadow: 1px 5px 23px -2px rgba(199, 199, 199, 1);
+        -moz-box-shadow: 1px 5px 23px -2px rgba(199, 199, 199, 1);
+        box-shadow: 1px 5px 23px -2px rgba(199, 199, 199, 1);
+        overflow: auto;
+
+        div {
+            width: 100%;
+
+            div {
+                width: 120%;
+                margin-top: 4%;
+
+                .client-card {
+                    margin: auto;
+                    height: 10%;
+                    margin: 10px;
+                    padding: 20px;
+                    color: $blue-dark;
+                    font-weight: 600;
+                    background-color: $plain-white;
+                    border: 1px solid $blue-dark;
+                    text-align: center;
+                    border-radius: 5px;
+                    display: flex;
+                    flex-direction: row;
+
+                    
+
+                    svg {
+                        font-size: 1.2em;
+                        cursor: pointer;
+                        
+
+                    }
+
+                    .edit {
+                        color: $blue-dark;
+
+
+
+                    }
+
+                    .delete {
+                        color: #975057;
+
+
+                    }
+
+                }
+            }
+
         }
     }
 }

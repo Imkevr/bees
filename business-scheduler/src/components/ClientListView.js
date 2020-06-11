@@ -14,7 +14,7 @@ class ClientListView extends Component {
                     <div id="client-list-page">
                         <div id="client-list-header">
                             <h3>Client list</h3>
-                            <button>Make new client</button>
+                            <button>Create new client</button>
 
                         </div>
                         <div id="client-list-body">

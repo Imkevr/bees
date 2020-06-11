@@ -13,6 +13,7 @@
         display: flex;
         flex-direction: column;
         padding: 20px;
+        border-right: 1px solid #ECECEC;
 
         #appointes-logo {
             width: 80px;
@@ -36,7 +37,7 @@
     #login {
         width: 70%;
         height: 100%;
-        background-color: $blue;
+        background-color: $blue-light;
 
 
 
@@ -56,8 +57,9 @@
                 height: 10%;
 
                 h2 {
+                    
                     text-align: center;
-                    font-weight: 600;
+                    font-weight: 700;
                     margin: auto;
                     color: $black
                 }
@@ -85,6 +87,7 @@
                 height: 20%;
 
                 .button {
+                    cursor: pointer;
                     width: 70%;
                     height: 40%;
                     color: $black;

@@ -135,22 +135,26 @@
                 flex-direction: row;
                 margin-left:10px;
       
-                &:hover {
-                    color: $blue;
-                }
 
                 #logout {
                     width: 60%;
                     font-weight:500;
                      margin-top: 12px;
+                     display: flex;
+                     flex-direction: row;
+                     #svg {
+                        width: 20%;
+                        font-size: 0.9em;
+                        color:$black;
+                        margin-left:4px;
+                    }
+                     
+                &:hover , &:hover #svg{
+                    color: $blue;
+                }
                     
                 }
-                #svg {
-                    width: 20%;
-                    margin-top:12px;
-                    font-size: 0.9em;
-                    color:$black;
-                }
+               
             
                 
             }

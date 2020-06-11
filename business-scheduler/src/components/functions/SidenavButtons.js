@@ -1,7 +1,7 @@
 import React from 'react'
 import CreateServiceModal from './CreateServiceModal'
 import CreateClientModal from './createClientModal'
-// import CalendarModal from '../CalenderComponents/CalenderModal'
+import AppointmentPopup from '../CalenderComponents/AppointmentPopup'
 import '../../styles/sideNavButtons.scss'
 
 export default function SidenavButtons(props) {
@@ -25,13 +25,13 @@ export default function SidenavButtons(props) {
                     modelUsage={props.usage}
                 />
             }
-            {/* {props.usage === "appointment" && modalShow &&
-                <CalendarModal
+            {props.usage === "appointment" && modalShow &&
+                <AppointmentPopup
                     show={modalShow}
                     onHide={() => setModalShow(false)}
                     modelUsage={props.usage}
                 />
-            } */}
+            }
         
 
 

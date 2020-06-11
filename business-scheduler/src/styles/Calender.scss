@@ -6,15 +6,27 @@
     display: flex;
     flex-direction: column;
     overflow: auto;
-    background-color: #F2F3F7;
-
+    // background-color: #F2F3F7;
+    background-color:$blue-light;
     #calendar-header {
         height: 10%;
+        display: flex;
+        flex-direction: row;
         h2{
             font-weight:600;
             margin-top:50px;
             margin-left:50px;
             color:$blue-dark
+        }
+        #add-appointment-button{
+            width:200px;
+            height:50px;
+            button{
+                font-size: 1.4em;
+                color: $plain-white;
+                font-weight:600;
+        
+            }
         }
     }
     #calendar-navigation-buttons{
@@ -60,6 +72,7 @@
         }
 
     }
+
     .weekCalendar {
         width: 95%;
         height: 95%;
@@ -121,7 +134,7 @@
 
 .calendarModal__content {
     width: 60%;
-    height: 90%;
+    height: 64%;
     -webkit-box-shadow: 1px 5px 23px -2px rgba(199, 199, 199, 1);
     -moz-box-shadow: 1px 5px 23px -2px rgba(199, 199, 199, 1);
     box-shadow: 1px 5px 23px -2px rgba(199, 199, 199, 1);
@@ -173,7 +186,7 @@
             .modal__button__blue {
                 width: 10%;
                 height: 10%;
-                margin: 0 auto;
+                text-align:center;
                 color: $black;
                 background-color: $blue;
                 font-size: .9em;

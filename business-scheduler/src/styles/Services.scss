@@ -6,25 +6,27 @@
       display: flex;
       flex-direction: column;
       overflow: auto;
-      background-color: #F2F3F7;
+      background-color: $blue-light;
 
       #service-header {
-            height: 16%;
+            height: 20%;
             display: flex;
             flex-direction: row;
-            h2{
-                  width:80%;
-                  font-weight:600;
-                  margin-top:50px;
-                  margin-left:50px;
-                  color:$blue-dark
+
+            h2 {
+                  width: 80%;
+                  font-weight: 600;
+                  margin-top: 50px;
+                  margin-left: 50px;
+                  color: $blue-dark
             }
+
             button {
                   width: 200px;
                   height: 50px;
                   color: $black;
                   font-size: .9em;
-                  margin:45px 0px;
+                  margin: 45px 0px;
                   padding: 12px;
                   background-color: $blue;
                   font-weight: 700;
@@ -33,22 +35,74 @@
                   -webkit-box-shadow: 1px 5px 23px -2px rgba(199, 199, 199, 1);
                   -moz-box-shadow: 1px 5px 23px -2px rgba(199, 199, 199, 1);
                   box-shadow: 1px 5px 23px -2px rgba(199, 199, 199, 1);
-      
+
                   &:hover {
-                      color: $plain-white;
+                        color: $plain-white;
                   }
-              }
+            }
 
       }
 
       #service-content {
             height: 90%;
-            color:red;
-            #service-container{
-                  .service-card{
-                        width:10%;
-                        color:red;
+            width: 95%;
+            margin: auto;
+            background-color: #FCFBFE;
+            -webkit-box-shadow: 1px 5px 23px -2px rgba(199, 199, 199, 1);
+            -moz-box-shadow: 1px 5px 23px -2px rgba(199, 199, 199, 1);
+            box-shadow: 1px 5px 23px -2px rgba(199, 199, 199, 1);
+            overflow: auto;
+
+            table {
+
+                  width: 90%;
+                  margin: 0 auto;
+                  margin-top: 1%;
+                  background-color: #FCFBFE;
+
+                  thead {
+
+                        tr {
+
+                              th {
+                                    border-top: none;
+                                    padding: 20px 10px;
+                                    margin-left: 0px;
+                                    color: $blue-dark;
+                                    font-size:1.2em;
+                              }
+                        }
+                  }
+
+                  tbody {
+                        tr {
+                              th {
+                                    padding: 20px;
+                              }
+
+                              td {
+                                    padding: 20px;
+                                    font-weight:500;
+                                    
+
+                                    svg {
+                                          font-size: 1.2em;
+                                          cursor: pointer;
+
+                                    }
+
+                                    .edit {
+                                          color: $blue-dark;
+
+                                    }
+
+                                    .delete {
+                                          color: #975057;
+                                    }
+                              }
+                        }
                   }
             }
+
       }
 }

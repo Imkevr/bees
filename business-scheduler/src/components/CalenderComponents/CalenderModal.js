@@ -90,11 +90,11 @@ class CalenderModal extends React.Component {
           <Mutation mutation={APPOINTMENT_MUTATION}
             variables={{ start, end, clientId, serviceId }}>
             {postMutation =>
-              <button className="modal__button__blue" onClick={() => { postMutation(); this.handleRemove() }}>{action}</button>
+              <button className="btn modal__button__blue" onClick={() => { postMutation(); this.handleRemove() }}>{action}</button>
             }
           </Mutation>
 
-          <button className="modal__button__cancel" onClick={this.handleRemove}>Cancel</button>
+          <button className="btn modal__button__cancel" onClick={this.handleRemove}>Cancel</button>
         </div>
       </div>
     );
