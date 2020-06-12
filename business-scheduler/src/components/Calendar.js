@@ -21,14 +21,9 @@ export default class Calendar extends React.Component {
       lastUid: 1,
       currentDay: moment(),
       showCalendarDay: moment(),
-      openPopUp:false,
-      
     }
+
   }
-  openPopUp= () => {
-    this.setState({openPopUp:true})
-    console.log("openPopup")
-}
 
   handleMoveToCurrentDay = () => {
     this.setState({
@@ -61,15 +56,14 @@ export default class Calendar extends React.Component {
 
   render() {
 
-    // console.log('test',moment(this.selectedIntervals.start))
     const APPOINTMENT_FEED_QUERY = gql`
        {
           appointmentfeed {
-          
+            id
             start
             end
-            client{firstname lastname}
-            service{ cost name color}
+            client{ id firstname lastname}
+            service{ id cost name color}
        }
       }
      `
@@ -79,16 +73,20 @@ export default class Calendar extends React.Component {
         <div id="calendar-page">
           <div id='calendar-header'>
             <h2>Calendar </h2>
-            <div id="add-appointment-button">
-           {/* <button type="button" className="btn" onClick={() => this.openPopUp}>Make appointment</button>
-           {this.state.openPopUp && <AppointmentPopup onHide={() => this.setState({openPopUp: false})} />} */}
-          </div>
             <Query query={APPOINTMENT_FEED_QUERY} >
               {({ loading, error, data }) => {
                 if (loading) return <div>Fetching</div>
                 if (error) return <div>Error</div>
                 if (data.appointmentfeed.length >= this.appointmentToRender) {
-                  data.appointmentfeed.map(appointment => this.appointmentToRender.push({ start: moment(appointment.start), end: moment(appointment.end), client: appointment.client.firstname + ' ' + appointment.client.lastname, cost: appointment.service.cost, serviceName: appointment.service.name, color: appointment.service.color }))
+                  data.appointmentfeed.map(appointment => this.appointmentToRender.push({ 
+                    clientId: appointment.client.id, 
+                    serviceId: appointment.service.id, 
+                    id: appointment.id, 
+                    start: moment(appointment.start), 
+                    end: moment(appointment.end), 
+                    client: appointment.client.firstname + ' ' + appointment.client.lastname, 
+                    cost: appointment.service.cost, serviceName: appointment.service.name, 
+                    color: appointment.service.color }))
                 }
                 console.log('appointmentToRender', this.appointmentToRender)
 
@@ -112,7 +110,7 @@ export default class Calendar extends React.Component {
             </button>
 
             <button type="button" onClick={this.handleMoveToCurrentDay} className="btn" id="today" data-toggle="tooltip" data-placement="top" title="Back to current day">{this.state.currentDay.format('Do MMMM YYYY')}</button>
-            
+
             <button type="button" onClick={this.handleMoveToFutureDay} className="arrow btn" id="forward" data-toggle="tooltip" data-placement="right" title="Forward 7 days">
               <svg class="bi bi-arrow-90deg-right" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" d="M9.896 2.396a.5.5 0 0 0 0 .708l2.647 2.646-2.647 2.646a.5.5 0 1 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708 0z" />
@@ -136,7 +134,7 @@ export default class Calendar extends React.Component {
             scaleHeaderTitle={this.state.showCalendarDay.format('MMMM')}
             headerCellComponent={CustomHeaderCell}
           />
-         
+
           {console.log('test', this.appointmentToRender)}
         </div>
       </React.Fragment>

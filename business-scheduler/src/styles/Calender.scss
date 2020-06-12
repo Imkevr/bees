@@ -190,14 +190,13 @@
                 color: $black;
                 background-color: $blue;
                 font-size: .9em;
-                padding: 12px;
+                padding: 2px;
                 font-weight: 600;
                 border: solid 5px $blue;
                 border-radius: 5px;
                 -webkit-box-shadow: 1px 5px 23px -2px rgba(199, 199, 199, 1);
                 -moz-box-shadow: 1px 5px 23px -2px rgba(199, 199, 199, 1);
                 box-shadow: 1px 5px 23px -2px rgba(199, 199, 199, 1);
-                margin: 0;
 
                 &:hover {
                     color: $plain-white;
@@ -206,6 +205,7 @@
 
 
             }
+
 
             .modal__button__cancel {
                 width: 10%;
@@ -226,4 +226,15 @@
 }
 .calendarModal__backdrop {
     background-color: rgba(0, 0, 0, 0);
+}
+
+.modal__button__red{
+    width: 10%;
+    height: 10%;
+    color: red;
+    font-size: 1em;
+    font-weight: 600;
+    border: none;
+    background-color: rgba(0, 0, 0, 0);
+    margin: 0;
 }

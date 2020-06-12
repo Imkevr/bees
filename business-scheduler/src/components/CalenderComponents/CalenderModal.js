@@ -3,7 +3,7 @@ import { Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
 import ServiceSearch from '../ServiceSearch'
 import ClientSearch from '../SearchQueryComponents/ClientfeedQuery/ClientSearch'
-import moment from 'moment';
+import DeleteAppointmentModal from '../functions/DeleteAppointmentModal';
 
 class CalenderModal extends React.Component {
   constructor(props) {
@@ -11,13 +11,14 @@ class CalenderModal extends React.Component {
     this.state = {
       selectedService: '',
       selectedClient: '',
-      start: '',
-      end: '',
-      clientId: '',
-      serviceId: ''
-
+      start: this.props.start !== "" ? this.props.start : "",
+      end: this.props.end !== "" ? this.props.end : "",
+      clientId: this.props.clientId !=="" ? this.props.clientId : "",
+      serviceId: this.props.serviceId ? this.props.serviceId : "",
+      id: this.props.id !== ""? this.props.id : "",
+      openDeleteAppointment : false,
     };
-
+    this.openDeleteAppointment = this.openDeleteAppointment.bind(this);
   }
 
   handleServiceSelect = (selectedServiceObj) => {
@@ -40,17 +41,23 @@ class CalenderModal extends React.Component {
     this.props.onRemove();
   }
 
-  handleSave = () => {
-
-  }
+  openDeleteAppointment() {
+    
+    this.setState({
+        openDeleteClient: true,
+    })
+  
+}
 
 
   render() {
-    const { start, end, clientId, serviceId } = this.state
+    console.log("props",this.props)
+    console.log("state",this.state)
+    const { start, end, clientId, serviceId, id } = this.state
     const APPOINTMENT_MUTATION = gql`
+  
  mutation PostMutation($start: DateTime!,$end:DateTime!, $serviceId: ID!, $clientId:ID!) {
   appointment(start: $start, end: $end, clientId:$clientId, serviceId:$serviceId) {
-    id
     start
     end
     service{id}
@@ -58,6 +65,20 @@ class CalenderModal extends React.Component {
   }
 }
     `
+
+const UPDATE_APPOINTMENT_MUTATION = gql`
+  
+mutation UpdateMutation($start: DateTime!,$end:DateTime!, $serviceId: ID!, $clientId:ID!, $id: ID!) {
+  updateAppointment(start: $start, end: $end, clientId:$clientId, serviceId:$serviceId, id:$id) {
+   id
+   start
+   end
+   service{id}
+   client{id}
+ }
+}
+   `
+
 
     const action = this.props.actionType === "create" ? "Book" : "Update"
     var endTime = this.props.start.clone().add(this.state.selectedService.hours, 'hours').add(this.state.selectedService.minutes, 'minutes')
@@ -68,8 +89,11 @@ class CalenderModal extends React.Component {
         <div className="modal-header">
 
           <h5 className="customModal__text">Shedule appointment - {this.props.start.format('Do MMMM.')}</h5>
-          { action === "Update"? <button className="modal__button__blue">Delete</button> :""}
-         
+          {action === "Update" ?  
+              <button className="btn modal__button__red" onClick={() => { this.openDeleteAppointment()}}>Delete</button> : ""}
+               {this.state.openDeleteAppointment &&
+                    <DeleteAppointmentModal appointment={this.state.id} onHide={() => this.setState({ openDeleteClient: false, id: null })} show />}
+
         </div>
         <div className="modal-container">
           <div className="selections">
@@ -86,13 +110,17 @@ class CalenderModal extends React.Component {
           </div>
         </div>
         <div className="modal-footer" >
-       
-          <Mutation mutation={APPOINTMENT_MUTATION}
+          {action === 'Book' ? <Mutation mutation={APPOINTMENT_MUTATION}
             variables={{ start, end, clientId, serviceId }}>
             {postMutation =>
-              <button className="btn modal__button__blue" onClick={() => { postMutation(); this.handleRemove() }}>{action}</button>
+              <button className="btn modal__button__blue" onClick={() => { postMutation(); this.handleRemove() }}>Book</button>
             }
-          </Mutation>
+          </Mutation> : <Mutation mutation={UPDATE_APPOINTMENT_MUTATION}
+            variables={{ start, end, clientId, serviceId , id}}>
+            {updateMutation =>
+              <button className="btn modal__button__blue" onClick={() => { updateMutation(); this.handleRemove() }}>Update</button>
+            }
+          </Mutation>     }
 
           <button className="btn modal__button__cancel" onClick={this.handleRemove}>Cancel</button>
         </div>
