@@ -13,6 +13,8 @@ class Login extends Component {
         password: '',
         firstname: '',
         lastname: '',
+        error: null
+        
 
     }
 
@@ -105,11 +107,13 @@ class Login extends Component {
                             <Mutation
                                 mutation={login ? LOGIN_MUTATION : SIGNUP_MUTATION}
                                 variables={{ email, password, firstname, lastname }}
-                                onCompleted={data => this._confirm(data)}
+                                onCompleted={data => this._confirm(data) }
+                                onError={error => this.setState({ error : error})}
                             >
-                                {mutation => (
+                                {(mutation, {error})=> (
                                     <div className="button" onClick={mutation}>
                                         {login ? 'Login' : 'Sign Up'}
+                                        {console.log(this.state.error)}
                                     </div>
                                 )}
                             </Mutation>

@@ -17,25 +17,50 @@ import { AUTH_TOKEN } from '../constants'
 
 class App extends Component {
   render() {
-    const authToken = localStorage.getItem(AUTH_TOKEN)
-    const PrivateRoute = ({ component: component, ...rest }) => (
-      <Route {...rest} render={(props) => (
-        authToken === true
-          ? <Component  {...props} />
-          : <Redirect to={{ pathname: '/login', state: { from: props.location } }} />
-      )} />
-    )
+  
+    const PrivateRoute = ({ component: Component, ...rest }) => {
+     
+      const authToken = localStorage.getItem(AUTH_TOKEN)
+      console.log(authToken);
+       return (
+        <Route {...rest} render={(props) => {
+          console.log(authToken, props)
+          return (
+
+            authToken
+              ? <Component  {...props} />
+              : <Redirect to={{ pathname: '/login', state: { from: props.location } }} />
+          )
+        }} />
+      )
+    }
+    // const PublicRoute = ({ component: Component, ...rest }) => {
+    //   console.log(authToken);
+
+    //    return (
+    //     <Route {...rest} render={(props) => {
+    //       console.log(authToken, props)
+    //       return (
+
+    //         authToken
+    //           ? 
+    //            <Redirect to={{ pathname: '/', state: { from: props.location } }} />: <Component  {...props}/>
+    //       )
+    //     }} />
+    //   )
+    // }
+  
     return (
       <React.Fragment>
         <Router>
-        <div className="fullscreen">
-          <Sidenav className="sidenav" />
-          
+          <div className="fullscreen">
+            <Sidenav className="sidenav" />
+
             <Switch >
-              <PrivateRoute exact path="/"  ><Calendar className="content"/></PrivateRoute>
-              <PrivateRoute  exact path="/servicelist" ><ServiceList className="content"/></PrivateRoute> 
-              <PrivateRoute exact path="/clientlist" ><ClientListView className="content"/></PrivateRoute>
-              <Route   path="/login" component={Login} />
+              <PrivateRoute exact path="/" component={Calendar}></PrivateRoute>
+              <PrivateRoute exact path="/servicelist" component={ServiceList}></PrivateRoute>
+              <PrivateRoute exact path="/clientlist" component={ClientListView} ></PrivateRoute>
+              <Route path="/login" component={Login} />
               <Route component={Notfound} />
             </Switch>
           </div>
