@@ -4,6 +4,7 @@ import { Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
 import '../styles/Login.scss'
 import AppointLogo from '../images/appointes.png'
+import ErrorBoundary from './ErrorBoundary'
 
 class Login extends Component {
     state = {
@@ -20,6 +21,7 @@ class Login extends Component {
         mutation SignupMutation($email: String!, $password: String!, $firstname:String!, $lastname:String!) {
         signup(email: $email, password: $password, firstname: $firstname, lastname: $lastname) {
         token
+        
       }
     }
       `
@@ -27,9 +29,11 @@ class Login extends Component {
         mutation LoginMutation($email: String!, $password: String!) {
         login(email: $email, password: $password) {
         token
+        
     }
   }
       `
+      
         const { login, email, password, firstname, lastname } = this.state
         return (
             <div id="login-container">
@@ -97,6 +101,7 @@ class Login extends Component {
 
                         </div>
                         <div className="button-field">
+                            <ErrorBoundary>
                             <Mutation
                                 mutation={login ? LOGIN_MUTATION : SIGNUP_MUTATION}
                                 variables={{ email, password, firstname, lastname }}
@@ -108,6 +113,7 @@ class Login extends Component {
                                     </div>
                                 )}
                             </Mutation>
+                            </ErrorBoundary>
                             <div
                                 className="change-form"
                                 onClick={() => this.setState({ login: !login })}
