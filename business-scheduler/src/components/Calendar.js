@@ -7,7 +7,7 @@ import CustomEvent from './CalenderComponents/CustomEvent'
 
 import CalenderModal from './CalenderComponents/CalenderModal'
 import CustomHeaderCell from './CalenderComponents/CustomHeaderCell'
-import AppointmentPopup from './CalenderComponents/AppointmentPopup'
+
 
 import 'react-week-calendar/dist/style.css';
 import '../styles/Calender.scss'

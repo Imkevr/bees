@@ -1,0 +1,64 @@
+@import './colors';
+
+div {
+    width:88%;
+    height:100%;
+
+    .glitch {
+        color: $black;
+        font-size: 4em;
+        position: relative;
+        width: 500px;
+        margin: 300px auto;
+        text-align: center;
+        padding-left:5% !important;
+    }
+
+    @keyframes noise-anim {
+        $steps: 20;
+
+        @for $i from 0 through $steps {
+            #{percentage($i*(1/$steps))} {
+                clip: rect(random(100)+px, 9999px, random(100)+px, 0);
+            }
+        }
+    }
+
+    .glitch:after {
+        text-align: center;
+        content: attr(data-text);
+        position: absolute;
+        left: 2px;
+        text-shadow: -1px 0 $blue-light;
+        top: 0;
+        color: $black;
+        background: $blue;
+        overflow: hidden;
+        clip: rect(0, 900px, 0, 0);
+        animation: noise-anim 10s infinite linear alternate-reverse;
+    }
+
+    @keyframes noise-anim-2 {
+        $steps: 20;
+
+        @for $i from 0 through $steps {
+            #{percentage($i*(1/$steps))} {
+                clip: rect(random(100)+px, 9999px, random(100)+px, 0);
+            }
+        }
+    }
+
+    .glitch:before {
+        text-align: center;
+        content: attr(data-text);
+        position: absolute;
+        left: -2px;
+        text-shadow: 1px 0 $blue-light;
+        top: 0;
+        color: $black;
+        background: $blue;
+        overflow: hidden;
+        clip: rect(0, 900px, 0, 0);
+        animation: noise-anim-2 3s infinite linear alternate-reverse;
+    }
+}

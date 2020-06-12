@@ -3,6 +3,7 @@ import ServiceList from './ServiceList'
 import ClientListView from './ClientListView'
 import Calendar from './Calendar'
 import Sidenav from './Sidenav'
+import Notfound from './NotFound'
 import '../styles/App.scss'
 import {
   BrowserRouter as Router,
@@ -21,7 +22,7 @@ class App extends Component {
       <Route {...rest} render={(props) => (
         authToken === true
           ? <Component  {...props} />
-          : <Redirect to='/login' />
+          : <Redirect to={{ pathname: '/login', state: { from: props.location } }} />
       )} />
     )
     return (
@@ -31,10 +32,11 @@ class App extends Component {
           <Sidenav className="sidenav" />
           
             <Switch >
-              <PrivateRoute exact path="/*"  ><Calendar className="content"/></PrivateRoute>
-              <PrivateRoute  path="/servicelist" ><ServiceList className="content"/></PrivateRoute> //ClientList
-              <PrivateRoute  path="/clientlist" ><ClientListView className="content"/></PrivateRoute>
-              <Route  path="/login" component={Login} />
+              <PrivateRoute exact path="/"  ><Calendar className="content"/></PrivateRoute>
+              <PrivateRoute  exact path="/servicelist" ><ServiceList className="content"/></PrivateRoute> 
+              <PrivateRoute exact path="/clientlist" ><ClientListView className="content"/></PrivateRoute>
+              <Route   path="/login" component={Login} />
+              <Route component={Notfound} />
             </Switch>
           </div>
         </Router>
