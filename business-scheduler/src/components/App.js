@@ -31,7 +31,7 @@ class App extends Component {
           <Sidenav className="sidenav" />
           
             <Switch >
-              <PrivateRoute exact path="/"  ><Calendar className="content"/></PrivateRoute>
+              <PrivateRoute exact path="/*"  ><Calendar className="content"/></PrivateRoute>
               <PrivateRoute  path="/servicelist" ><ServiceList className="content"/></PrivateRoute> //ClientList
               <PrivateRoute  path="/clientlist" ><ClientListView className="content"/></PrivateRoute>
               <Route  path="/login" component={Login} />
