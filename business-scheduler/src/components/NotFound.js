@@ -9,9 +9,9 @@ export default class NotFound extends React.Component {
 
     return (
       <React.Fragment>
-        <div>
+        <div className="not-found-page">
            <div className="glitch" data-text="404"> not found </div>
-           <p>test</p>
+           
         </div>
       </React.Fragment>
     )

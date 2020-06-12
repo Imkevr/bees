@@ -1,15 +1,18 @@
 @import './colors';
 
-div {
-    width:88%;
-    height:100%;
-
+.not-found-page{
+    width: 88%;
+    height: 100%;
+    background-color: $blue-light;
+    display: flex;
+    flex-direction: column;
     .glitch {
+        height:30%;
         color: $black;
         font-size: 4em;
         position: relative;
         width: 500px;
-        margin: 300px auto;
+        margin:  auto;
         text-align: center;
         padding-left:5% !important;
     }
@@ -61,4 +64,5 @@ div {
         clip: rect(0, 900px, 0, 0);
         animation: noise-anim-2 3s infinite linear alternate-reverse;
     }
+ 
 }
