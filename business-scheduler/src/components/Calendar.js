@@ -89,7 +89,8 @@ export default class Calendar extends React.Component {
                     start: moment(appointment.start), 
                     end: moment(appointment.end), 
                     client: appointment.client.firstname + ' ' + appointment.client.lastname, 
-                    cost: appointment.service.cost, serviceName: appointment.service.name, 
+                    cost: appointment.service.cost, 
+                    serviceName: appointment.service.name, 
                     color: appointment.service.color }))
                 }
                 console.log('appointmentToRender', this.appointmentToRender)

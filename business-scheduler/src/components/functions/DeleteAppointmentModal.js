@@ -9,7 +9,7 @@ class DeleteAppointmentModal extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            id: this.props.appointment.id,
+            id: this.props.appointment,
         };
 
     }
@@ -23,6 +23,7 @@ class DeleteAppointmentModal extends React.Component {
    }
  }
      `
+     console.log("delete id",this.state.id)
         return (
             <React.Fragment>
                 {

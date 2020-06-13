@@ -30,7 +30,7 @@ class Client extends Component {
     }
     render() {
         return (
-            <div className="col client-card">
+            <div className=" client-card">
                 <div>{`${this.props.client.firstname} ${this.props.client.lastname}`}</div>
                 <div>
                     <svg className="bi bi-pen edit" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" onClick={() => this.openUpdateClient(this.props.client)}>
