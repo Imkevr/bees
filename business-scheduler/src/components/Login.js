@@ -110,10 +110,10 @@ class Login extends Component {
                                 onCompleted={data => this._confirm(data) }
                                 onError={error => this.setState({ error : error})}
                             >
-                                {(mutation, {error})=> (
-                                    <div className="button" onClick={mutation}>
+                                {mutation=> (
+                                    <div className="button" onClick={mutation}  >
                                         {login ? 'Login' : 'Sign Up'}
-                                        {console.log(this.state.error)}
+                                       
                                     </div>
                                 )}
                             </Mutation>

@@ -20,19 +20,7 @@ const newAppointment ={
     },
 }
 
-function userFeedSubscribe(parent, args, context, info){
-    return context.prisma.$subscribe.user({mutation_in:['CREATED']}).node()
-}
-
-const userFeed ={
-    subscribe: userFeedSubscribe,
-    resolve: payload => {
-        return payload
-    },
-}
-
 module.exports ={
     newService,
     newAppointment,
-    userFeed
 }

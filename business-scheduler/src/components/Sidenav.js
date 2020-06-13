@@ -66,13 +66,11 @@ class Sidenav extends Component {
 
               <div id="nav-buttons">
                 <div class="btn-group ">
-                  <button type="button" class=" dropdown-toggle dropdown-toggle-split btn-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Create new ... <span class="sr-only">Toggle Dropdown</span></button>
+                  <button type="button" class=" dropdown-toggle dropdown-toggle-split btn-dropdown btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Create new ... <span class="sr-only">Toggle Dropdown</span></button>
 
-                  <div class="dropdown-menu dropdown">
+                  <div class="dropdown-menu dropdown ">
                     <SidenavButtons usage="client" />
                     <SidenavButtons usage="service" />
-                    <SidenavButtons usage="appointment" />
-                    {/* <SidenavButtons usage="appointment" /> */}
                   </div>
                 </div>
 

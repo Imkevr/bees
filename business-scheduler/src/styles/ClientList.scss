@@ -6,11 +6,11 @@
     background-color: $blue-light;
 
     #client-list-header {
-        height: 18%;
+        height: 12%;
         display: flex;
         flex-direction: row;
 
-        h3 {
+        h2 {
             width: 80%;
             font-weight: 600;
             margin-top: 50px;
@@ -41,13 +41,9 @@
     }
 
     #client-list-body {
-        height: 90%;
+        height: 82%;
         width: 95%;
         margin: auto;
-        background-color: #FCFBFE;
-        -webkit-box-shadow: 1px 5px 23px -2px rgba(199, 199, 199, 1);
-        -moz-box-shadow: 1px 5px 23px -2px rgba(199, 199, 199, 1);
-        box-shadow: 1px 5px 23px -2px rgba(199, 199, 199, 1);
         overflow: auto;
 
         div {
@@ -56,20 +52,25 @@
             div {
                 width: 120%;
                 margin-top: 4%;
+                margin-left:0px !important;
 
                 .client-card {
                     margin: auto;
-                    height: 10%;
+                    width:300px;
+                    height:100px;
                     margin: 10px;
                     padding: 20px;
                     color: $blue-dark;
                     font-weight: 600;
-                    background-color: $plain-white;
-                    border: 1px solid $blue-dark;
+                    border: 1px solid  #FCFBFE;
                     text-align: center;
                     border-radius: 5px;
                     display: flex;
                     flex-direction: row;
+                    background-color: #FCFBFE;
+                    -webkit-box-shadow: 1px 5px 23px -2px rgba(199, 199, 199, 1);
+                    -moz-box-shadow: 1px 5px 23px -2px rgba(199, 199, 199, 1);
+                    box-shadow: 1px 5px 23px -2px rgba(199, 199, 199, 1);
 
                     
 
@@ -98,4 +99,9 @@
 
         }
     }
+}
+
+.spinner-width{
+    width:100px !important;
+    height:100px  !important;
 }

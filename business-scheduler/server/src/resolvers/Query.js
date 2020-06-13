@@ -2,6 +2,7 @@
 const {getUserId} = require('../utils')
 
 
+
 function servicefeed(parent, args, context, info){
     const userId = getUserId(context)
     return context.prisma.services({where: {AND:[{postedBy: {id: userId}},{deleted: false} ]}})
@@ -21,6 +22,11 @@ function clientfeed(parent, args, context, info){
 }
 
 function appointmentfeed(parent, args, context, info){
+    const  userId= getUserId(context)
+    return context.prisma.appointments({where: {AND:[{user: {id: userId}},{deleted: false} ]}})
+}
+
+function appointmentDayFeed(parent, args, context, info){
     const  userId= getUserId(context)
     return context.prisma.appointments({where: {AND:[{user: {id: userId}},{deleted: false} ]}})
 }

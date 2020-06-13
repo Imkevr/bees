@@ -27,7 +27,7 @@ class ClientListView extends Component {
                 {authToken && (
                     <div id="client-list-page">
                         <div id="client-list-header">
-                            <h3>Client list</h3>
+                            <h2>Client list</h2>
                             <button className="btn" onClick={this.openPopUp}>Create new client</button>
                             {this.state.openPopUp && <CreateClientModal  onHide={() => this.setState({openPopUp: false})} show/>
                     }

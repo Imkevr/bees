@@ -69,24 +69,27 @@
                                     padding: 20px 10px;
                                     margin-left: 0px;
                                     color: $blue-dark;
-                                    font-size:1.2em;
-                                    
+                                    font-size: 1.2em;
+
                               }
                         }
                   }
 
                   tbody {
                         tr {
+
+
                               th {
                                     padding: 20px;
                                     font-weight: 600 !important;
-                                    color:$black;
+                                    color: $black;
                               }
 
                               td {
                                     padding: 20px;
-                                    font-weight:500;
-                                    
+                                    font-weight: 500;
+
+
 
                                     svg {
                                           font-size: 1.2em;
@@ -109,3 +112,7 @@
 
       }
 }
+.spinner-width{
+      width:100px !important;
+      height:100px  !important;
+  }

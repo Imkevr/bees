@@ -38,7 +38,9 @@ class ServiceList extends Component {
         return (
             <Query query={FEED_QUERY} >
                 {({ loading, error, data }) => {
-                    if (loading) return <div>Fetching</div>
+                    if (loading) return <div class="spinner-grow text-dark spinner-width m-5" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
                     if (error) return <div>Error</div>
 
                     const servicesToRender = data.servicefeed
