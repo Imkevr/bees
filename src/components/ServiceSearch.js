@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import ServiceSearchOption from './SelectService/ServiceSearchOption'
+import ServiceSearchOption from './ServiceSearchOption'
 import { Query } from 'react-apollo'
 import gql from 'graphql-tag'
 import '../styles/Services.scss'
-import CheckAvailability from './functions/CheckAvailability'
+import CheckAvailability from './Modals/CheckAvailability'
 import moment from 'moment';
 class ServiceList extends Component {
     appointmentToCheck=[];

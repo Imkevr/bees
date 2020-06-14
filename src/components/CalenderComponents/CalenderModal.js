@@ -3,7 +3,7 @@ import { Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
 import ServiceSearch from '../ServiceSearch'
 import ClientSearch from '../SearchQueryComponents/ClientfeedQuery/ClientSearch'
-import DeleteAppointmentModal from '../functions/DeleteAppointmentModal';
+import DeleteAppointmentModal from '../Modals/DeleteAppointmentModal';
 
 
 class CalenderModal extends React.Component {
