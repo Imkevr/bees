@@ -15,7 +15,7 @@ import { WebSocketLink } from 'apollo-link-ws'
 import { getMainDefinition } from 'apollo-utilities'
 
 const httpLink = createHttpLink({
-  uri: 'http://localhost:4000'
+  uri: 'https://eu1.prisma.sh/imke-van-rompa-cf3a4b/bissasist-node/dev'
 })
 const authLink = setContext((_, { headers }) =>{
   const token = localStorage.getItem(AUTH_TOKEN)
@@ -27,7 +27,7 @@ const authLink = setContext((_, { headers }) =>{
   }
 })
 const wsLink = new WebSocketLink({
-  uri: `ws://localhost:4000`,
+  uri: ` wss://eu1.prisma.sh/imke-van-rompa-cf3a4b/bissasist-node/dev`,
   options:{
     reconnect: true,
     connectionParams:{
