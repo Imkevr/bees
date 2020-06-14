@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom'
 import { withRouter } from 'react-router'
 import { AUTH_TOKEN } from '../constants'
 import Gravatar from './Gravatar'
-import SidenavButtons from './functions/SidenavButtons'
+import SidenavButtons from './Modals/SidenavButtons'
 import '../styles/Sidenav.scss'
 import AppointLogo from '../images/appointes.png'
 

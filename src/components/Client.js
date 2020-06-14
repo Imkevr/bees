@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import UpdateClientModal from './functions/UpdateClientModal'
-import DeleteClientModal from './functions/DeleteClientModal'
+import UpdateClientModal from './Modals/UpdateClientModal'
+import DeleteClientModal from './Modals/DeleteClientModal'
 
 class Client extends Component {
     constructor() {

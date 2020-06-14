@@ -3,7 +3,7 @@ import Service from './Service'
 import { Query } from 'react-apollo'
 import gql from 'graphql-tag'
 import '../styles/Services.scss'
-import CreateServiceModal from './functions/CreateServiceModal'
+import CreateServiceModal from './Modals/CreateServiceModal'
 
 class ServiceList extends Component {
     constructor() {

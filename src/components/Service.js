@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import UpdateServiceModal from './functions/UpdateServiceModal'
-import DeleteServiceModal from './functions/DeleteServiceModal'
+import UpdateServiceModal from './Modals/UpdateServiceModal'
+import DeleteServiceModal from './Modals/DeleteServiceModal'
 
 class Service extends Component {
   constructor() {
