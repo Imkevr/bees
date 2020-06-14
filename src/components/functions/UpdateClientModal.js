@@ -69,7 +69,7 @@ class UpdateClientModal extends React.Component {
                                         {/* onCompleted={() => this.props.history.push('/')} */}
 
                                         {updateMutation =>
-                                            <button onClick={() => {updateMutation(); this.props.onHide()}} className="btn submit">Update</button>
+                                            <button onClick={() => {updateMutation(); this.props.onHide()} } className="btn submit">Update</button>
                                           
                                         }
                                     </Mutation>
