@@ -34,9 +34,9 @@
             box-shadow: 1px 5px 23px -2px rgba(199, 199, 199, 1);
 
             &:hover {
-                  color: $plain-white;
+                color: $plain-white;
             }
-      }
+        }
 
     }
 
@@ -52,17 +52,17 @@
             div {
                 width: 100%;
                 margin-top: 4%;
-                margin-left:0px !important;
+                margin-left: 0px !important;
 
                 .client-card {
                     margin: auto;
-                    width:500px !important;
-                    height:100px;
+                    width: 500px !important;
+                    height: 100px;
                     margin: 10px;
-                    padding: 20px;
+                    padding: 10px;
                     color: $blue-dark;
                     font-weight: 600;
-                    border: 1px solid  #FCFBFE;
+                    border: 1px solid #FCFBFE;
                     text-align: center;
                     border-radius: 5px;
                     display: flex;
@@ -72,28 +72,41 @@
                     -moz-box-shadow: 1px 5px 23px -2px rgba(199, 199, 199, 1);
                     box-shadow: 1px 5px 23px -2px rgba(199, 199, 199, 1);
 
-                    
-
-                    svg {
-                        font-size: 1.2em;
-                        cursor: pointer;
-                        
-
+                    .name{
+                        width:80%;
+                        margin:auto;
                     }
+                    .icon-holder {
+                        width:20%;
+                        display: flex;
+                        flex-direction: column;
+                        div {
+                            
 
-                    .edit {
-                        color: $blue-dark;
+                            svg {
+                                margin-left:15px;
+                                font-size: 1.2em;
+                                cursor: pointer;
+                                margin-bottom:15px;
+                                margin-top:0px;
+
+
+                            }
+
+                            .edit {
+                                color: $blue-dark;
 
 
 
+                            }
+
+                            .delete {
+                                color: #975057;
+
+
+                            }
+                        }
                     }
-
-                    .delete {
-                        color: #975057;
-
-
-                    }
-
                 }
             }
 
@@ -101,7 +114,7 @@
     }
 }
 
-.spinner-width{
-    width:100px !important;
-    height:100px  !important;
+.spinner-width {
+    width: 100px !important;
+    height: 100px !important;
 }
