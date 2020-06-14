@@ -12,10 +12,10 @@ class DeleteAppointmentModal extends React.Component {
             id: this.props.appointment,
         };
 
-    }
-
+    };
+ 
     render() {
-        const {id} = this.state
+        const {id} = this.state;
         const DELETE_MUTATION = gql`
    mutation DeleteMutation($id:ID! ) {
    deleteAppointment(id:$id) {
@@ -34,7 +34,7 @@ class DeleteAppointmentModal extends React.Component {
                         centered
                     >
                         <Modal.Header closeButton >
-                            <Modal.Title id="contained-modal-title-vcenter" className="tittle">Delete Appointment </Modal.Title>
+                            <Modal.Title id="contained-modal-title-vcenter" className="tittle">Delete appointment </Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
                             <div className="delete-content">
@@ -45,13 +45,12 @@ class DeleteAppointmentModal extends React.Component {
                         <Modal.Footer>
                         <button onClick={() => this.props.onHide() } className="btn no">No</button>
                             <Mutation mutation={DELETE_MUTATION}
-                                variables={{id}}>
-                                {/* onCompleted={() => this.props.history.push('/')} */}
-
+                                variables={{id}} 
+                                >
+                              
                                 {deleteMutation =>
-                                    <button onClick={() => { deleteMutation(); this.props.onHide() }} className="btn yes">Yes</button>
+                                    <button  onClick={() => { deleteMutation(); this.props.onHide() ; window.location.reload(false)}} className="btn yes">Yes</button>
                                    
-
                                 }
                             </Mutation>
                           

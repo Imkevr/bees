@@ -3,7 +3,7 @@ import { AUTH_TOKEN } from '../constants'
 import { Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
 import '../styles/Login.scss'
-import AppointLogo from '../images/appointes.png'
+import AppointLogo from '../images/appoint-full.png'
 import ErrorBoundary from './ErrorBoundary'
 
 class Login extends Component {
@@ -14,7 +14,7 @@ class Login extends Component {
         firstname: '',
         lastname: '',
         error: null
-        
+
 
     }
 
@@ -35,15 +35,15 @@ class Login extends Component {
     }
   }
       `
-      
+
         const { login, email, password, firstname, lastname } = this.state
         return (
             <div id="login-container">
 
                 <div id="side">
-                    <img src={AppointLogo} id="appointes-logo" />
+
                     <div id="side-caption">
-                        <h1> Appoint </h1>
+                        <img src={AppointLogo} id="appointes-logo" />
                         <h3> Your Business Scheduler  </h3>
                     </div>
                 </div>
@@ -104,19 +104,19 @@ class Login extends Component {
                         </div>
                         <div className="button-field">
                             <ErrorBoundary>
-                            <Mutation
-                                mutation={login ? LOGIN_MUTATION : SIGNUP_MUTATION}
-                                variables={{ email, password, firstname, lastname }}
-                                onCompleted={data => this._confirm(data) }
-                                onError={error => this.setState({ error : error})}
-                            >
-                                {mutation=> (
-                                    <div className="button" onClick={mutation}  >
-                                        {login ? 'Login' : 'Sign Up'}
-                                       
-                                    </div>
-                                )}
-                            </Mutation>
+                                <Mutation
+                                    mutation={login ? LOGIN_MUTATION : SIGNUP_MUTATION}
+                                    variables={{ email, password, firstname, lastname }}
+                                    onCompleted={data => this._confirm(data)}
+                                    onError={error => this.setState({ error: error })}
+                                >
+                                    {mutation => (
+                                        <div className="button" onClick={mutation}  >
+                                            {login ? 'Login' : 'Sign Up'}
+
+                                        </div>
+                                    )}
+                                </Mutation>
                             </ErrorBoundary>
                             <div
                                 className="change-form"

@@ -37,7 +37,7 @@ class DeleteClientModal extends React.Component {
                         </Modal.Header>
                         <Modal.Body>
                             <div className="delete-content">
-                                Are you sure you want to delete <span>{this.props.client.firstname} {this.props.client.lastname}</span> from client list?
+                                Are you sure you want to delete <br/><span>{this.props.client.firstname} {this.props.client.lastname}</span> from client list?
 
                             </div>
                         </Modal.Body>

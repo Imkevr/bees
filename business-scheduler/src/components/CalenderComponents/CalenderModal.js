@@ -12,8 +12,8 @@ class CalenderModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedService: '',
-      selectedClient: '',
+      selectedService: "",
+      selectedClient: "",
       start: "",
       end: "",
       clientId: "",
@@ -28,14 +28,17 @@ class CalenderModal extends React.Component {
       viewEnd: this.props.end,
       openDeleteAppointment: false,
       buttonIsDisabled: true,
+      appointmentHasOverlap: false,
+      updatedView:false,
     };
     this.openDeleteAppointment = this.openDeleteAppointment.bind(this);
-  }
+  };
 
   handleServiceSelect = (selectedServiceObj, buttonState) => {
     if (buttonState) {
       this.setState({
         buttonIsDisabled: buttonState,
+        appointmentHasOverlap: buttonState,
       });
 
     } else {
@@ -45,33 +48,31 @@ class CalenderModal extends React.Component {
         end: this.props.start.clone().add(selectedServiceObj.hours, 'hours').add(selectedServiceObj.minutes, 'minutes'),
         start: this.props.start,
         buttonIsDisabled: buttonState,
+        appointmentHasOverlap: buttonState,
+      
       });
     }
+  };
 
-
-  }
   handleClientSelect = (selectedClientObj) => {
     this.setState({ selectedClient: selectedClientObj, clientId: selectedClientObj.id });
-
-  }
+  };
 
 
   handleRemove = () => {
     this.props.onRemove();
-  }
+  };
 
   openDeleteAppointment() {
-
     this.setState({
       openDeleteAppointment: true,
     })
-
-  }
+  };
 
 
   render() {
 
-    const { start, end, clientId, serviceId, id } = this.state
+    const { start, end, clientId, serviceId, id } = this.state;
     const APPOINTMENT_MUTATION = gql`
   
  mutation PostMutation($start: DateTime!,$end:DateTime!, $serviceId: ID!, $clientId:ID!) {
@@ -96,10 +97,8 @@ mutation UpdateMutation($start: DateTime!,$end:DateTime!, $serviceId: ID!, $clie
  }
 }
    `
-
-
-    const action = this.props.actionType === "create" ? "Book" : "Update"
-    var endTime = this.props.start.clone().add(this.state.selectedService.hours, 'hours').add(this.state.selectedService.minutes, 'minutes')
+    const action = this.props.actionType === "create" ? "Book" : "Update";
+    var endTime = this.props.start.clone().add(this.state.selectedService.hours, 'hours').add(this.state.selectedService.minutes, 'minutes');
 
     return (
       <React.Fragment>
@@ -109,8 +108,7 @@ mutation UpdateMutation($start: DateTime!,$end:DateTime!, $serviceId: ID!, $clie
             <div className="modal-header">
 
               <h5 className="customModal__text">Shedule appointment - {this.props.start.format('Do MMMM.')}</h5>
-              {this.state.buttonIsDisabled ? <p>This appointment overlaps with another one </p> : ""}
-
+             
             </div>
             <div className="modal-container">
               <div className="selections">
@@ -127,10 +125,12 @@ mutation UpdateMutation($start: DateTime!,$end:DateTime!, $serviceId: ID!, $clie
               </div>
             </div>
             <div className="modal-footer" >
+            {this.state.ppointmentHasOverlap ? <p>This appointment overlaps with another one </p> : ""}
+
               <Mutation mutation={APPOINTMENT_MUTATION}
                 variables={{ start, end, clientId, serviceId }}>
                 {postMutation =>
-                  <button className="btn modal__button__blue" onClick={() => { postMutation(); this.handleRemove() }} disabled={this.state.buttonIsDisabled}>Book</button>
+                  <button className="btn modal__button__blue" onClick={() => { postMutation(); this.handleRemove() }} disabled={this.state.buttonIsDisabled} onChange={e => this.setState({ firstname: e.target.value })}>Book</button>
 
                 }
 
@@ -143,23 +143,28 @@ mutation UpdateMutation($start: DateTime!,$end:DateTime!, $serviceId: ID!, $clie
           <div className="customModal">
             <div className="modal-header">
 
-              <h5 className="customModal__text"> Appointment summary</h5>
+              <h5 className="customModal__text"> Appointment</h5>
               {/* {this.state.buttonIsDisabled? <p>This appointment overlaps with another one </p> : ""} */}
               <button className="btn modal__button__red" onClick={() => { this.openDeleteAppointment() }}>Delete</button>
 
               {this.state.openDeleteAppointment &&
-                <DeleteAppointmentModal appointment={this.state.id} onHide={() => this.setState({ openDeleteClient: false, id: null })} show />}
+                <DeleteAppointmentModal appointment={this.state.id} onHide={() => {this.setState({ openDeleteAppointment: false, id: null });this.handleRemove()} } show />}
 
             </div>
             <div className="modal-container">
 
               <div className="summary">
-                <div>from {this.state.viewStart.format('HH:mm')} to {this.state.viewEnd.format('HH:mm')} </div>
-                <div>Service : {this.state.viewServiceName}</div>
-                <div>Cost : {this.state.viewCost}</div>
-                <div>Client : {this.state.viewClient}</div>
+               <p><span>Details:</span></p>
+                <div>from <span>{this.state.viewStart.format('HH:mm')}</span> to <span>{this.state.viewEnd.format('HH:mm')}</span> </div>
+                <div>Service : <span>{this.state.viewServiceName}</span></div>
+                <div>Cost : <span>{this.state.viewCost}</span></div>
+                <div>Client : <span>{this.state.viewClient}</span></div>
               </div>
-              <button class="btn" onClick>Edit appointment</button>
+              <div className="update">
+              <ServiceSearch onChange={this.handleServiceSelect} serviceId={this.state.viewServiceId} start={this.props.start} />
+              <ClientSearch onChange={this.handleClientSelect} clientId={this.state.viewClientId} />
+              </div>
+        
             </div>
             <div className="modal-footer" >
               <Mutation mutation={UPDATE_APPOINTMENT_MUTATION}

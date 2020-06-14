@@ -10,7 +10,7 @@ class ServiceList extends Component {
     constructor(props) {
         super(props);
     }
-    servicesToRender = []
+    servicesToRender = [];
 
     handleServiceSelect = (event) => {
         var selectedServiceId = event.target.value;
@@ -58,12 +58,15 @@ class ServiceList extends Component {
                     if (loading) return <div>Fetching</div>
                     if (error) return <div>Error</div>
                     this.servicesToRender = data.servicefeed
-                    //  const servicesToRender = data.servicefeed
+                    console.log('service ID ', this.props.serviceId);
+                    var serviceObj = this.props.serviceId !== ""? data.servicefeed.find(service => service.id === this.props.serviceId) :" ";
+                     console.log('update found service ', serviceObj.id);
                     return (
                         <React.Fragment>
                             <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Choose service you want to schedule:</label>
                             <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" onChange={this.handleServiceSelect}>
-                                <option value="" selected disabled hidden>Select a service</option>
+                               
+                              {this.props.serviceId !== ""? <ServiceSearchOption key={serviceObj.id} service={serviceObj} />:  <option value="" selected disabled hidden>Select a service</option>}
                                 {this.servicesToRender.map(service => <ServiceSearchOption key={service.id} service={service} />)}
                             </select>
                         </React.Fragment>

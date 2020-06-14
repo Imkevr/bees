@@ -15,21 +15,20 @@
         padding: 20px;
         border-right: 1px solid #ECECEC;
 
-        #appointes-logo {
-            width: 80px;
-        }
-
+     
         #side-caption {
-            width:70%;
+            width:80%;
             margin:100px auto;
-            h1 {
-                color: $black;
-                font-weight: 800;
-                font-family: 'Permanent Marker', cursive;
-
+            #appointes-logo {
+                width: 90%;
             }
+    
             h3{
+                margin-top:-40px;
+                margin-left:30px !important;
                 color:$blue;
+                font-weight:600;
+                font-size:1.6em;
             }
         }
     }

@@ -30,11 +30,6 @@ export default class Calendar extends React.Component {
       showCalendarDay: moment(),
     })
   }
-
-  checkAvailabilitt = ()=>{
-    
-  }
-
   handleMoveToFutureDay = () => {
     const day = this.state.showCalendarDay.clone().add(7, 'days')
     console.log('day', this.state.showCalendarDay)
