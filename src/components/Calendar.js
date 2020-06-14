@@ -74,19 +74,20 @@ export default class Calendar extends React.Component {
             <h2>Calendar </h2>
             <Query query={APPOINTMENT_FEED_QUERY} >
               {({ loading, error, data }) => {
-                if (loading) return <div>Fetching</div>
+                if (loading) return <span class="sr-only">Loading...</span>
                 if (error) return <div>Error</div>
                 if (data.appointmentfeed.length >= this.appointmentToRender) {
-                  data.appointmentfeed.map(appointment => this.appointmentToRender.push({ 
-                    clientId: appointment.client.id, 
-                    serviceId: appointment.service.id, 
-                    id: appointment.id, 
-                    start: moment(appointment.start), 
-                    end: moment(appointment.end), 
-                    client: appointment.client.firstname + ' ' + appointment.client.lastname, 
-                    cost: appointment.service.cost, 
-                    serviceName: appointment.service.name, 
-                    color: appointment.service.color }))
+                  data.appointmentfeed.map(appointment => this.appointmentToRender.push({
+                    clientId: appointment.client.id,
+                    serviceId: appointment.service.id,
+                    id: appointment.id,
+                    start: moment(appointment.start),
+                    end: moment(appointment.end),
+                    client: appointment.client.firstname + ' ' + appointment.client.lastname,
+                    cost: appointment.service.cost,
+                    serviceName: appointment.service.name,
+                    color: appointment.service.color
+                  }))
                 }
                 console.log('appointmentToRender', this.appointmentToRender)
 

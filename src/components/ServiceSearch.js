@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import ServiceSearchOption from './ServiceSearchOption'
+import ServiceSearchOption from './SelectService/ServiceSearchOption'
 import { Query } from 'react-apollo'
 import gql from 'graphql-tag'
 import '../styles/Services.scss'

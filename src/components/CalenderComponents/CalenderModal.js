@@ -6,7 +6,6 @@ import ClientSearch from '../SearchQueryComponents/ClientfeedQuery/ClientSearch'
 import DeleteAppointmentModal from '../functions/DeleteAppointmentModal';
 
 
-
 class CalenderModal extends React.Component {
 
   constructor(props) {
@@ -18,6 +17,7 @@ class CalenderModal extends React.Component {
       end: "",
       clientId: "",
       serviceId: "",
+
       id: this.props.id,
       viewClientId: this.props.clientId,
       viewServiceId: this.props.serviceId,
@@ -26,10 +26,11 @@ class CalenderModal extends React.Component {
       viewCost: this.props.cost,
       viewStart: this.props.start,
       viewEnd: this.props.end,
+
       openDeleteAppointment: false,
       buttonIsDisabled: true,
       appointmentHasOverlap: false,
-      updatedView:false,
+      updatedView: false,
     };
     this.openDeleteAppointment = this.openDeleteAppointment.bind(this);
   };
@@ -49,7 +50,7 @@ class CalenderModal extends React.Component {
         start: this.props.start,
         buttonIsDisabled: buttonState,
         appointmentHasOverlap: buttonState,
-      
+
       });
     }
   };
@@ -108,7 +109,7 @@ mutation UpdateMutation($start: DateTime!,$end:DateTime!, $serviceId: ID!, $clie
             <div className="modal-header">
 
               <h5 className="customModal__text">Shedule appointment - {this.props.start.format('Do MMMM.')}</h5>
-             
+
             </div>
             <div className="modal-container">
               <div className="selections">
@@ -125,12 +126,12 @@ mutation UpdateMutation($start: DateTime!,$end:DateTime!, $serviceId: ID!, $clie
               </div>
             </div>
             <div className="modal-footer" >
-            {this.state.ppointmentHasOverlap ? <p>This appointment overlaps with another one </p> : ""}
+              {this.state.ppointmentHasOverlap ? <p>This appointment overlaps with another one </p> : ""}
 
               <Mutation mutation={APPOINTMENT_MUTATION}
                 variables={{ start, end, clientId, serviceId }}>
                 {postMutation =>
-                  <button className="btn modal__button__blue" onClick={() => { postMutation(); this.handleRemove() }} disabled={this.state.buttonIsDisabled} onChange={e => this.setState({ firstname: e.target.value })}>Book</button>
+                  <button className="btn modal__button__blue" onClick={() => { postMutation(); this.handleRemove(); window.location.reload(false) }} disabled={this.state.buttonIsDisabled} onChange={e => this.setState({ firstname: e.target.value })}>Book</button>
 
                 }
 
@@ -148,29 +149,29 @@ mutation UpdateMutation($start: DateTime!,$end:DateTime!, $serviceId: ID!, $clie
               <button className="btn modal__button__red" onClick={() => { this.openDeleteAppointment() }}>Delete</button>
 
               {this.state.openDeleteAppointment &&
-                <DeleteAppointmentModal appointment={this.state.id} onHide={() => {this.setState({ openDeleteAppointment: false, id: null });this.handleRemove()} } show />}
+                <DeleteAppointmentModal appointment={this.state.id} onHide={() => { this.setState({ openDeleteAppointment: false, id: null }); this.handleRemove() }} show />}
 
             </div>
             <div className="modal-container">
 
               <div className="summary">
-               <p><span>Details:</span></p>
+                <p><span>Details:</span></p>
                 <div>from <span>{this.state.viewStart.format('HH:mm')}</span> to <span>{this.state.viewEnd.format('HH:mm')}</span> </div>
                 <div>Service : <span>{this.state.viewServiceName}</span></div>
                 <div>Cost : <span>{this.state.viewCost}</span></div>
                 <div>Client : <span>{this.state.viewClient}</span></div>
               </div>
               <div className="update">
-              <ServiceSearch onChange={this.handleServiceSelect} serviceId={this.state.viewServiceId} start={this.props.start} />
-              <ClientSearch onChange={this.handleClientSelect} clientId={this.state.viewClientId} />
+                <ServiceSearch onChange={this.handleServiceSelect} serviceId={this.state.viewServiceId} start={this.props.start} />
+                <ClientSearch onChange={this.handleClientSelect} clientId={this.state.viewClientId} />
               </div>
-        
+
             </div>
             <div className="modal-footer" >
               <Mutation mutation={UPDATE_APPOINTMENT_MUTATION}
                 variables={{ start, end, clientId, serviceId, id }}>
                 {updateMutation =>
-                  <button className="btn modal__button__blue" onClick={() => { updateMutation(); this.handleRemove() }}>Update</button>
+                  <button className="btn modal__button__blue" onClick={() => { updateMutation(); this.handleRemove(); window.location.reload(false) }}>Update</button>
                 }
               </Mutation>
 

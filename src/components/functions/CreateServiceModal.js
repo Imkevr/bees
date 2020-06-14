@@ -135,7 +135,7 @@ class CreateServiceModal extends React.Component {
                                 {/* onCompleted={() => this.props.history.push('/')} */}
 
                                 {postMutation =>
-                                    <button className="btn submit" onClick={() => { postMutation(); this.props.onHide() }}>Submit</button>
+                                    <button className="btn submit" onClick={() => { postMutation(); this.props.onHide(); window.location.reload(false) }}>Submit</button>
 
                                 }
                             </Mutation>

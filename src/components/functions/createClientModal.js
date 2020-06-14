@@ -72,7 +72,7 @@ class CreateClientModal extends React.Component {
                                 {/* onCompleted={() => this.props.history.push('/')} */}
 
                                 {postMutation =>
-                                    <button onClick={() => { postMutation(); this.props.onHide() }} className="btn submit">Submit</button>
+                                    <button onClick={() => { postMutation(); this.props.onHide(); window.location.reload(false) }} className="btn submit">Submit</button>
 
                                 }
                             </Mutation>
