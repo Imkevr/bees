@@ -17,12 +17,12 @@ import { AUTH_TOKEN } from '../constants'
 
 class App extends Component {
   render() {
-  
+
     const PrivateRoute = ({ component: Component, ...rest }) => {
-     
-      const authToken = localStorage.getItem(AUTH_TOKEN)
+
+      const authToken = localStorage.getItem(AUTH_TOKEN);
       console.log(authToken);
-       return (
+      return (
         <Route {...rest} render={(props) => {
           console.log(authToken, props)
           return (
@@ -33,23 +33,8 @@ class App extends Component {
           )
         }} />
       )
-    }
-    // const PublicRoute = ({ component: Component, ...rest }) => {
-    //   console.log(authToken);
+    };
 
-    //    return (
-    //     <Route {...rest} render={(props) => {
-    //       console.log(authToken, props)
-    //       return (
-
-    //         authToken
-    //           ? 
-    //            <Redirect to={{ pathname: '/', state: { from: props.location } }} />: <Component  {...props}/>
-    //       )
-    //     }} />
-    //   )
-    // }
-  
     return (
       <React.Fragment>
         <Router>

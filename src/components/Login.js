@@ -14,8 +14,6 @@ class Login extends Component {
         firstname: '',
         lastname: '',
         error: null
-
-
     }
 
     render() {
@@ -36,7 +34,7 @@ class Login extends Component {
   }
       `
 
-        const { login, email, password, firstname, lastname } = this.state
+        const { login, email, password, firstname, lastname } = this.state;
         return (
             <div id="login-container">
 
@@ -133,14 +131,14 @@ class Login extends Component {
     }
 
     _confirm = async data => {
-        const { token } = this.state.login ? data.login : data.signup
-        this._saveUserData(token)
-        this.props.history.push('/')
-    }
+        const { token } = this.state.login ? data.login : data.signup;
+        this._saveUserData(token);
+        this.props.history.push('/');
+    };
 
     _saveUserData = token => {
-        localStorage.setItem(AUTH_TOKEN, token)
-    }
-}
+        localStorage.setItem(AUTH_TOKEN, token);
+    };
+};
 
-export default Login
+export default Login;

@@ -17,15 +17,10 @@ class ServiceList extends Component {
         var selectedService = this.servicesToRender.find(({ id }) => id === selectedServiceId);
         var isAvailable = CheckAvailability(this.props.start, selectedService, this.appointmentToCheck);
         if(isAvailable){
-            console.log("available")
             this.props.onChange(selectedService, false);
         }else{
-            console.log("can't plan")
             this.props.onChange(selectedService, true);
-           
-          
         }
-       
     }
     render() {
         const FEED_QUERY = gql`

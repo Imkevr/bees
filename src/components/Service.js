@@ -9,32 +9,27 @@ class Service extends Component {
       openUpdateService: false,
       openDeleteService: false,
       service: null,
-    }
-  }
+    };
+  };
   openUpdateService(serviceObj) {
-    console.log(serviceObj)
     this.setState({
       openUpdateService: true,
       service: serviceObj,
-    })
-    console.log(this.state.service)
-  }
+    });
+  };
 
   openDeleteService(serviceObj) {
-    console.log(serviceObj)
     this.setState({
       openDeleteService: true,
       service: serviceObj,
-    })
-    console.log(this.state.service)
-  }
+    });
+  };
 
   render() {
     
     return (
       <React.Fragment>
         <tr>
-          {/* {console.log(this.state.service.color)} */}
           <td> <div className="circle" style={{width:'20px', height:'20px', border:'1px solid', borderColor:'#FCFBFE', backgroundColor: this.props.service.color, borderRadius:"100%"}}></div></td>
           <th scope="row" > {this.props.service.name}</th>
           <td>{this.props.service.hours} u {this.props.service.minutes}</td>

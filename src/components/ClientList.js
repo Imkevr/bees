@@ -4,8 +4,7 @@ import gql from 'graphql-tag'
 import Client from './Client'
 
 class ClientList extends Component {
-
-    clientsToRender = []
+    clientsToRender = [];
 
     render() {
         const CLIENT_FEED_QUERY = gql`

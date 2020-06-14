@@ -13,45 +13,42 @@ import 'react-week-calendar/dist/style.css';
 import '../styles/Calender.scss'
 
 export default class Calendar extends React.Component {
-  appointmentToRender = []
-  todaysAppointment = []
+  appointmentToRender = [];
+  todaysAppointment = [];
   constructor(props) {
     super(props);
     this.state = {
       lastUid: 1,
       currentDay: moment(),
       showCalendarDay: moment(),
-    }
-
-  }
+    };
+  };
 
   handleMoveToCurrentDay = () => {
     this.setState({
       showCalendarDay: moment(),
-    })
-  }
+    });
+  };
   handleMoveToFutureDay = () => {
-    const day = this.state.showCalendarDay.clone().add(7, 'days')
-    console.log('day', this.state.showCalendarDay)
+    const day = this.state.showCalendarDay.clone().add(7, 'days');
     this.setState({
       showCalendarDay: day,
-    })
-    console.log('showCalendarDay', this.state.showCalendarDay)
-  }
+    });
+  };
   handleMoveToPreviousDay = () => {
     const day = this.state.showCalendarDay.clone().subtract(7, 'days')
     if (day !== this.state.currentDay) {
       this.setState({
         showCalendarDay: day,
-      })
+      });
     }
     else {
       this.setState({
         showCalendarDay: this.state.currentDay,
 
-      })
+      });
     }
-  }
+  };
 
   render() {
 
@@ -89,14 +86,8 @@ export default class Calendar extends React.Component {
                     color: appointment.service.color
                   }))
                 }
-                console.log('appointmentToRender', this.appointmentToRender)
-
                 return (
-                  <React.Fragment>
-
-                    {/* {this.appointmentToRender.map(appointment => <div key={appointment.id}>{appointment.user.firstname} {appointment.user.lastname} -> {appointment.client.firstname} -> {appointment.service.name}</div>)} */}
-
-                  </React.Fragment>
+                  <React.Fragment></React.Fragment>
                 )
               }}
             </Query>
@@ -136,7 +127,6 @@ export default class Calendar extends React.Component {
             headerCellComponent={CustomHeaderCell}
           />
 
-          {console.log('test', this.appointmentToRender)}
         </div>
       </React.Fragment>
     )

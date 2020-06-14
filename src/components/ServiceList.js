@@ -11,15 +11,14 @@ class ServiceList extends Component {
         this.state = {
             openPopUp: false,
             serviceObj: null,
-        }
+        };
         this.openPopUp = this.openPopUp.bind(this);
     }
     openPopUp() {
         this.setState({
             openPopUp: true,
-        })
-        console.log("openPopup")
-    }
+        });
+    };
     render() {
         const FEED_QUERY = gql`
      {

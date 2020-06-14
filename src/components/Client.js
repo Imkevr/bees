@@ -9,25 +9,21 @@ class Client extends Component {
             openUpdateClient: false,
             openDeleteClient: false,
             client: null,
-        }
-    }
+        };
+    };
     openUpdateClient(clientObj) {
-        console.log(clientObj)
         this.setState({
             openUpdateClient: true,
             client: clientObj,
-        })
-        console.log(this.state.client)
-    }
+        });
+    };
 
     openDeleteClient(clientObj) {
-        console.log(clientObj)
         this.setState({
             openDeleteClient: true,
             client: clientObj,
-        })
-        console.log(this.state.client)
-    }
+        });   
+    };
     render() {
         return (
             <div className=" client-card">

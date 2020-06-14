@@ -13,11 +13,11 @@ class ClientListView extends Component {
         }
         this.openPopUp = this.openPopUp.bind(this);
     }
-    openPopUp(object) {
+    openPopUp() {
         this.setState({
             openPopUp: true,
         })
-    }
+    };
 
     render() {
         const authToken = localStorage.getItem(AUTH_TOKEN)

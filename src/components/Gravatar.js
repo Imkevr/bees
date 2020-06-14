@@ -7,7 +7,7 @@ import { AUTH_TOKEN } from '../constants'
 class ServiceList extends Component {
 
     render() {
-        const authToken = localStorage.getItem(AUTH_TOKEN)
+        const authToken = localStorage.getItem(AUTH_TOKEN);
         const USER_QUERY = gql`
      {
         user {
@@ -22,10 +22,10 @@ class ServiceList extends Component {
             <React.Fragment>
                 {authToken && (
                     <Query query={USER_QUERY} >
-                        {({ loading, error, data, subscribeToMore }) => {
+                        {({ loading, error, data }) => {
                             if (loading) return <div>Fetching</div>
                             if (error) return <div>Error</div>
-                            const name = data.user.firstname + " " + data.user.lastname
+                            const name = data.user.firstname + " " + data.user.lastname;
 
                             return (
                                 <React.Fragment>
