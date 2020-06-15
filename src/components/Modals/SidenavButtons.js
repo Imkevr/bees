@@ -1,6 +1,6 @@
 import React from 'react'
 import CreateServiceModal from './CreateServiceModal'
-import CreateClientModal from './createClientModal'
+import CreateClientModal from './CreateClientModal'
 import AppointmentPopup from '../CalenderComponents/AppointmentPopup'
 import '../../styles/sideNavButtons.scss'
 
