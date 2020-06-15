@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { AUTH_TOKEN } from '../constants'
 import ClientList from './ClientList'
 import '../styles/ClientList.scss'
-import CreateClientModal from './Modals/createClientModal'
+import CreateClientModal from './Modals/CreateClientModal'
 
 
 class ClientListView extends Component {
