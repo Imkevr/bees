@@ -15,7 +15,7 @@ import { WebSocketLink } from 'apollo-link-ws'
 import { getMainDefinition } from 'apollo-utilities'
 
 const httpLink = createHttpLink({
-  uri: 'http://localhost:4000'
+  uri: 'https://appoint-sever.herokuapp.com/'
 })
 const authLink = setContext((_, { headers }) =>{
   const token = localStorage.getItem(AUTH_TOKEN)
@@ -24,13 +24,13 @@ const authLink = setContext((_, { headers }) =>{
        ...headers,
        authorization: token ? `Bearer ${token}` : ''
      }
-  }
+  }  
 })
 const wsLink = new WebSocketLink({
-  uri: `ws://localhost:4000`,
+  uri: `ws://appoint-sever.herokuapp.com/`,
   options:{
     reconnect: true,
-    connectionParams:{
+    connectionParams:{ 
       authToken: localStorage.getItem(AUTH_TOKEN),
     }
   }
