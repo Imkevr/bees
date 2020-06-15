@@ -22,7 +22,7 @@ export default function SidenavButtons(props) {
                 <CreateServiceModal
                     show={modalShow}
                     onHide={() => setModalShow(false)}
-                    modelUsage={props.usage}
+                    modelUsage={props.usage} 
                 />
             }
             {props.usage === "appointment" && modalShow &&
