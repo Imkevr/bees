@@ -4,13 +4,14 @@ import gql from 'graphql-tag'
 import ServiceSearch from '../ServiceSearch'
 import ClientSearch from '../SearchQueryComponents/ClientfeedQuery/ClientSearch'
 import DeleteAppointmentModal from '../Modals/DeleteAppointmentModal';
-
-
+import moment from 'moment';
 class CalenderModal extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
+      action: this.props.actionType === "create" ? "Book" : "Update",
+
       selectedService: "",
       selectedClient: "",
       start: "",
@@ -19,23 +20,29 @@ class CalenderModal extends React.Component {
       serviceId: "",
 
       id: this.props.id,
-      viewClientId: this.props.clientId,
-      viewServiceId: this.props.serviceId,
       viewServiceName: this.props.serviceName,
       viewClient: this.props.client,
       viewCost: this.props.cost,
       viewStart: this.props.start,
       viewEnd: this.props.end,
-
+      viewServiceId: this.props.serviceId,
+      viewClientId: this.props.clientId,
+      
+      updateStartTime:"",
+      updateStartDate:"",
+      updateDate:"",
       openDeleteAppointment: false,
       buttonIsDisabled: true,
       appointmentHasOverlap: false,
       updatedView: false,
+
+   
     };
     this.openDeleteAppointment = this.openDeleteAppointment.bind(this);
   };
 
   handleServiceSelect = (selectedServiceObj, buttonState) => {
+    
     if (buttonState) {
       this.setState({
         buttonIsDisabled: buttonState,
@@ -43,22 +50,24 @@ class CalenderModal extends React.Component {
       });
 
     } else {
-      this.setState({
-        selectedService: selectedServiceObj,
-        serviceId: selectedServiceObj.id,
-        end: this.props.start.clone().add(selectedServiceObj.hours, 'hours').add(selectedServiceObj.minutes, 'minutes'),
-        start: this.props.start,
-        buttonIsDisabled: buttonState,
-        appointmentHasOverlap: buttonState,
-
-      });
-    }
+      
+        this.setState({
+          selectedService: selectedServiceObj,
+          serviceId: selectedServiceObj.id,
+          start: this.props.start,
+          end: this.props.start.clone().add(selectedServiceObj.hours, 'hours').add(selectedServiceObj.minutes, 'minutes'),
+          buttonIsDisabled: buttonState,
+          appointmentHasOverlap: buttonState,
+  
+        });
+      }
+      console.log("inside handleServiceSelect",this.state.selectedService)
   };
 
   handleClientSelect = (selectedClientObj) => {
-    this.setState({ selectedClient: selectedClientObj, clientId: selectedClientObj.id });
+   
+      this.setState({ selectedClient: selectedClientObj, clientId: selectedClientObj.id });
   };
-
 
   handleRemove = () => {
     this.props.onRemove();
@@ -98,13 +107,13 @@ mutation UpdateMutation($start: DateTime!,$end:DateTime!, $serviceId: ID!, $clie
  }
 }
    `
-    const action = this.props.actionType === "create" ? "Book" : "Update";
+
     var endTime = this.props.start.clone().add(this.state.selectedService.hours, 'hours').add(this.state.selectedService.minutes, 'minutes');
 
     return (
       <React.Fragment>
 
-        {action === "Book" ?
+        {this.state.action === "Book" ?
           <div className="customModal">
             <div className="modal-header">
 
@@ -113,20 +122,21 @@ mutation UpdateMutation($start: DateTime!,$end:DateTime!, $serviceId: ID!, $clie
             </div>
             <div className="modal-container">
               <div className="selections">
+              
                 <ServiceSearch onChange={this.handleServiceSelect} serviceId={this.state.serviceId} start={this.props.start} />
                 <ClientSearch onChange={this.handleClientSelect} clientId={this.state.clientId} />
               </div>
               <div className="summary">
                 <h6><span>Summary:</span></h6>
                 <div> from {this.props.start.format('HH:mm')} {this.props.start.format() === endTime.format() ? "" : "to " + endTime.format('HH:mm')} </div>
-                <div>Service: {this.state.selectedService !== '' ? this.state.selectedService.name : ''}</div>
+                <div>Service: {this.state.selectedService !=='' ? this.state.selectedService.name : ''}</div>
                 <div>Service duration: {this.state.selectedService !== '' ? `${this.state.selectedService.hours} hour(s) and ${this.state.selectedService.minutes} minutes` : ' '}</div>
                 <div>Cost: {this.state.selectedService !== '' ? `${this.state.selectedService.cost} euro ` : ''}</div>
                 <div>appointment sheduled for: {this.state.selectedClient !== '' ? `${this.state.selectedClient.firstname}  ${this.state.selectedClient.lastname} ` : ''}</div>
               </div>
             </div>
             <div className="modal-footer" >
-              {this.state.ppointmentHasOverlap ? <p>This appointment overlaps with another one </p> : ""}
+              {this.state.appointmentHasOverlap ? <p>This appointment overlaps with another one </p> : ""}
 
               <Mutation mutation={APPOINTMENT_MUTATION}
                 variables={{ start, end, clientId, serviceId }}>
@@ -157,12 +167,19 @@ mutation UpdateMutation($start: DateTime!,$end:DateTime!, $serviceId: ID!, $clie
               <div className="summary">
                 <p><span>Details:</span></p>
                 <div>from <span>{this.state.viewStart.format('HH:mm')}</span> to <span>{this.state.viewEnd.format('HH:mm')}</span> </div>
-                <div>Service : <span>{this.state.viewServiceName}</span></div>
-                <div>Cost : <span>{this.state.viewCost}</span></div>
-                <div>Client : <span>{this.state.viewClient}</span></div>
+                <div>Service : <span>{this.state.selectedService ===''? this.state.viewServiceName : this.state.selectedService.name}</span></div>
+                <div>Cost : <span>{this.state.selectedService ===''? this.state.viewCost : this.state.selectedService.cost}</span></div>
+                <div>Client : <span>{this.state.selectedClient=== '' ? this.state.viewClient : this.state.selectedClient.firstname+ ' '+ this.state.selectedClient.lastname}</span></div>
               </div>
               <div className="update">
-                <ServiceSearch onChange={this.handleServiceSelect} serviceId={this.state.viewServiceId} start={this.props.start} />
+                <labell>Choose new date</labell>
+                 <input type="date" id="date" onChange={(e)=> {this.setState({updateStartDate: e.target.value, updateDate: moment(e.target.value, 'YYYY-MM-DD')})}} /> 
+                 {console.log("start date",this.state.updateStartDate)}
+                 <labell>Choose new time</labell>
+                 <input type="time" id="time"  onChange={(e)=> {this.setState({updateStartTime: e.target.value, updateDate: moment(e.target.value, 'YYYY-MM-DD')})}}/> 
+                 {console.log("start time",this.state.updateStartTime)}
+                 {console.log("update date",this.state.updateDate )}
+                 <ServiceSearch onChange={this.handleServiceSelect} serviceId={this.state.viewServiceId} start={this.props.start} />
                 <ClientSearch onChange={this.handleClientSelect} clientId={this.state.viewClientId} />
               </div>
 
@@ -171,10 +188,10 @@ mutation UpdateMutation($start: DateTime!,$end:DateTime!, $serviceId: ID!, $clie
               <Mutation mutation={UPDATE_APPOINTMENT_MUTATION}
                 variables={{ start, end, clientId, serviceId, id }}>
                 {updateMutation =>
-                  <button className="btn modal__button__blue" onClick={() => { updateMutation(); this.handleRemove(); window.location.reload(false) }}>Update</button>
+                  <button className="btn modal__button__blue" onClick={() => { updateMutation(); this.handleRemove()}}>Update</button>
                 }
               </Mutation>
-
+              {/* ; window.location.reload(false)  */}
 
               <button className="btn modal__button__cancel" onClick={this.handleRemove}>Cancel</button>
             </div>

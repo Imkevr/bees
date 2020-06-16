@@ -1,7 +1,5 @@
 @import './_colors';
 
-
-
 #nav-container {
     width: 12%;
     height: 100%;
@@ -118,8 +116,8 @@
             height: 10%;
             display: flex;
             flex-direction: row;
-            margin-top: 250px;
-
+            margin-top:200px;
+      
             #nav-gravatar {
                 width: 40%;
                 margin: auto;
@@ -135,7 +133,7 @@
                 display: flex;
                 flex-direction: row;
                 margin-left:10px;
-      
+
 
                 #logout {
                     width: 60%;
@@ -155,8 +153,6 @@
                 }
                     
                 }
-               
-            
                 
             }
         }
@@ -165,5 +161,166 @@
 
 .active {
     color: $blue;
+
 }
 
+@media (max-width: 1050px) and (max-height: 768px){
+    #nav-links {
+        height: 40%;
+
+        #nav-links-container {
+     
+            margin-top: 50px;
+
+            .link {
+                text-decoration: none;
+
+                .item-link {
+                    .nav-link-icon {
+                      
+                        margin-left:5px;
+                    }
+
+                    p {
+                        display:none !important;
+
+                    }
+
+                    &:hover {
+                        color: $blue;
+                    }
+
+
+                }
+
+            }
+
+        }
+
+    }
+
+}
+@media (max-width: 768px) {
+    #nav-container {
+        width: 15%;
+    
+        #nav-head {
+      
+            #appointes-logo {
+                width: 50px;
+                margin: auto;
+    
+    
+            }
+    
+        }
+    }
+    #nav-links {
+        height: 40%;
+
+        #nav-links-container {
+     
+            margin-top: 50px;
+
+            .link {
+                text-decoration: none;
+
+                .item-link {
+                    .nav-link-icon {
+                      
+                        margin-left:5px;
+                    }
+
+                    p {
+                        display:none;
+
+                    }
+
+                    &:hover {
+                        color: $blue;
+                    }
+
+
+                }
+
+            }
+
+        }
+
+    }
+    #nav-buttons {
+        height: 30%;
+        display: flex;
+        flex-direction: row;
+
+        button {
+            width: 50%;
+            height: 50%;
+            color: $black;
+            font-size: .9em;
+            margin-top: 10px;
+            margin-left: 20px;
+            padding: 12px;
+            background-color: $blue;
+            border: none;
+            font-weight: 600;
+            border: solid 5px $blue;
+            border-radius: 5px;
+            -webkit-box-shadow: 1px 5px 23px -2px rgba(199, 199, 199, 1);
+            -moz-box-shadow: 1px 5px 23px -2px rgba(199, 199, 199, 1);
+            box-shadow: 1px 5px 23px -2px rgba(199, 199, 199, 1);
+
+            &:hover {
+                color: $plain-white;
+            }
+        }
+    }
+    #nav-logout {
+        height: 30%;
+
+        #nav-logout-content {
+            height: 20%;
+            display: flex;
+            flex-direction: column !important;
+            margin-top: 200px;
+
+            #nav-gravatar {
+                margin-left: -2px !important;
+
+                #gravatar {
+                    border-radius: 100%;
+                  
+                }
+            }
+
+            #logout-group {
+               margin-left: -5px !important;
+
+      
+
+                #logout {
+                    width: 60%;
+                    font-weight:500;
+                     margin-top: 12px;
+                     display: flex;
+                     flex-direction: row;
+                     #svg {
+                        width: 20%;
+                        font-size: 0.9em;
+                        color:$black;
+                        margin-left:4px;
+                        display: none;
+                    }
+                     
+                &:hover , &:hover #svg{
+                    color: $blue;
+                }
+                    
+                }
+               
+            
+                
+            }
+        }
+    }
+}

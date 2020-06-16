@@ -21,10 +21,9 @@ class App extends Component {
     const PrivateRoute = ({ component: Component, ...rest }) => {
 
       const authToken = localStorage.getItem(AUTH_TOKEN);
-      console.log(authToken);
+
       return (
         <Route {...rest} render={(props) => {
-          console.log(authToken, props)
           return (
 
             authToken
