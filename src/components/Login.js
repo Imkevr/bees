@@ -54,23 +54,23 @@ class Login extends Component {
                             {!login && (
                                 <React.Fragment>
                                     <div className="form-group">
-                                        <label>Firstname:</label>
+                                        <label>First name:</label>
                                         <input
                                             className="form-control"
                                             value={firstname}
                                             onChange={e => this.setState({ firstname: e.target.value })}
                                             type="text"
-                                            placeholder="Your firstname"
+                                            placeholder="Your first name"
                                         />
                                     </div>
                                     <div className="form-group">
-                                        <label>Lastname:</label>
+                                        <label>Last name:</label>
                                         <input
                                             className="form-control"
                                             value={lastname}
                                             onChange={e => this.setState({ lastname: e.target.value })}
                                             type="text"
-                                            placeholder="Your lastname"
+                                            placeholder="Your last name"
                                         />
                                     </div>
                                 </React.Fragment>

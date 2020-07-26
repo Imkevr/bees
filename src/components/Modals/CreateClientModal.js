@@ -44,23 +44,23 @@ class CreateClientModal extends React.Component {
                         <Modal.Body>
                             <div className="flex flex-column mt3 client-row ">
                                 <section className="form-group firstname">
-                                    <label>Firstname:</label>
+                                    <label>First name:</label>
                                     <input
                                         className="form-control "
                                         value={firstname}
                                         onChange={e => this.setState({ firstname: e.target.value })}
                                         type="text"
-                                        placeholder="A name for the service"
+                                        placeholder="Enter first name"
                                     />
                                 </section>
                                 <section className="form-group lastname">
-                                    <label>Lastname:</label>
+                                    <label>Last name:</label>
                                     <input
                                         className="form-control "
                                         value={lastname}
                                         onChange={e => this.setState({ lastname: e.target.value })}
                                         type="text"
-                                        placeholder="The service cost"
+                                        placeholder="Enter last name"
                                     />
                                 </section>
 
