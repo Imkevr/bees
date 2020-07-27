@@ -11,18 +11,20 @@ class UpdateClientModal extends React.Component {
             id: this.props.client.id,
             firstname:this.props.client.firstname ,
             lastname:this.props.client.lastname ,
+            email: this.props.client.email,
         };
 
     }
     
     render() {
-        const {id, firstname, lastname} = this.state
+        const {id, firstname, lastname, email} = this.state
         const UPDATE_MUTATION = gql`
-   mutation UpdateMutation($id:ID!, $firstname: String!, $lastname: String!) {
-   updateClient(id:$id, firstname: $firstname, lastname: $lastname) {
+   mutation UpdateMutation($id:ID!, $firstname: String!, $lastname: String!, $email:String!) {
+   updateClient(id:$id, firstname: $firstname, lastname: $lastname, email:$email) {
      id
      firstname
      lastname
+     email
    }
  }
      `
@@ -60,12 +62,21 @@ class UpdateClientModal extends React.Component {
                                         placeholder="Enter last name"
                                     />
                                 </section>
-
                             </div>
+                            <section className="form-group email">
+                                    <label>email:</label>
+                                    <input
+                                        className="form-control "
+                                        value={email}
+                                        onChange={e => this.setState({ email: e.target.value })}
+                                        type="text"
+                                        placeholder="Enter last email"
+                                    />
+                                </section>
                                 </Modal.Body>
                                 <Modal.Footer>
                                     <Mutation mutation={UPDATE_MUTATION}
-                                        variables={{id, firstname, lastname}}>
+                                        variables={{id, firstname, lastname, email}}>
                                         {/* onCompleted={() => this.props.history.push('/')} */}
 
                                         {updateMutation =>

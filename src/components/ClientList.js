@@ -13,6 +13,7 @@ class ClientList extends Component {
           id
           firstname
           lastname
+          email
      }
     }
    `
@@ -28,7 +29,7 @@ class ClientList extends Component {
                         <React.Fragment>
                             <div className="container">
 
-                                <div className="row row-cols-5">
+                                <div className="row row-cols-3">
 
                                     {this.clientsToRender.map(client => <Client key={client.id} client={client} />)}
 

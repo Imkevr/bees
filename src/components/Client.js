@@ -22,12 +22,15 @@ class Client extends Component {
         this.setState({
             openDeleteClient: true,
             client: clientObj,
-        });   
+        });
     };
     render() {
         return (
             <div className=" client-card">
-                <div className="name">{`${this.props.client.firstname} ${this.props.client.lastname}`}</div>
+                <div className="client-details">
+                    <div className="name">{`${this.props.client.firstname} ${this.props.client.lastname}`}</div>
+                    <div className="email">{`${this.props.client.email}`}</div>
+                </div>
                 <div className="icon-holder">
                     <div>
                         <svg className="bi bi-pen edit" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" onClick={() => this.openUpdateClient(this.props.client)}>

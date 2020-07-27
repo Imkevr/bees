@@ -11,19 +11,20 @@ class CreateClientModal extends React.Component {
         this.state = {
             firstname: '',
             lastname: '',
-
+            email: '',
         };
 
     }
 
     render() {
-        const { firstname, lastname } = this.state
+        const { firstname, lastname, email } = this.state
         const CLIENT_POST_MUTATION = gql`
-   mutation PostClient($lastname: String!, $firstname: String!) {
-   postClient(lastname: $lastname, firstname: $firstname) {
+   mutation PostClient($lastname: String!, $firstname: String!, $email:String!) {
+   postClient(lastname: $lastname, firstname: $firstname, email:$email) {
      id
      firstname
      lastname
+     email
    }
  }
      `
@@ -63,12 +64,23 @@ class CreateClientModal extends React.Component {
                                         placeholder="Enter last name"
                                     />
                                 </section>
+                                </div>
+                                <section className="form-group email">
+                                    <label>Email:</label>
+                                    <input
+                                        className="form-control "
+                                        value={email}
+                                        onChange={e => this.setState({ email: e.target.value })}
+                                        type="text"
+                                        placeholder="Enter email"
+                                    />
+                                </section>
 
-                            </div>
+
                         </Modal.Body>
                         <Modal.Footer>
                             <Mutation mutation={CLIENT_POST_MUTATION}
-                                variables={{ lastname, firstname }}>
+                                variables={{ lastname, firstname, email }}>
                                 {/* onCompleted={() => this.props.history.push('/')} */}
 
                                 {postMutation =>
