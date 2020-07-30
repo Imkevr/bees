@@ -4,6 +4,7 @@ import { Query } from 'react-apollo'
 import gql from 'graphql-tag'
 import '../styles/Services.scss'
 import CheckAvailability from './Modals/CheckAvailability'
+import GenerateAvailableTimeSlots from './Modals/GenerateAvailbaleTimeslots'
 import moment from 'moment';
 class ServiceList extends Component {
     appointmentToCheck=[];
@@ -16,6 +17,13 @@ class ServiceList extends Component {
         var selectedServiceId = event.target.value;
         var selectedService = this.servicesToRender.find(({ id }) => id === selectedServiceId);
         var isAvailable = CheckAvailability(this.props.start, selectedService, this.appointmentToCheck);
+        var timeslots =[];
+
+        if(this.props.searchGoal === "update")
+        {timeslots = GenerateAvailableTimeSlots(this.props.start, selectedService, this.appointmentToCheck);
+          console.log(timeslots)
+        }
+
         if(isAvailable){
             this.props.onChange(selectedService, false);
         }else{
@@ -58,7 +66,7 @@ class ServiceList extends Component {
                     //  console.log('update found service ', serviceObj.id);
                     return (
                         <React.Fragment>
-                            <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Choose service you want to schedule:</label>
+                            <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Select a service:</label>
                             <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" onChange={this.handleServiceSelect}>
                                
                               {this.props.serviceId !== ""? <ServiceSearchOption key={serviceObj.id} service={serviceObj} />:  <option value="" selected disabled hidden>Select a service</option>}

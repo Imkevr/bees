@@ -1,5 +1,3 @@
-
-import React from 'react';
 import Moment from 'moment';
 import { extendMoment } from 'moment-range';
 
@@ -47,6 +45,5 @@ const CheckAvailabilty = (start, serviceObject, allAppointments) => {
    
 
 };
-
 
 export default CheckAvailabilty;
