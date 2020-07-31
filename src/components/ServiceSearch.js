@@ -17,17 +17,18 @@ class ServiceList extends Component {
         var selectedServiceId = event.target.value;
         var selectedService = this.servicesToRender.find(({ id }) => id === selectedServiceId);
         var isAvailable = CheckAvailability(this.props.start, selectedService, this.appointmentToCheck);
-        var timeslots =[];
+        var timeSlots =[];
 
         if(this.props.searchGoal === "update")
-        {timeslots = GenerateAvailableTimeSlots(this.props.start, selectedService, this.appointmentToCheck);
-          console.log(timeslots)
+        {timeSlots = GenerateAvailableTimeSlots(this.props.start, selectedService, this.appointmentToCheck);
+          this.props.onChange(selectedService, false ,timeSlots);
+          console.log( timeSlots)
         }
 
         if(isAvailable){
-            this.props.onChange(selectedService, false);
+            this.props.onChange(selectedService, false,timeSlots);
         }else{
-            this.props.onChange(selectedService, true);
+            this.props.onChange(selectedService, true, timeSlots);
         }
     }
     render() {

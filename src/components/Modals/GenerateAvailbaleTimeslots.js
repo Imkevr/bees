@@ -14,7 +14,7 @@ const GenerateAvailableTimeSlots = (start, serviceObject, allAppointments) => {
     let filterAppointments = (allAppointments, start) => {
         let results = [];
         let filterAppoinments = allAppointments.filter(appoinment => appoinment.date === start.format('MMMM Do YYYY'));
-        filterAppoinments.map(appoinment => results.push([appoinment.start.format('HH:mm'), appoinment.end.format('HH:mm')]))
+        filterAppoinments.map(appoinment => results.push([appoinment.start.clone().subtract(serviceObject.hours, 'hours').subtract(serviceObject.minutes, 'minutes').format('HH:mm'), appoinment.end.format('HH:mm')]))
         console.log("results", results);
         return results;
     };
@@ -29,8 +29,8 @@ const GenerateAvailableTimeSlots = (start, serviceObject, allAppointments) => {
         var slotTimeWithDuration = slotTime.clone().add(serviceObject.hours, 'hours').add(serviceObject.minutes, 'minutes');
        
         return appointments.some((br) => {
-            console.log(slotTime >= moment(br[0], "HH:mm") && slotTime < moment(br[1], "HH:mm"));
-          return (slotTime >= moment(br[0], "HH:mm") && slotTime < moment(br[1], "HH:mm"));
+           
+          return  (slotTime >= moment(br[0], "HH:mm") && slotTime < moment(br[1], "HH:mm"));
       });
     }
         

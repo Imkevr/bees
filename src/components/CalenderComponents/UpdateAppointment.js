@@ -55,9 +55,12 @@ class UpdateAppointment extends Component {
             updatedView: false,
             newServiceSelected: false,
             selectedDate:"",
+
+            AvailabletimeSlots:[],
         };
         this.openDeleteAppointment = this.openDeleteAppointment.bind(this);
         this.handleDateSelect = this.handleDateSelect.bind(this);
+        this.handleServiceSelect = this.handleServiceSelect.bind(this);
     };
     handleDateSelect(date) {
         this.setState({
@@ -67,12 +70,14 @@ class UpdateAppointment extends Component {
        console.log("startdate", this.state.startDate)
        console.log("viewStart",this.state.viewStart.toDate())
     }
-    handleServiceSelect = (selectedServiceObj, buttonState) => {
+    handleServiceSelect = (selectedServiceObj, buttonState, timeSlots) => {
 
         this.setState({
             newServiceSelected: true,
+            AvailabletimeSlots: timeSlots,
 
         });
+        console.log("available timeslots: " , timeSlots)
         if (buttonState) {
             this.setState({
                 buttonIsDisabled: buttonState,
@@ -120,7 +125,6 @@ class UpdateAppointment extends Component {
                     <div className="modal-header">
 
                         <h5 className="customModal__text">Reschedule Appointment</h5>
-                        {/* {this.state.buttonIsDisabled? <p>This appointment overlaps with another one </p> : ""} */}
                         <button className="btn modal__button__red" onClick={() => { this.openDeleteAppointment() }}>Delete</button>
 
                         {this.state.openDeleteAppointment &&
@@ -131,18 +135,20 @@ class UpdateAppointment extends Component {
 
                         <div className="update">
                             <div className="update-time">
-                                <label>Choose new date</label>
+                                <label>Selected date: </label>
+                                <p>{this.state.viewStart.format('dddd, MMMM Do YYYY')}</p>
                                 <DatePicker
                                     selected={this.state.viewStart.toDate()}
                                     onChange={this.handleDateSelect}
                                     inline
                                 />
-                                <label>{this.state.viewStart.format('dddd, MMMM Do YYYY')}</label>
+                               
                             </div>
                             <div className="update-service-client">
                                 <ServiceSearch onChange={this.handleServiceSelect} serviceId={this.state.viewServiceId} start={this.state.viewStart}  searchGoal='update'/>
-                                {this.state.newServiceSelected ? <ShowAvailableTimeslots calendar={this.props.calendar} selectedService={this.state.selectedService} /> : ''}
-
+                                <div>
+                                {this.state.newServiceSelected ? <ShowAvailableTimeslots calendar={this.props.calendar} selectedService={this.state.selectedService} timeSlots={this.state.AvailabletimeSlots}/>  : ''}
+                                </div>
                                 <ClientSearch onChange={this.handleClientSelect} clientId={this.state.viewClientId} />
                             </div>
                         </div>
