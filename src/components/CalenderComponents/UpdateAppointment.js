@@ -28,7 +28,7 @@ class UpdateAppointment extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            test: Moment(`${this.state.selectedDate.format('dddd, MMMM Do YYYY')} 08:30`, 'YYYY-MM-DD HH:mm'),
+            // test: Moment(`${this.state.selectedDate.format('dddd, MMMM Do YYYY')} 08:30`, 'YYYY-MM-DD HH:mm'),
             startDate: new Date(),
             selectedService: "",
             selectedClient: "",
@@ -99,12 +99,17 @@ class UpdateAppointment extends Component {
         }
 
     };
-    getSelectedTimeslot(selectedSlotValue){
-        console.log("seletedStorValue", selectedSlotValue)
-        // console.log("selectedDate", this.state.selectedDate)
+    getSelectedTimeslot=(selectedSlotValue) => {
+       
         // this.setState({
         //     // updateAppointmentStart: Moment(`${this.state.selectedDate} ${selectedSlotValue}`, 'YYYY-MM-DD HH:mm')
         // })
+        this.setState({ updateAppointmentStart: selectedSlotValue}, () => {  //here
+            console.log("seletedStorValue", this.state.updateAppointmentStart)
+            console.log("seletedStotValue", selectedSlotValue)
+
+            //both will print same value
+        }); 
     }
 
     handleClientSelect = (selectedClientObj) => {
@@ -142,7 +147,7 @@ class UpdateAppointment extends Component {
 
                         <div className="update">
                             <div className="update-time">
-                        <p>{test}</p>
+                      
                                 <label>Selected date: </label>
                                 <p>{this.state.selectedDate.format('dddd, MMMM Do YYYY')}</p>
                                 <DatePicker
