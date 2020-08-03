@@ -28,6 +28,7 @@ class UpdateAppointment extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            test: Moment(`${this.state.selectedDate.format('dddd, MMMM Do YYYY')} 08:30`, 'YYYY-MM-DD HH:mm'),
             startDate: new Date(),
             selectedService: "",
             selectedClient: "",
@@ -40,21 +41,23 @@ class UpdateAppointment extends Component {
             viewServiceName: this.props.calendar.serviceName,
             viewClient: this.props.calendar.client,
             viewCost: this.props.calendar.cost,
-            viewStart: this.props.calendar.start,
             viewEnd: this.props.calendar.end,
             viewServiceId: this.props.calendar.serviceId,
             viewClientId: this.props.calendar.clientId,
             sendMail: false,
-            selectedDate: "",
-            updateStartTime: "",
+            selectedDate: this.props.calendar.start,
+
+            updateAppointmentStart: "",
+            updateAppointmentEnd: "",
             updateStartDate: "",
             updateDate: "",
+
             openDeleteAppointment: false,
             buttonIsDisabled: true,
             appointmentHasOverlap: false,
             updatedView: false,
             newServiceSelected: false,
-            selectedDate:"",
+           
 
             AvailabletimeSlots:[],
         };
@@ -64,11 +67,8 @@ class UpdateAppointment extends Component {
     };
     handleDateSelect(date) {
         this.setState({
-            viewStart: Moment(date),
-        })
-        
-       console.log("startdate", this.state.startDate)
-       console.log("viewStart",this.state.viewStart.toDate())
+            selectedDate: Moment(date),
+        })  
     }
     handleServiceSelect = (selectedServiceObj, buttonState, timeSlots) => {
 
@@ -99,6 +99,13 @@ class UpdateAppointment extends Component {
         }
 
     };
+    getSelectedTimeslot(selectedSlotValue){
+        console.log("seletedStorValue", selectedSlotValue)
+        // console.log("selectedDate", this.state.selectedDate)
+        // this.setState({
+        //     // updateAppointmentStart: Moment(`${this.state.selectedDate} ${selectedSlotValue}`, 'YYYY-MM-DD HH:mm')
+        // })
+    }
 
     handleClientSelect = (selectedClientObj) => {
 
@@ -118,7 +125,7 @@ class UpdateAppointment extends Component {
 
 
     render() {
-
+        
         return (
             <React.Fragment>
                 <div className="customModal">
@@ -135,19 +142,20 @@ class UpdateAppointment extends Component {
 
                         <div className="update">
                             <div className="update-time">
+                        <p>{test}</p>
                                 <label>Selected date: </label>
-                                <p>{this.state.viewStart.format('dddd, MMMM Do YYYY')}</p>
+                                <p>{this.state.selectedDate.format('dddd, MMMM Do YYYY')}</p>
                                 <DatePicker
-                                    selected={this.state.viewStart.toDate()}
+                                    selected={this.state.selectedDate.toDate()}
                                     onChange={this.handleDateSelect}
                                     inline
                                 />
                                
                             </div>
                             <div className="update-service-client">
-                                <ServiceSearch onChange={this.handleServiceSelect} serviceId={this.state.viewServiceId} start={this.state.viewStart}  searchGoal='update'/>
+                                <ServiceSearch onChange={this.handleServiceSelect} serviceId={this.state.viewServiceId} start={this.state.selectedDate}  searchGoal='update'/>
                                 <div>
-                                {this.state.newServiceSelected ? <ShowAvailableTimeslots calendar={this.props.calendar} selectedService={this.state.selectedService} timeSlots={this.state.AvailabletimeSlots}/>  : ''}
+                                {this.state.newServiceSelected ? <ShowAvailableTimeslots onClick={this.getSelectedTimeslot} timeSlots={this.state.AvailabletimeSlots}/>  : ''}
                                 </div>
                                 <ClientSearch onChange={this.handleClientSelect} clientId={this.state.viewClientId} />
                             </div>
