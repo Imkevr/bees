@@ -28,43 +28,25 @@ class UpdateAppointment extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            // test: Moment(`${this.state.selectedDate.format('dddd, MMMM Do YYYY')} 08:30`, 'YYYY-MM-DD HH:mm'),
+            id: this.props.calendar.id,
             startDate: new Date(),
             selectedService: "",
             selectedClient: "",
+            clientId: this.props.calendar.clientId,
+            serviceId: this.props.calendar.serviceId,
             start: "",
             end: "",
-            clientId: "",
-            serviceId: "",
-
-            id: this.props.calendar.id,
-            viewServiceName: this.props.calendar.serviceName,
-            viewClient: this.props.calendar.client,
-            viewCost: this.props.calendar.cost,
-            viewEnd: this.props.calendar.end,
-            viewServiceId: this.props.calendar.serviceId,
-            viewClientId: this.props.calendar.clientId,
             sendMail: false,
             selectedDate: this.props.calendar.start,
-
-            updateAppointmentStart: "",
-            updateAppointmentEnd: "",
-            updateStartDate: "",
-            updateDate: "",
-
             openDeleteAppointment: false,
-            buttonIsDisabled: true,
-            appointmentHasOverlap: false,
-            updatedView: false,
             newServiceSelected: false,
-
-
             AvailabletimeSlots: [],
         };
         this.openDeleteAppointment = this.openDeleteAppointment.bind(this);
         this.handleDateSelect = this.handleDateSelect.bind(this);
         this.handleServiceSelect = this.handleServiceSelect.bind(this);
     };
+
     handleDateSelect(date) {
         this.setState({
             selectedDate: Moment(date),
@@ -75,40 +57,22 @@ class UpdateAppointment extends Component {
         this.setState({
             newServiceSelected: true,
             AvailabletimeSlots: timeSlots,
-
+            selectedService: selectedServiceObj,
+            serviceId: selectedServiceObj.id,
+            start: this.props.calendar.start,
+            end: this.props.calendar.start.clone().add(selectedServiceObj.hours, 'hours').add(selectedServiceObj.minutes, 'minutes'),
         });
-        console.log("available timeslots: ", timeSlots)
-        if (buttonState) {
-            this.setState({
-                buttonIsDisabled: buttonState,
-                appointmentHasOverlap: buttonState,
-            });
-
-        } else {
-
-            this.setState({
-                selectedService: selectedServiceObj,
-                serviceId: selectedServiceObj.id,
-                start: this.props.calendar.start,
-                end: this.props.calendar.start.clone().add(selectedServiceObj.hours, 'hours').add(selectedServiceObj.minutes, 'minutes'),
-                buttonIsDisabled: buttonState,
-                appointmentHasOverlap: buttonState,
-                newServiceSelected: true,
-
-            });
-        }
-
     };
     getSelectedTimeslot = (selectedSlotValue) => {
        var selectedDateFormated = this.state.selectedDate.clone();
        var selectedSlotValueFormated = Moment(selectedSlotValue, 'HH:mm');
        var newappointmentEnd = selectedSlotValueFormated.clone().add(this.state.selectedService.hours, 'hours').add(this.state.selectedService.minutes, 'minutes');
         this.setState({
-            updateAppointmentStart:  Moment(selectedDateFormated.format('YYYY-MM-DD') + 'T' + selectedSlotValueFormated.format('HH:mm:ssZ')).clone(),
-            updateAppointmentEnd  :  Moment(selectedDateFormated.format('YYYY-MM-DD') + 'T' + newappointmentEnd.format('HH:mm:ssZ')).clone(),
+            start:  Moment(selectedDateFormated.format('YYYY-MM-DD') + 'T' + selectedSlotValueFormated.format('HH:mm:ssZ')).clone(),
+            end  :  Moment(selectedDateFormated.format('YYYY-MM-DD') + 'T' + newappointmentEnd.format('HH:mm:ssZ')).clone(),
         }, () => {
-            console.log("update app start:", this.state.updateAppointmentStart.format('dddd, MMMM Do YYYY HH:mm'));
-            console.log("update app end :", this.state.updateAppointmentEnd.format('dddd, MMMM Do YYYY HH:mm'));
+            console.log("update app start:", this.state.start.format('dddd, MMMM Do YYYY HH:mm'));
+            console.log("update app end :", this.state.end.format('dddd, MMMM Do YYYY HH:mm'));
            
         });
     }
@@ -159,11 +123,11 @@ class UpdateAppointment extends Component {
 
                             </div>
                             <div className="update-service-client">
-                                <ServiceSearch onChange={this.handleServiceSelect} serviceId={this.state.viewServiceId} start={this.state.selectedDate} searchGoal='update' />
+                                <ServiceSearch onChange={this.handleServiceSelect} serviceId={this.state.serviceId} start={this.state.selectedDate} searchGoal='update' />
                                 <div>
                                     {this.state.newServiceSelected ? <ShowAvailableTimeslots onClick={this.getSelectedTimeslot} timeSlots={this.state.AvailabletimeSlots} /> : ''}
                                 </div>
-                                <ClientSearch onChange={this.handleClientSelect} clientId={this.state.viewClientId} />
+                                <ClientSearch onChange={this.handleClientSelect} clientId={this.state.clientId} />
                             </div>
                         </div>
 
@@ -176,10 +140,10 @@ class UpdateAppointment extends Component {
                                     onClick={(e) => {
                                         e.preventDefault();
                                         updateAppointment({
-                                            variables: { start: this.state.updateAppointmentStart, end: this.state.updateAppointmentEnd, clientId: this.state.selectedClient.id, serviceId: this.state.selectedService.id, id: this.state.id , willSendMail:false}
+                                            variables: { start: this.state.start, end: this.state.end, clientId: this.state.clientId, serviceId:this.state.serviceId, id: this.state.id , willSendMail:false}
                                         });
                                         this.handleRemove();
-                                        // window.location.reload(false);
+                                        window.location.reload(false);
                                     }}
                     
                                 >
@@ -190,8 +154,6 @@ class UpdateAppointment extends Component {
 
                             }
                         </Mutation>
-                        {/* ; window.location.reload(false)  */}
-
                         <button className="btn modal__button__cancel" onClick={this.handleRemove}>Cancel</button>
                     </div>
                 </div>
