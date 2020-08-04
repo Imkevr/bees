@@ -14,8 +14,8 @@ import ShowAvailableTimeslots from '../Modals/ShowAvailableTimeslots';
 
 const UPDATE_APPOINTMENT = gql`
   
-mutation UpdateAppointment($start: DateTime!,$end:DateTime!, $serviceId: ID!, $clientId:ID!, $id: ID! ) {
-  updateAppointment(start: $start, end: $end, clientId:$clientId, serviceId:$serviceId, id:$id) {
+mutation UpdateAppointment($start: DateTime!,$end:DateTime!, $serviceId: ID!, $clientId:ID!, $id: ID!, $willSendMail: Boolean! ) {
+  updateAppointment(start: $start, end: $end, clientId:$clientId, serviceId:$serviceId, id:$id, willSendMail:$willSendMail) {
    id
    start
    end
@@ -57,9 +57,9 @@ class UpdateAppointment extends Component {
             appointmentHasOverlap: false,
             updatedView: false,
             newServiceSelected: false,
-           
 
-            AvailabletimeSlots:[],
+
+            AvailabletimeSlots: [],
         };
         this.openDeleteAppointment = this.openDeleteAppointment.bind(this);
         this.handleDateSelect = this.handleDateSelect.bind(this);
@@ -68,7 +68,7 @@ class UpdateAppointment extends Component {
     handleDateSelect(date) {
         this.setState({
             selectedDate: Moment(date),
-        })  
+        })
     }
     handleServiceSelect = (selectedServiceObj, buttonState, timeSlots) => {
 
@@ -77,7 +77,7 @@ class UpdateAppointment extends Component {
             AvailabletimeSlots: timeSlots,
 
         });
-        console.log("available timeslots: " , timeSlots)
+        console.log("available timeslots: ", timeSlots)
         if (buttonState) {
             this.setState({
                 buttonIsDisabled: buttonState,
@@ -99,17 +99,18 @@ class UpdateAppointment extends Component {
         }
 
     };
-    getSelectedTimeslot=(selectedSlotValue) => {
-       
-        // this.setState({
-        //     // updateAppointmentStart: Moment(`${this.state.selectedDate} ${selectedSlotValue}`, 'YYYY-MM-DD HH:mm')
-        // })
-        this.setState({ updateAppointmentStart: selectedSlotValue}, () => {  //here
-            console.log("seletedStorValue", this.state.updateAppointmentStart)
-            console.log("seletedStotValue", selectedSlotValue)
-
-            //both will print same value
-        }); 
+    getSelectedTimeslot = (selectedSlotValue) => {
+       var selectedDateFormated = this.state.selectedDate.clone();
+       var selectedSlotValueFormated = Moment(selectedSlotValue, 'HH:mm');
+       var newappointmentEnd = selectedSlotValueFormated.clone().add(this.state.selectedService.hours, 'hours').add(this.state.selectedService.minutes, 'minutes');
+        this.setState({
+            updateAppointmentStart:  Moment(selectedDateFormated.format('YYYY-MM-DD') + 'T' + selectedSlotValueFormated.format('HH:mm:ssZ')).clone(),
+            updateAppointmentEnd  :  Moment(selectedDateFormated.format('YYYY-MM-DD') + 'T' + newappointmentEnd.format('HH:mm:ssZ')).clone(),
+        }, () => {
+            console.log("update app start:", this.state.updateAppointmentStart.format('dddd, MMMM Do YYYY HH:mm'));
+            console.log("update app end :", this.state.updateAppointmentEnd.format('dddd, MMMM Do YYYY HH:mm'));
+           
+        });
     }
 
     handleClientSelect = (selectedClientObj) => {
@@ -130,7 +131,7 @@ class UpdateAppointment extends Component {
 
 
     render() {
-        
+
         return (
             <React.Fragment>
                 <div className="customModal">
@@ -147,7 +148,7 @@ class UpdateAppointment extends Component {
 
                         <div className="update">
                             <div className="update-time">
-                      
+
                                 <label>Selected date: </label>
                                 <p>{this.state.selectedDate.format('dddd, MMMM Do YYYY')}</p>
                                 <DatePicker
@@ -155,12 +156,12 @@ class UpdateAppointment extends Component {
                                     onChange={this.handleDateSelect}
                                     inline
                                 />
-                               
+
                             </div>
                             <div className="update-service-client">
-                                <ServiceSearch onChange={this.handleServiceSelect} serviceId={this.state.viewServiceId} start={this.state.selectedDate}  searchGoal='update'/>
+                                <ServiceSearch onChange={this.handleServiceSelect} serviceId={this.state.viewServiceId} start={this.state.selectedDate} searchGoal='update' />
                                 <div>
-                                {this.state.newServiceSelected ? <ShowAvailableTimeslots onClick={this.getSelectedTimeslot} timeSlots={this.state.AvailabletimeSlots}/>  : ''}
+                                    {this.state.newServiceSelected ? <ShowAvailableTimeslots onClick={this.getSelectedTimeslot} timeSlots={this.state.AvailabletimeSlots} /> : ''}
                                 </div>
                                 <ClientSearch onChange={this.handleClientSelect} clientId={this.state.viewClientId} />
                             </div>
@@ -175,13 +176,12 @@ class UpdateAppointment extends Component {
                                     onClick={(e) => {
                                         e.preventDefault();
                                         updateAppointment({
-                                            variables: { start: this.state.start, end: this.state.end, clientId: this.state.clientId, serviceId: this.state.serviceId, id: this.state.id }
+                                            variables: { start: this.state.updateAppointmentStart, end: this.state.updateAppointmentEnd, clientId: this.state.selectedClient.id, serviceId: this.state.selectedService.id, id: this.state.id , willSendMail:false}
                                         });
                                         this.handleRemove();
-                                        window.location.reload(false);
+                                        // window.location.reload(false);
                                     }}
-                                    disabled={this.state.buttonIsDisabled}
-                                    onChange={e => this.setState({ firstname: e.target.value })}
+                    
                                 >
                                     Reschedule
                                 </button>

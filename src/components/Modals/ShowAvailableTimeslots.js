@@ -11,12 +11,15 @@ class ShowAvailableTimeslots extends Component {
         this.handleTimeSlotClick = this.handleTimeSlotClick.bind(this);
     }
 
-    handleTimeSlotClick(timeslot){
-        this.setState({
-            selectedSlotValue: timeslot
-        })
-        this.props.onClick(this.state.selectedSlotValue)
-        console.log('time slot value', timeslot)
+    handleTimeSlotClick=(timeSlot)=>{
+  
+        this.setState({ selectedSlotValue: timeSlot}, () => { 
+            this.props.onClick(this.state.selectedSlotValue)
+            console.log('time slot value', timeSlot)
+          
+        }); 
+       
+       
     
     }
     render() {
@@ -26,7 +29,7 @@ class ShowAvailableTimeslots extends Component {
 
 
                 {
-                    timeSlotArr.map(timeSlot => <a className="timeslot btn "key={timeSlot} onClick={() => {this.handleTimeSlotClick(timeSlot)}}>{timeSlot}</a>)
+                    timeSlotArr.map(timeSlot => <a className="timeslot btn "key={timeSlot} value={timeSlot} onClick={(e)=>this.handleTimeSlotClick(timeSlot)}>{timeSlot}</a>)
 
                 }
 
