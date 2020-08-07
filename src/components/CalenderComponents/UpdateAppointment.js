@@ -125,7 +125,7 @@ class UpdateAppointment extends Component {
                             <div className="update-service-client">
                                 <ServiceSearch onChange={this.handleServiceSelect} serviceId={this.state.serviceId} start={this.state.selectedDate} searchGoal='update' />
                                 <div>
-                                    {this.state.newServiceSelected ? <ShowAvailableTimeslots onClick={this.getSelectedTimeslot} timeSlots={this.state.AvailabletimeSlots} /> : ''}
+                                     <ShowAvailableTimeslots onClick={this.getSelectedTimeslot} timeSlots={this.state.AvailabletimeSlots} /> 
                                 </div>
                                 <ClientSearch onChange={this.handleClientSelect} clientId={this.state.clientId} />
                             </div>

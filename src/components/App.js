@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import ServiceList from './ServiceList'
 import ClientListView from './ClientListView'
+import ProfileView from './ProfileView'
 import Calendar from './Calendar'
 import Sidenav from './Sidenav'
 import Notfound from './NotFound'
@@ -44,6 +45,7 @@ class App extends Component {
               <PrivateRoute exact path="/" component={Calendar}></PrivateRoute>
               <PrivateRoute exact path="/servicelist" component={ServiceList}></PrivateRoute>
               <PrivateRoute exact path="/clientlist" component={ClientListView} ></PrivateRoute>
+              <PrivateRoute exact path="/profile" component={ProfileView} ></PrivateRoute>
               <Route path="/login" component={Login} />
               <Route component={Notfound} />
             </Switch>

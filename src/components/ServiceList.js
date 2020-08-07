@@ -22,7 +22,7 @@ class ServiceList extends Component {
     render() {
         const FEED_QUERY = gql`
      {
-         servicefeed {
+         servicefeed(organizationId:"ckdejoldh0zgs09858yu5g1ux") {
           id
          name
           cost

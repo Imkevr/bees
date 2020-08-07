@@ -1,0 +1,45 @@
+@import'./colors';
+
+#profile-page {
+    width: 88%;
+    height: 100%;
+    background-color: $blue-light;
+
+    #profile-header {
+        height: 12%;
+        width:90%;
+        margin:auto;
+        display: flex;
+        flex-direction: column;
+        #company-info{
+            height: 6%;
+            width:90%;
+            margin:auto;
+            display: flex;
+            flex-direction: row;
+        }
+        #company-image,  #company-details,  #company-calendar-link{
+            height:95%;
+            margin-top:5%;
+        }
+        #company-image{
+            width:25%;
+            #gravatar{
+               width:30%;
+               height:auto;
+               border-radius: 10px;
+            }
+        }
+        #company-details{
+            width:50%;
+        }
+        #company-calendar-link{
+            width:25%;
+        }
+
+        #company-stats{
+            height:6%;
+            
+        }
+    }
+}
