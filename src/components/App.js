@@ -5,6 +5,7 @@ import ProfileView from './ProfileView'
 import Calendar from './Calendar'
 import Sidenav from './Sidenav'
 import Notfound from './NotFound'
+import PublicCalendar from './PublicCalendar'
 import '../styles/App.scss'
 import {
   BrowserRouter as Router,
@@ -18,7 +19,7 @@ import { AUTH_TOKEN } from '../constants'
 
 class App extends Component {
   render() {
-
+    const test="test"
     const PrivateRoute = ({ component: Component, ...rest }) => {
 
       const authToken = localStorage.getItem(AUTH_TOKEN);
@@ -47,7 +48,9 @@ class App extends Component {
               <PrivateRoute exact path="/clientlist" component={ClientListView} ></PrivateRoute>
               <PrivateRoute exact path="/profile" component={ProfileView} ></PrivateRoute>
               <Route path="/login" component={Login} />
-              <Route component={Notfound} />
+              <Route exact path="/calendar/public/organization/:id" component={PublicCalendar} />
+              <Route path="*" component={Notfound} />
+              
             </Switch>
           </div>
         </Router>
