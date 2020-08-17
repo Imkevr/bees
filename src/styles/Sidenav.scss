@@ -1,5 +1,6 @@
 @import './_colors';
 
+
 #nav-container {
     width: 12%;
     height: 100%;
@@ -64,7 +65,7 @@
                         margin: auto 0;
                         margin-left: 32px;
                         font-weight: 500;
-
+                        display: block ;
                     }
 
                     &:hover {
@@ -124,6 +125,8 @@
 
                 #gravatar {
                     border-radius: 100%;
+                    width: 50px ;
+                    height:50px ;
                 }
             }
 
@@ -141,6 +144,9 @@
                     margin-top: 12px;
                     display: flex;
                     flex-direction: row;
+                    span {
+                        display: block ;
+                    }
 
                     #svg {
                         width: 20%;
@@ -166,104 +172,104 @@
 
 }
 
-@media only screen and (min-width: 1366px) and (min-height: 1024px) {
+@media only screen and (min-width: 1400px) and (min-height: 1050px) {
 
     .nav-text {
-        display: none !important;
+        display: none ;
     }
 
     .nav-svg {
-        margin-left: 40px !important;
+        margin-left: 40px ;
     }
 
     #nav-logout {
         #nav-logout-content {
-            margin-top: 250px !important;
+            margin-top: 250px ;
         }
     }
 }
 
-@media only screen and (min-width: 1024px)and (min-height: 1366px) {
+@media only screen and (min-width: 1050px)and (min-height: 1400px) {
 
     .nav-text {
-        display: none !important;
+        display: none ;
     }
 
     .nav-svg {
-        margin-left: 20px !important;
+        margin-left: 20px ;
     }
 
     #nav-logout {
         #nav-logout-content {
-            margin-top: 400px !important;
+            margin-top: 400px ;
         }
     }
 }
 
-@media only screen and (min-width: 768px)and (min-height: 1024px) {
+@media only screen and (min-width: 775px)and (min-height: 1050px) {
     #appointes-logo {
-        width: 60px !important;
+        width: 60px ;
     }
 
     .nav-text {
-        display: none !important;
+        display: none ;
     }
 
     .nav-svg {
-        margin-left: 5px !important;
+        margin-left: 5px ;
     }
 
     #nav-logout {
         #nav-logout-content {
-            margin-top: 300px !important;
-            flex-direction: row !important;
+            margin-top: 300px ;
+            flex-direction: row ;
         }
     }
 
     #logout {
-        margin-top:3px !important;
-        margin-left:3px !important;
+        margin-top:3px ;
+        margin-left:3px ;
         span {
-            display: none !important;
+            display: none ;
         }
     }
 
     #gravatar {
-        width: 30px !important;
-        height:30px !important;
+        width: 30px ;
+        height:30px ;
     }
 }
 
-@media only screen and (min-width: 1024px)and (min-height: 768px) {
+@media only screen and (min-width: 1050px)and (min-height: 775px) {
     #appointes-logo {
-        width: 60px !important;
+        width: 60px ;
     }
 
     .nav-text {
-        display: none !important;
+        display: none ;
     }
 
     .nav-svg {
-        margin-left: 20px !important;
+        margin-left: 20px ;
     }
 
     #nav-logout {
         #nav-logout-content {
-            margin-top: 200px !important;
-            flex-direction: row !important;
+            margin-top: 200px ;
+            flex-direction: row ;
         }
     }
 
     #logout {
-        margin-top:3px !important;
-        margin-left:3px !important;
+        margin-top:3px ;
+        margin-left:3px ;
         span {
-            display: none !important;
+            display: none ;
         }
     }
 
     #gravatar {
-        width: 30px !important;
-        height:30px !important;
+        width: 30px ;
+        height:30px ;
     }
 }
