@@ -72,7 +72,7 @@ export default class Calendar extends React.Component {
             <Query query={APPOINTMENT_FEED_QUERY} >
               {({ loading, error, data }) => {
                 if (loading) return <span class="sr-only">Loading...</span>
-                if (error) return <div>Error</div>
+                if (error) return <div>There seems to be a server issue, try again later or contact helpdesk</div>
                 if (data.appointmentfeed.length >= this.appointmentToRender) {
                   data.appointmentfeed.map(appointment => this.appointmentToRender.push({
                     clientId: appointment.client.id,

@@ -61,7 +61,7 @@ class ServiceList extends Component {
         <Query query={FEED_QUERY} >
           {({ loading, error, data }) => {
             if (loading) return <div>Fetching</div>
-            if (error) return <div>Error</div>
+            if (error) return <div>There seems to be a server issue, try again later or contact helpdesk</div>
             this.servicesToRender = data.servicefeed
             console.log('service ID ', this.props.serviceId);
             var serviceObj = this.props.serviceId !== "" ? data.servicefeed.find(service => service.id === this.props.serviceId) : " ";

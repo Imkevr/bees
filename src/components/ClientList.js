@@ -23,7 +23,7 @@ class ClientList extends Component {
                     if (loading) return <div class="spinner-grow text-dark spinner-width m-5" role="status">
                         <span class="sr-only">Loading...</span>
                     </div>
-                    if (error) return <div>There seems to be a server issue</div>
+                    if (error) return <div>There seems to be a server issue, try again later or contact helpdesk</div>
                     this.clientsToRender = data.clientfeed
                     return (
                         <React.Fragment>

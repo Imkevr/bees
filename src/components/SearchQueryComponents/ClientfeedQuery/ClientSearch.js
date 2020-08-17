@@ -4,7 +4,9 @@ import { Query } from 'react-apollo'
 import gql from 'graphql-tag'
 
 class ClientSearch extends Component {
-
+    constructor(props) {
+        super(props);
+      }
     clientsToRender = [];
 
     handleClientSelect = (event) => {
@@ -35,7 +37,7 @@ class ClientSearch extends Component {
                         <React.Fragment>
                             <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Select a client </label>
                             <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" onChange={this.handleClientSelect}>
-                                {this.props.clientId !== " "? <ClientSearchOption key={clientObj.id} client={clientObj} />:  <option value="" selected disabled hidden>Select a client</option>}
+                                {this.props.clientId !== ""? <ClientSearchOption key={clientObj.id} client={clientObj} />:  <option value="" selected disabled hidden>Select a client</option>}
                                 {this.clientsToRender.map(client => <ClientSearchOption key={client.id} client={client} />)}
                             </select>
                         </React.Fragment>
