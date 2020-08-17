@@ -40,18 +40,18 @@ class App extends Component {
       <React.Fragment>
         <Router>
           <div className="fullscreen">
-            <Sidenav className="sidenav" />
+            <Sidenav />
 
             <Switch >
               <PrivateRoute exact path="/" component={Calendar}></PrivateRoute>
               <PrivateRoute exact path="/servicelist" component={ServiceList}></PrivateRoute>
               <PrivateRoute exact path="/clientlist" component={ClientListView} ></PrivateRoute>
               <PrivateRoute exact path="/profile" component={ProfileView} ></PrivateRoute>
-              <Route path="/login" component={Login} />
+              <Route path="/login" component={Login} />           
               <Route exact path="/calendar/public/organization/:id" component={PublicCalendar} />
-              <Route path="*" component={Notfound} />
-              
+              <Route path="*" component={Notfound} />   
             </Switch>
+            
           </div>
         </Router>
       </React.Fragment>
