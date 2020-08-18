@@ -17,6 +17,7 @@ export default class PublicCalendar extends React.Component {
   organisation;
   startEmployee=[];
   startId='';
+
   constructor(props) {
     super(props);
     this.state = {
@@ -27,6 +28,7 @@ export default class PublicCalendar extends React.Component {
 
     //  this.onEmployeeClick = this.onEmployeeClick.bind(this);
   };
+
   onEmployeeClick=(selectedEmployee)=>{
     let appointments=[];
     this.startId = selectedEmployee.id;
@@ -84,9 +86,6 @@ export default class PublicCalendar extends React.Component {
               }));
               this.startId =this.organisation.employees[0].id;
             }
-              
-              
-              }
               console.log("starts",this.startEmployee)
               return (
                 <React.Fragment>
@@ -128,6 +127,7 @@ export default class PublicCalendar extends React.Component {
                 </React.Fragment>
               )
             }
+          }
           }
 
         </Query>
