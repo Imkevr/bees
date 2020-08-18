@@ -16,7 +16,6 @@ export default class Calendar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      lastUid: 1,
       currentDay: moment(),
       showCalendarDay: moment(),
       appointments: [],
