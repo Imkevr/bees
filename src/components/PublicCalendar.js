@@ -13,35 +13,56 @@ import '../styles/PublicCalendar.scss';
 
 
 export default class PublicCalendar extends React.Component {
-  counter=0;
-  organisation;
-  startEmployee=[];
-  startId='';
 
   constructor(props) {
     super(props);
     this.state = {
       id: this.props.match.params.id,
       showCalendarDay: moment(),
-      clickedEmployeeAppointments:[],
+      clickedEmployeeAppointments: [],
+      organisationDetails: [],
+      initialEmployeeApp:[],
+      allEmployees:[],
+      startId:"",
     };
 
-    //  this.onEmployeeClick = this.onEmployeeClick.bind(this);
+    this.getEntireOrganization = this.getEntireOrganization.bind(this);
   };
 
-  onEmployeeClick=(selectedEmployee)=>{
-    let appointments=[];
-    this.startId = selectedEmployee.id;
+  getEntireOrganization(data) {
+    let allOrganisationDetails = data.getOrganization;
+    let viewFirstEmployeeApp = [];
+    let getAllEmployees=[];
+    
+    allOrganisationDetails.employees.map(employee => getAllEmployees.push(...[employee]))
+    
+    allOrganisationDetails.employees[0].appointments.map(appointment => viewFirstEmployeeApp.push({
+      start: moment(appointment.start),
+      end: moment(appointment.end)
+    }));
+
+    this.setState({
+      organisationDetails: allOrganisationDetails,
+      startId: allOrganisationDetails.employees[0].id,
+      initialEmployeeApp: viewFirstEmployeeApp,
+      allEmployees: getAllEmployees,
+    });
+   
+  }
+  onEmployeeClick = (selectedEmployee) => {
+    let appointments = [];
+    
     selectedEmployee.appointments.map(appointment => appointments.push({
       start: moment(appointment.start),
       end: moment(appointment.end)
     }))
-    if(appointments.length !=0 )
-    {
-    this.startEmployee.splice(0, this.startEmployee.length, ...appointments);
-    console.log("start",this.startEmployee)
+
+    if (appointments.length !== 0 || appointments.length === 0) {
+      this.state.initialEmployeeApp.splice(0, this.state.initialEmployeeApp.length, ...appointments);
     }
-   
+    this.setState({
+      startId : selectedEmployee.id,
+    })
   }
 
 
@@ -72,66 +93,58 @@ export default class PublicCalendar extends React.Component {
   `;
     return (
 
-      <div  id="public">
-        <Query query={GET_ORGANIZATION} variables={{ id }} >
+      <div id="public">
+        <Query query={GET_ORGANIZATION} variables={{ id }} onCompleted={this.getEntireOrganization} >
           {({ loading, error, data }) => {
             if (loading) return <span class="sr-only">Loading...</span>
             if (error) return <div>Error</div>
-            if (data) {
-              this.organisation = data.getOrganization;
-              if(this.state.clickedEmployeeAppointments.length===0){
-              this.organisation.employees[0].appointments.map(appointment => this.startEmployee.push({
-                start: moment(appointment.start),
-                end: moment(appointment.end)
-              }));
-              this.startId =this.organisation.employees[0].id;
-            }
-              console.log("starts",this.startEmployee)
-              return (
-                <React.Fragment>
-        
-                  <div id="public-header">
-                    <div id="public-appoint-logo">
-                      <p>logo</p>
-                    </div>
-                    <div id="public-company-info">
-                      <p>{this.organisation.name}</p>
-                    </div>
-                  </div>
-                  <div id="public-body">
-                  <div id="employees">
-                    {this.organisation.employees.map(employee =>   <button className={this.startId === employee.id?"selected btn employee-button" : "employee-button"} value={employee} key={employee.id} onClick={(e)=>this.onEmployeeClick(employee)}>{`${employee.firstname} ${employee.lastname}`}</button>  )} 
-                      </div>
-                    <div id="day-switches">
-                      <p>day switches</p>
-                    </div>
+            if (!data) return <div>No data found</div>
+          
+            return (
+              <React.Fragment>
 
-                    <div id="public-calendar">
-                      <WeekCalendar
-                        firstDay={this.state.showCalendarDay}
-                        startTime={moment({ h: 8, m: 0 })}
-                        endTime={moment({ h: 21, m: 0 })}
-                        scaleUnit={30}
-                        cellHeight={80}
-                        numberOfDays={7}
-                        modalComponent={CalenderModal}
-                        eventSpacing={20}
-                        // selectedIntervals={this.state.selectedEmployee.appointments}
-                        selectedIntervals={this.startEmployee}
-                        eventComponent={CustomEvent}
-                        scaleHeaderTitle={this.state.showCalendarDay.format('MMMM')}
-                        headerCellComponent={CustomHeaderCell}
-                      />
-                    </div>
+                <div id="public-header">
+                  <div id="public-appoint-logo">
+                    <p>logo</p>
                   </div>
-                </React.Fragment>
-              )
-            }
+                  <div id="public-company-info">
+                    <p>{this.state.organisationDetails.name}</p>
+                  </div>
+                </div>
+                <div id="public-body">
+                  <div id="employees">
+                    {this.state.allEmployees.map(employee => <button className={this.state.startId === employee.id ? "selected btn employee-button" : "employee-button"} value={employee} key={employee.id} onClick={(e) => this.onEmployeeClick(employee)}>{`${employee.firstname} ${employee.lastname}`}</button>)}
+                  </div>
+                  <div id="day-switches">
+                    <p>day switches</p>
+                  </div>
+
+                  <div id="public-calendar">
+                    <WeekCalendar
+                      firstDay={this.state.showCalendarDay}
+                      startTime={moment({ h: 8, m: 0 })}
+                      endTime={moment({ h: 21, m: 0 })}
+                      scaleUnit={30}
+                      cellHeight={80}
+                      numberOfDays={7}
+                      modalComponent={CalenderModal}
+                      eventSpacing={20}
+                      // selectedIntervals={this.state.selectedEmployee.appointments}
+                      selectedIntervals={this.state.initialEmployeeApp}
+                      eventComponent={CustomEvent}
+                      scaleHeaderTitle={this.state.showCalendarDay.format('MMMM')}
+                      headerCellComponent={CustomHeaderCell}
+                    />
+                  </div>
+                </div>
+              </React.Fragment>
+            )
+          
           }
           }
 
         </Query>
-        </div>
+      </div>
     )
 
   }

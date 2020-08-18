@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import Client from './Client';
-import ClientQuery from './ClientQuery';
+
 class ClientList extends Component {
     constructor(props) {
         super(props);
