@@ -1,27 +1,43 @@
 import React from 'react'
 import WeekCalendar from 'react-week-calendar';
 import moment from 'moment';
-import { Query } from 'react-apollo'
-import gql from 'graphql-tag'
-import CustomEvent from './CalenderComponents/CustomEvent'
+import { Query } from 'react-apollo';
+import gql from 'graphql-tag';
+import CustomEvent from './CalenderComponents/CustomEvent';
 
-import CalenderModal from './CalenderComponents/CalenderModal'
-import CustomHeaderCell from './CalenderComponents/CustomHeaderCell'
+import CalenderModal from './CalenderComponents/CalenderModal';
+import CustomHeaderCell from './CalenderComponents/CustomHeaderCell';
 
 
 import 'react-week-calendar/dist/style.css';
-import '../styles/Calender.scss'
+import '../styles/Calender.scss';
 
 export default class Calendar extends React.Component {
-  appointmentToRender = [];
-  todaysAppointment = [];
   constructor(props) {
     super(props);
     this.state = {
       lastUid: 1,
       currentDay: moment(),
       showCalendarDay: moment(),
+      appointments: [],
     };
+    this.getAllAppointments = this.getAllAppointments.bind(this);
+  };
+
+  getAllAppointments(data) {
+    let allAppointments = [];
+    data.appointmentfeed.map(appointment => allAppointments.push({
+      clientId: appointment.client.id,
+      serviceId: appointment.service.id,
+      id: appointment.id,
+      start: moment(appointment.start),
+      end: moment(appointment.end),
+      client: appointment.client.firstname + ' ' + appointment.client.lastname,
+      cost: appointment.service.cost,
+      serviceName: appointment.service.name,
+      color: appointment.service.color
+    }));
+    this.setState({ appointments: allAppointments, });
   };
 
   handleMoveToCurrentDay = () => {
@@ -69,26 +85,12 @@ export default class Calendar extends React.Component {
         <div id="calendar-page">
           <div id='calendar-header'>
             <h2>Calendar </h2>
-            <Query query={APPOINTMENT_FEED_QUERY} >
+            <Query query={APPOINTMENT_FEED_QUERY} onCompleted={this.getAllAppointments}>
               {({ loading, error, data }) => {
                 if (loading) return <span class="sr-only">Loading...</span>
                 if (error) return <div>There seems to be a server issue, try again later or contact helpdesk</div>
-                if (data.appointmentfeed.length >= this.appointmentToRender) {
-                  data.appointmentfeed.map(appointment => this.appointmentToRender.push({
-                    clientId: appointment.client.id,
-                    serviceId: appointment.service.id,
-                    id: appointment.id,
-                    start: moment(appointment.start),
-                    end: moment(appointment.end),
-                    client: appointment.client.firstname + ' ' + appointment.client.lastname,
-                    cost: appointment.service.cost,
-                    serviceName: appointment.service.name,
-                    color: appointment.service.color
-                  }))
-                }
-                return (
-                  <React.Fragment></React.Fragment>
-                )
+                if (!data) return <div>There was no data found</div>
+                return (<React.Fragment></React.Fragment>)
               }}
             </Query>
           </div>
@@ -121,7 +123,7 @@ export default class Calendar extends React.Component {
             numberOfDays={7}
             modalComponent={CalenderModal}
             eventSpacing={20}
-            selectedIntervals={this.appointmentToRender}
+            selectedIntervals={this.state.appointments}
             eventComponent={CustomEvent}
             scaleHeaderTitle={this.state.showCalendarDay.format('MMMM')}
             headerCellComponent={CustomHeaderCell}
