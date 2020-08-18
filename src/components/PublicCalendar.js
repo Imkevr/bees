@@ -21,9 +21,9 @@ export default class PublicCalendar extends React.Component {
       showCalendarDay: moment(),
       clickedEmployeeAppointments: [],
       organisationDetails: [],
-      initialEmployeeApp:[],
-      allEmployees:[],
-      startId:"",
+      initialEmployeeApp: [],
+      allEmployees: [],
+      startId: "",
     };
 
     this.getEntireOrganization = this.getEntireOrganization.bind(this);
@@ -32,10 +32,10 @@ export default class PublicCalendar extends React.Component {
   getEntireOrganization(data) {
     let allOrganisationDetails = data.getOrganization;
     let viewFirstEmployeeApp = [];
-    let getAllEmployees=[];
-    
+    let getAllEmployees = [];
+
     allOrganisationDetails.employees.map(employee => getAllEmployees.push(...[employee]))
-    
+
     allOrganisationDetails.employees[0].appointments.map(appointment => viewFirstEmployeeApp.push({
       start: moment(appointment.start),
       end: moment(appointment.end)
@@ -47,11 +47,11 @@ export default class PublicCalendar extends React.Component {
       initialEmployeeApp: viewFirstEmployeeApp,
       allEmployees: getAllEmployees,
     });
-   
+
   }
   onEmployeeClick = (selectedEmployee) => {
     let appointments = [];
-    
+
     selectedEmployee.appointments.map(appointment => appointments.push({
       start: moment(appointment.start),
       end: moment(appointment.end)
@@ -61,7 +61,7 @@ export default class PublicCalendar extends React.Component {
       this.state.initialEmployeeApp.splice(0, this.state.initialEmployeeApp.length, ...appointments);
     }
     this.setState({
-      startId : selectedEmployee.id,
+      startId: selectedEmployee.id,
     })
   }
 
@@ -99,7 +99,7 @@ export default class PublicCalendar extends React.Component {
             if (loading) return <span class="sr-only">Loading...</span>
             if (error) return <div>Error</div>
             if (!data) return <div>No data found</div>
-          
+
             return (
               <React.Fragment>
 
@@ -139,7 +139,7 @@ export default class PublicCalendar extends React.Component {
                 </div>
               </React.Fragment>
             )
-          
+
           }
           }
 
