@@ -3,13 +3,13 @@ import WeekCalendar from 'react-week-calendar';
 import moment from 'moment';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
-import CustomEvent from './CalenderComponents/CustomEvent';
+import PublicCalendarEvent from '../PublicCalendarComponents/PublicCalendarModals/PublicCalendarEvent';
 
-import CalenderModal from './CalenderComponents/CalenderModal';
-import CustomHeaderCell from './CalenderComponents/CustomHeaderCell';
+import PublicCalenderModal from '../PublicCalendarComponents/PublicCalendarModals/PublicCalendarModal';
+import CustomHeaderCell from '../CalenderComponents/CustomHeaderCell';
 
 import 'react-week-calendar/dist/style.css';
-import '../styles/PublicCalendar.scss';
+import '../../styles/PublicCalendarStyles/PublicCalendar.scss';
 
 
 export default class PublicCalendar extends React.Component {
@@ -18,7 +18,7 @@ export default class PublicCalendar extends React.Component {
     super(props);
     this.state = {
       id: this.props.match.params.id,
-      
+
       currentDay: moment(),
       showCalendarDay: moment(),
 
@@ -140,40 +140,42 @@ export default class PublicCalendar extends React.Component {
                   </div>
                 </div>
                 <div id="public-body">
-                  <div id="employees">
-                    {this.state.allEmployees.map(employee => <button className={this.state.startId === employee.id ? "selected btn employee-button" : "employee-button"} value={employee} key={employee.id} onClick={(e) => this.onEmployeeClick(employee)}>{`${employee.firstname} ${employee.lastname}`}</button>)}
+                  <div id="body-header">
+                    <div id="employees">
+                      {this.state.allEmployees.map(employee => <button type="button" className={this.state.startId === employee.id ? "selected btn employee-button" : "btn employee-button"} value={employee} key={employee.id} onClick={(e) => this.onEmployeeClick(employee)}>{`${employee.firstname} ${employee.lastname}`}</button>)}
+                    </div>
+                    <div id="day-switches">
+                      <button type="button" onClick={this.handleMoveToPreviousDay} className="arrow btn" id="previous" data-toggle="tooltip" data-placement="left" title="previous 7 days">
+                        <svg className="bi bi-arrow-90deg-left" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                          <path fill-rule="evenodd" d="M6.104 2.396a.5.5 0 0 1 0 .708L3.457 5.75l2.647 2.646a.5.5 0 1 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 0 1 .708 0z" />
+                          <path fill-rule="evenodd" d="M2.75 5.75a.5.5 0 0 1 .5-.5h6.5a2.5 2.5 0 0 1 2.5 2.5v5.5a.5.5 0 0 1-1 0v-5.5a1.5 1.5 0 0 0-1.5-1.5h-6.5a.5.5 0 0 1-.5-.5z" />
+                        </svg>
+                      </button>
+
+                      <button type="button" onClick={this.handleMoveToCurrentDay} className="btn" id="today" data-toggle="tooltip" data-placement="top" title="Back to current day">{this.state.currentDay.format('Do MMMM YYYY')}</button>
+
+                      <button type="button" onClick={this.handleMoveToFutureDay} className="arrow btn" id="forward" data-toggle="tooltip" data-placement="right" title="Forward 7 days">
+                        <svg className="bi bi-arrow-90deg-right" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                          <path fill-rule="evenodd" d="M9.896 2.396a.5.5 0 0 0 0 .708l2.647 2.646-2.647 2.646a.5.5 0 1 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708 0z" />
+                          <path fill-rule="evenodd" d="M13.25 5.75a.5.5 0 0 0-.5-.5h-6.5a2.5 2.5 0 0 0-2.5 2.5v5.5a.5.5 0 0 0 1 0v-5.5a1.5 1.5 0 0 1 1.5-1.5h6.5a.5.5 0 0 0 .5-.5z" />
+                        </svg>
+                      </button>
+                    </div>
                   </div>
-                  <div id="day-switches">
-                    <button type="button" onClick={this.handleMoveToPreviousDay} className="arrow btn" id="previous" data-toggle="tooltip" data-placement="left" title="previous 7 days">
-                      <svg class="bi bi-arrow-90deg-left" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" d="M6.104 2.396a.5.5 0 0 1 0 .708L3.457 5.75l2.647 2.646a.5.5 0 1 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 0 1 .708 0z" />
-                        <path fill-rule="evenodd" d="M2.75 5.75a.5.5 0 0 1 .5-.5h6.5a2.5 2.5 0 0 1 2.5 2.5v5.5a.5.5 0 0 1-1 0v-5.5a1.5 1.5 0 0 0-1.5-1.5h-6.5a.5.5 0 0 1-.5-.5z" />
-                      </svg>
-                    </button>
-
-                    <button type="button" onClick={this.handleMoveToCurrentDay} className="btn" id="today" data-toggle="tooltip" data-placement="top" title="Back to current day">{this.state.currentDay.format('Do MMMM YYYY')}</button>
-
-                    <button type="button" onClick={this.handleMoveToFutureDay} className="arrow btn" id="forward" data-toggle="tooltip" data-placement="right" title="Forward 7 days">
-                      <svg class="bi bi-arrow-90deg-right" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" d="M9.896 2.396a.5.5 0 0 0 0 .708l2.647 2.646-2.647 2.646a.5.5 0 1 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708 0z" />
-                        <path fill-rule="evenodd" d="M13.25 5.75a.5.5 0 0 0-.5-.5h-6.5a2.5 2.5 0 0 0-2.5 2.5v5.5a.5.5 0 0 0 1 0v-5.5a1.5 1.5 0 0 1 1.5-1.5h6.5a.5.5 0 0 0 .5-.5z" />
-                      </svg>
-                    </button>
-                  </div>
-
                   <div id="public-calendar">
                     <WeekCalendar
+                      className="public-week-calendar"
                       firstDay={this.state.showCalendarDay}
                       startTime={moment({ h: 8, m: 0 })}
                       endTime={moment({ h: 21, m: 0 })}
                       scaleUnit={30}
                       cellHeight={80}
                       numberOfDays={7}
-                      modalComponent={CalenderModal}
+
                       eventSpacing={20}
                       // selectedIntervals={this.state.selectedEmployee.appointments}
                       selectedIntervals={this.state.initialEmployeeApp}
-                      eventComponent={CustomEvent}
+                      eventComponent={PublicCalendarEvent}
                       scaleHeaderTitle={this.state.showCalendarDay.format('MMMM')}
                       headerCellComponent={CustomHeaderCell}
                     />

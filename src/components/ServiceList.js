@@ -48,7 +48,7 @@ class ServiceList extends Component {
                             <div id="service-page">
                                 <div id="service-header">
                                     <h2>Services</h2>
-                                    <button type="button" class="btn" onClick={this.openPopUp}>Create new service</button>
+                                    <button type="button" className="btn" onClick={this.openPopUp}>Create new service</button>
                                     {this.state.openPopUp &&
                          <CreateServiceModal  onHide={() => this.setState({openPopUp: false})} show/>
                     }

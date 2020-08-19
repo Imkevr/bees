@@ -5,7 +5,7 @@ import ProfileView from './ProfileView'
 import Calendar from './Calendar'
 import Sidenav from './Sidenav'
 import Notfound from './NotFound'
-import PublicCalendar from './PublicCalendar'
+import PublicCalendar from './PublicCalendarComponents/PublicCalendar'
 import '../styles/App.scss'
 import {
   BrowserRouter as Router,

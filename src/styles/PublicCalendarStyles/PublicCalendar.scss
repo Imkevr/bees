@@ -1,0 +1,110 @@
+@import '../colors';
+
+#public {
+    width: 100%;
+    height: 100%;
+    background-color:#85CDCA;
+
+    #public-header {
+        height: 10%;
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        color:$white;
+        // border-bottom: 1px solid #E1E7EC;
+        // -webkit-box-shadow: 1px 5px 5px -10px rgb(244,244,246);
+        // -moz-box-shadow: 1px 5px 5px -10px rgb(244,244,246);
+        // box-shadow: 1px 5px 5px 2px rgb(244,244,246);
+      
+
+
+        #public-appoint-logo {
+            width: 30%
+        }
+
+        #public-company-info {
+            width: 70%;
+        }
+    }
+
+    #public-body {
+        height: 90%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+
+        #body-header{
+            height:20%;
+            display: flex;
+            flex-direction: row;
+        #employees{
+            height:10%;
+            width:30%;
+            margin:auto;
+            color:$white;
+            .employee-button{
+                color:$white;
+                border-color:#85CDCA;
+                font-weight: 800;
+                margin-right:20px;
+           }
+        }
+        #day-switches {
+            width:55%;
+            height:10%;
+            margin: auto;
+            display: flex;
+            flex-direction: row;
+    
+            button{
+                background-color: #009E9D;
+                border-color:#009E9D;
+                color: $white;
+                border-radius: 5px;
+                height:49px;
+             
+                -webkit-box-shadow: 1px 5px 23px -2px rgb(167, 164, 164);
+                -moz-box-shadow: 1px 5px 23px -2px rgb(167, 164, 164);
+                box-shadow: 1px 5px 23px -2px rgb(167, 164, 164);
+                &:hover{
+                    border-color:#C38D9E;
+                    background-color:#C38D9E;
+    
+                }
+            }
+             .arrow{
+                font-size: 1.5em;
+                padding:0;
+                font-weight: 800;
+                width:50px;
+                padding:6px;
+    
+             }
+             #today{
+                padding: 12px 18px;
+                font-size: .9em;
+                font-weight: 600;
+             }
+            #previous{
+                margin-right:20px;
+            }
+            #forward{
+                margin-left:20px;
+            }
+    
+        }
+    }
+
+        #public-calendar {
+            height: 80%;
+        }
+    }
+}
+
+
+
+.selected{
+    border-color:#C38D9E !important;
+    color:#C38D9E !important;
+  } 
+  

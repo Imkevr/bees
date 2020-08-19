@@ -154,7 +154,7 @@ class CreatAppointment extends Component {
                     this.handleRemove();
                     window.location.reload(false);
                   }}
-                  disabled={!this.state.appointmentDisabledButton && !this.state.clientDisabledButton}
+                  // disabled={!this.state.appointmentDisabledButton && !this.state.clientDisabledButton}
                 >
                   Book & send confirmation
                 </button>
@@ -173,9 +173,9 @@ class CreatAppointment extends Component {
                       variables: { start: this.state.start, end: this.state.end, clientId: this.state.clientId, serviceId: this.state.serviceId, willSendMail: false }
                     });
                     this.handleRemove();
-                    window.location.reload(false);
+                    // window.location.reload(false);
                   }}
-                  disabled={!this.state.appointmentDisabledButton && !this.state.clientDisabledButton}
+                  // disabled={!this.state.appointmentDisabledButton && !this.state.clientDisabledButton}
                 >
                   Book
                 </button>

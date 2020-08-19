@@ -1,0 +1,38 @@
+@import '../colors';
+/*
+#E27D60
+#85DCBA
+#E8E87C
+#C38D9E
+#41B3A3
+#009E9D
+F0818C
+
+*/
+.appointment{
+    width:105%;
+    height:115%;
+    background-color:$plain-white;
+    margin-top:10% !important;
+    margin-left:3%;
+    border: 1px solid $plain-white;
+    border-radius: 5px;
+    padding:5px; 
+    -webkit-box-shadow: 1px 5px 23px -2px rgba(199, 199, 199, 1);
+    -moz-box-shadow: 1px 5px 23px -2px rgba(199, 199, 199, 1);
+    box-shadow: 1px 5px 23px -2px rgba(199, 199, 199, 1);
+    overflow:hidden;
+    color:$white;
+    background-color: #E27D60;
+   
+    .duration{
+        padding:10px;
+        text-align: center;
+        font-weight: 700;
+    }
+  .booked{
+      text-align:center;
+      margin: auto !important;
+  }
+
+}

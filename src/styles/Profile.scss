@@ -4,42 +4,150 @@
     width: 88%;
     height: 100%;
     background-color: $blue-light;
+    overflow: auto;
 
     #profile-header {
-        height: 12%;
-        width:90%;
-        margin:auto;
+        background: rgb(0, 158, 157);
+        background: linear-gradient(90deg, rgba(0, 158, 157, 1) 0%, rgba(133, 220, 186, 0.8939950980392157) 100%, rgba(133, 220, 186, 1) 100%);
+        color: $white;
+        height: 30%;
+        width: 100%;
         display: flex;
-        flex-direction: column;
-        #company-info{
-            height: 6%;
-            width:90%;
-            margin:auto;
+        flex-direction: row;
+        padding-top: 3%;
+        padding-left: 5%;
+
+        #user-info {
+            width: 60%;
             display: flex;
             flex-direction: row;
-        }
-        #company-image,  #company-details,  #company-calendar-link{
-            height:95%;
-            margin-top:5%;
-        }
-        #company-image{
-            width:25%;
-            #gravatar{
-               width:30%;
-               height:auto;
-               border-radius: 10px;
+
+            #user-image {
+                width: 30%;
+
+                #gravatar {
+                    width: 50%;
+                    height: auto;
+                    border-radius: 5px;
+                    border: 1px solid rgb(78, 193, 176);
+                }
+            }
+
+            #user-details {
+                width: 70%;
             }
         }
-        #company-details{
-            width:50%;
+
+        #company-details {
+            width: 40%;
         }
-        #company-calendar-link{
-            width:25%;
+    }
+
+    #all-stats {
+        width: 100%;
+        height: 20%;
+        display: flex;
+        flex-direction: row;
+        margin-top: -80px;
+
+        .stats {
+            margin: auto;
+            width: 300px;
+            height: 100px;
+            background-color: #fff;
+            display: flex;
+            flex-direction: row;
+            border-radius: 4px;
+
+            .number {
+                margin: auto 0px auto 45px;
+                font-size: 2em !important;
+                font-weight: 500;
+                border-right: 1px solid #000;
+                padding-right: 20px;
+
+            }
+
+            .stat-text {
+                margin: auto 0px auto 20px;
+            }
         }
 
-        #company-stats{
-            height:6%;
-            
+    }
+
+    #profile-body {
+        height: 70%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+
+        #body-header {
+            display: flex;
+            flex-direction: row;
+            height: 15%;
+
+            #dashboard-title {
+                width: 50%;
+                padding-left: 80px;
+            }
+
+            #company-calendar-link {
+                width: 50%;
+
+            }
+        }
+
+        #body-section {
+            display: flex;
+            flex-direction: row;
+            height: 100%;
+
+            #daily-appoint {
+                width: 30%;
+                height: 100%;
+                border-radius: 5px;
+                background-color: #fff;
+                margin-left: 120px;
+
+                #daily-appoint-title {
+                    text-align: center;
+                    padding-top: 20px;
+                }
+
+                #schedule {
+                    display: flex;
+                    flex-direction: column;
+
+                    :first-child{
+                        margin-top:20px;
+                    }
+
+                    .all-appointments {
+                        border-left: 5px solid;
+                        border-radius:4px;
+                        display: flex;
+                        flex-direction: row;
+                        background-color: $white;
+                        width:90%;
+                        height:80px;
+                        margin:auto;
+                        text-align:center;
+                        margin-bottom: 20px;
+
+                    }
+                }
+
+            }
+
+            #body-side {
+                display: flex;
+                flex-direction: column;
+                width: 50%;
+
+                #dashboard-buttons {}
+
+                #employees-section {}
+            }
         }
     }
 }
