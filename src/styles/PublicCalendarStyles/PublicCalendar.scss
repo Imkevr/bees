@@ -3,7 +3,7 @@
 #public {
     width: 100%;
     height: 100%;
-    background-color:#85CDCA;
+    background-color:$white;
 
     #public-header {
         height: 10%;
@@ -11,19 +11,18 @@
         display: flex;
         flex-direction: row;
         color:$white;
+        background: rgb(0, 158, 157);
+        background: linear-gradient(90deg, rgba(0, 158, 157, 1) 0%, rgba(133, 220, 186, 0.8939950980392157) 100%, rgba(133, 220, 186, 1) 100%);
         // border-bottom: 1px solid #E1E7EC;
         // -webkit-box-shadow: 1px 5px 5px -10px rgb(244,244,246);
         // -moz-box-shadow: 1px 5px 5px -10px rgb(244,244,246);
         // box-shadow: 1px 5px 5px 2px rgb(244,244,246);
       
-
-
-        #public-appoint-logo {
-            width: 30%
-        }
-
         #public-company-info {
-            width: 70%;
+         width:70%;
+        }
+        #provided{
+            width:30%;
         }
     }
 
@@ -37,16 +36,15 @@
             height:20%;
             display: flex;
             flex-direction: row;
+            background: rgb(0, 158, 157);
+            background: linear-gradient(90deg, rgba(0, 158, 157, 1) 0%, rgba(133, 220, 186, 0.8939950980392157) 100%, rgba(133, 220, 186, 1) 100%);
         #employees{
             height:10%;
             width:30%;
             margin:auto;
             color:$white;
             .employee-button{
-                color:$white;
-                border-color:#85CDCA;
-                font-weight: 800;
-                margin-right:20px;
+            
            }
         }
         #day-switches {

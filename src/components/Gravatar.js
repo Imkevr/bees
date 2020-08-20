@@ -30,8 +30,7 @@ class ServiceList extends Component {
                             return (
                                 <React.Fragment>
 
-                                    <Gravatar email={data.user.email} id="gravatar" data-toggle="tooltip" data-placement="top" title={name} />
-
+                                    <Gravatar email={data.user.email} id="gravatar" data-toggle="tooltip" data-placement="top" title={name} /> 
                                 </React.Fragment>
                             )
                         }}

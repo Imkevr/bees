@@ -97,6 +97,8 @@ class ProfileView extends Component {
         const allAppointments = data.user.appointments;
         const appCount = allAppointments.length;
         const todayScheduledApp = this.filterTodaysAppointments(allAppointments)
+        //sort appointment by comparing start time
+        todayScheduledApp.sort((a,b)=>moment(a.start)-moment(b.start));
 
         this.setState({
             userData: getUser,
@@ -110,7 +112,7 @@ class ProfileView extends Component {
 
     filterTodaysAppointments(appointments) {
         const today = moment();
-        return appointments.sort().filter(appointment => moment(appointment.start).format('YYYY-MM-DD') === today.format('YYYY-MM-DD'))
+        return appointments.filter(appointment => (moment(appointment.start).format('YYYY-MM-DD') === today.format('YYYY-MM-DD') &&(moment(appointment.end) > today) ));
     }
 
     getClients(data) {

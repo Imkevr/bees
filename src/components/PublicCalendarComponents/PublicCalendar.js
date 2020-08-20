@@ -4,7 +4,7 @@ import moment from 'moment';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import PublicCalendarEvent from '../PublicCalendarComponents/PublicCalendarModals/PublicCalendarEvent';
-
+import EmployeeIcon from '../EmployeeIcon';
 import PublicCalenderModal from '../PublicCalendarComponents/PublicCalendarModals/PublicCalendarModal';
 import CustomHeaderCell from '../CalenderComponents/CustomHeaderCell';
 
@@ -19,7 +19,7 @@ export default class PublicCalendar extends React.Component {
     this.state = {
       id: this.props.match.params.id,
 
-      currentDay: moment(),
+      currentDay: moment(), 
       showCalendarDay: moment(),
 
       clickedEmployeeAppointments: [],
@@ -105,11 +105,16 @@ export default class PublicCalendar extends React.Component {
               addings
               zipCode
               country 
-              houseNumber        
+              houseNumber 
+              phone
+              email
+              companyClass
               employees{
                 id
                 firstname
                 lastname
+                email
+                jobTitle
                 appointments{
                   id
                   start
@@ -132,17 +137,23 @@ export default class PublicCalendar extends React.Component {
               <React.Fragment>
 
                 <div id="public-header">
-                  <div id="public-appoint-logo">
-                    <p>logo</p>
-                  </div>
                   <div id="public-company-info">
-                    <p>{this.state.organisationDetails.name}</p>
+                            <h4>{this.state.organisationDetails.name} - <span>{this.state.organisationDetails.companyClass}</span></h4>
+
+                            <p>{`${this.state.organisationDetails.street} ${this.state.organisationDetails.houseNumber}, ${this.state.organisationDetails.zipCode} ${this.state.organisationDetails.country}`}</p>
+                            <p>{this.state.organisationDetails.phone}</p>
+                            <p>{this.state.organisationDetails.email}</p>
+                      
+                  </div>
+                  <div id="provided">
+                    <h6>Week calendar provided by </h6>
+                    
                   </div>
                 </div>
                 <div id="public-body">
                   <div id="body-header">
                     <div id="employees">
-                      {this.state.allEmployees.map(employee => <button type="button" className={this.state.startId === employee.id ? "selected btn employee-button" : "btn employee-button"} value={employee} key={employee.id} onClick={(e) => this.onEmployeeClick(employee)}>{`${employee.firstname} ${employee.lastname}`}</button>)}
+                      {this.state.allEmployees.map(employee => <button type="button" className={this.state.startId === employee.id ? "selected btn employee-button" : "btn employee-button"} value={employee} key={employee.id} onClick={(e) => this.onEmployeeClick(employee)}> <EmployeeIcon key={employee.id} employeeInfo={employee} /></button>)}
                     </div>
                     <div id="day-switches">
                       <button type="button" onClick={this.handleMoveToPreviousDay} className="arrow btn" id="previous" data-toggle="tooltip" data-placement="left" title="previous 7 days">
