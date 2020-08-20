@@ -3,6 +3,7 @@ import WeekCalendar from 'react-week-calendar';
 import moment from 'moment';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
+import Gravatar from 'react-gravatar';
 import PublicCalendarEvent from '../PublicCalendarComponents/PublicCalendarModals/PublicCalendarEvent';
 import EmployeeIcon from '../EmployeeIcon';
 import PublicCalenderModal from '../PublicCalendarComponents/PublicCalendarModals/PublicCalendarModal';
@@ -19,7 +20,7 @@ export default class PublicCalendar extends React.Component {
     this.state = {
       id: this.props.match.params.id,
 
-      currentDay: moment(), 
+      currentDay: moment(),
       showCalendarDay: moment(),
 
       clickedEmployeeAppointments: [],
@@ -138,24 +139,32 @@ export default class PublicCalendar extends React.Component {
 
                 <div id="public-header">
                   <div id="public-company-info">
-                            <h4>{this.state.organisationDetails.name} - <span>{this.state.organisationDetails.companyClass}</span></h4>
+                    <h3>{this.state.organisationDetails.name} - <span>{this.state.organisationDetails.companyClass}</span></h3>
 
-                            <p>{`${this.state.organisationDetails.street} ${this.state.organisationDetails.houseNumber}, ${this.state.organisationDetails.zipCode} ${this.state.organisationDetails.country}`}</p>
-                            <p>{this.state.organisationDetails.phone}</p>
-                            <p>{this.state.organisationDetails.email}</p>
-                      
+                    <p>{`${this.state.organisationDetails.street} ${this.state.organisationDetails.houseNumber}, ${this.state.organisationDetails.zipCode} ${this.state.organisationDetails.country}`}</p>
+                    <p>{this.state.organisationDetails.phone}</p>
+                    <p>{this.state.organisationDetails.email}</p>
+
                   </div>
                   <div id="provided">
                     <h6>Week calendar provided by </h6>
-                    
+
                   </div>
                 </div>
-                <div id="public-body">
-                  <div id="body-header">
+                <div id="body-header">
                     <div id="employees">
-                      {this.state.allEmployees.map(employee => <button type="button" className={this.state.startId === employee.id ? "selected btn employee-button" : "btn employee-button"} value={employee} key={employee.id} onClick={(e) => this.onEmployeeClick(employee)}> <EmployeeIcon key={employee.id} employeeInfo={employee} /></button>)}
+                      {this.state.allEmployees.map(employee => <button type="button" className="btn employee-button" value={employee} key={employee.id} onClick={(e) => this.onEmployeeClick(employee)}>
+                        <div  className={this.state.startId === employee.id ? "selected employee-card" : "employee-card"}>
+                          <Gravatar email={employee.email} className="employee-gravatar" />
+                          <div>
+                            <p className="employee-name">{employee.firstname} {employee.lastname}</p>
+                            <p className="employee-job">{employee.jobTitle}</p>
+                          </div>
+                        </div></button>)}
                     </div>
-                    <div id="day-switches">
+                  </div>
+                <div id="public-body">
+                <div id="day-switches">
                       <button type="button" onClick={this.handleMoveToPreviousDay} className="arrow btn" id="previous" data-toggle="tooltip" data-placement="left" title="previous 7 days">
                         <svg className="bi bi-arrow-90deg-left" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                           <path fill-rule="evenodd" d="M6.104 2.396a.5.5 0 0 1 0 .708L3.457 5.75l2.647 2.646a.5.5 0 1 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 0 1 .708 0z" />
@@ -172,7 +181,6 @@ export default class PublicCalendar extends React.Component {
                         </svg>
                       </button>
                     </div>
-                  </div>
                   <div id="public-calendar">
                     <WeekCalendar
                       className="public-week-calendar"
