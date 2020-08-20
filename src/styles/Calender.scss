@@ -6,7 +6,11 @@
     display: flex;
     flex-direction: column;
     overflow: auto;
-    background-color:$blue-light;
+    background: rgb(133,219,220);
+background: -moz-linear-gradient(137deg, rgba(133,219,220,1) 5%, rgba(133,220,186,1) 93%);
+background: -webkit-linear-gradient(137deg, rgba(133,219,220,1) 5%, rgba(133,220,186,1) 93%);
+background: linear-gradient(137deg, rgba(133,219,220,1) 5%, rgba(133,220,186,1) 93%);
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#85dbdc",endColorstr="#85dcba",GradientType=1);
     #calendar-header {
         height: 10%;
         display: flex;
@@ -15,7 +19,7 @@
             font-weight:600;
             margin-top:50px;
             margin-left:50px;
-            color:$blue-dark
+            color:$plain-white
         }
         #add-appointment-button{
             width:200px;

@@ -19,7 +19,7 @@ import { AUTH_TOKEN } from '../constants'
 
 class App extends Component {
   render() {
-    const test="test"
+    const test = "test"
     const PrivateRoute = ({ component: Component, ...rest }) => {
 
       const authToken = localStorage.getItem(AUTH_TOKEN);
@@ -43,15 +43,15 @@ class App extends Component {
             <Sidenav />
 
             <Switch >
-              <PrivateRoute exact path="/" component={Calendar}></PrivateRoute>
+              <PrivateRoute exact path="/" component={ProfileView} ></PrivateRoute>
+              <PrivateRoute exact path="/calendar" component={Calendar}></PrivateRoute>
               <PrivateRoute exact path="/servicelist" component={ServiceList}></PrivateRoute>
               <PrivateRoute exact path="/clientlist" component={ClientListView} ></PrivateRoute>
-              <PrivateRoute exact path="/profile" component={ProfileView} ></PrivateRoute>
-              <Route path="/login" component={Login} />           
+              <Route path="/login" component={Login} />
               <Route exact path="/calendar/public/organization/:id" component={PublicCalendar} />
-              <Route path="*" component={Notfound} />   
+              <Route path="*" component={Notfound} />
             </Switch>
-            
+
           </div>
         </Router>
       </React.Fragment>

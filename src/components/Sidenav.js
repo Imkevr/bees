@@ -21,7 +21,7 @@ class Sidenav extends Component {
             </div>
             <div id="nav-links">
               <div id="nav-links-container">
-              <NavLink exact={true} to="/profile" activeClassName="active" className="link">
+              <NavLink exact={true} to="/" activeClassName="active" className="link">
                   <div className="item-link">
                     <div className="nav-link-icon">
                       <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" className="bi bi-columns-gap" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -32,7 +32,7 @@ class Sidenav extends Component {
                     <p className="nav-text"> Dashboard</p>
                   </div>
                 </NavLink>
-                <NavLink exact={true} to="/" activeClassName="active" className="link">
+                <NavLink exact={true} to="/calendar" activeClassName="active" className="link">
                   <div className="item-link">
                     <div className="nav-link-icon">
                       <svg className="bi bi-kanban nav-svg" width="1.5em" height="1.5em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">

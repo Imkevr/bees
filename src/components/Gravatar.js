@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
-import { Query } from 'react-apollo'
-import gql from 'graphql-tag'
-import Gravatar from 'react-gravatar'
-import { AUTH_TOKEN } from '../constants'
+import React, { Component } from 'react';
+import { Query } from 'react-apollo';
+import gql from 'graphql-tag';
+import Gravatar from 'react-gravatar';
+import { AUTH_TOKEN } from '../constants';
 
 class ServiceList extends Component {
 
