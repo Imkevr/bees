@@ -207,7 +207,7 @@ class ProfileView extends Component {
 
                         <div id="user-info">
                             <div id="user-image">
-                                <Gravatar id="gravatar" />
+                                {/* <Gravatar id="gravatar" /> */}
                             </div>
                             <div id="user-details">
                                 <h3>Hi <span>{this.state.userData.firstname}</span>, &#x1F929;<br /> have a great day!</h3>

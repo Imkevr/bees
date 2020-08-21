@@ -7,7 +7,7 @@ const CustomEvent = (props) => (
       <p className="public-duration">{`${props.start.format('HH:mm')} - ${props.end.format('HH:mm')}`}</p>
       <hr></hr>
       <div className="booked">
-        <h5>Booked</h5>
+        <h5>BOOKED</h5>
       </div>
  
   </div>
