@@ -190,7 +190,6 @@ export default class PublicCalendar extends React.Component {
                       scaleUnit={30}
                       cellHeight={80}
                       numberOfDays={7}
-
                       eventSpacing={20}
                       // selectedIntervals={this.state.selectedEmployee.appointments}
                       selectedIntervals={this.state.initialEmployeeApp}
