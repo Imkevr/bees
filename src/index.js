@@ -13,8 +13,8 @@ import { AUTH_TOKEN } from './constants'
 
 
 const httpLink = createHttpLink({
-  // production --> uri: 'https://appoint-sever.herokuapp.com/'
-  uri: ' http://localhost:4000/'
+       uri: 'https://appoint-sever.herokuapp.com/'
+  // uri: ' http://localhost:4000/'
  
 })
 const authLink = setContext((_, { headers }) =>{

@@ -8,6 +8,7 @@ import PublicCalendarEvent from '../PublicCalendarComponents/PublicCalendarModal
 import EmployeeIcon from '../EmployeeIcon';
 import PublicCalenderModal from '../PublicCalendarComponents/PublicCalendarModals/PublicCalendarModal';
 import CustomHeaderCell from '../CalenderComponents/CustomHeaderCell';
+import AppointWhiteLogo from '../../images/appoint-scheduler-white.png'
 
 import 'react-week-calendar/dist/style.css';
 import '../../styles/PublicCalendarStyles/PublicCalendar.scss';
@@ -147,7 +148,8 @@ export default class PublicCalendar extends React.Component {
 
                   </div>
                   <div id="provided">
-                    <h6>Week calendar provided by </h6>
+                    <h6 id="appoint-provided">Provided by </h6>
+                    <img src={AppointWhiteLogo} id="appoint-white-logo" />
 
                   </div>
                 </div>

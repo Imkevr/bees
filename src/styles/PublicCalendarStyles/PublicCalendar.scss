@@ -26,6 +26,18 @@
 
         #provided {
             width: 30%;
+            margin-top:30px !important;
+         #appoint-provided, #appoint-white-logo{
+            
+             margin-left:350px;
+         }
+         #appoint-provided{
+             font-weight:800;
+             color:$plain-white;
+         }
+            #appoint-white-logo{
+                width:17%;
+            }
         }
     }
 
@@ -45,6 +57,7 @@
         margin: auto;
 
         .employee-button {
+
             .employee-card {
                 display: flex;
                 flex-direction: row;
@@ -54,7 +67,7 @@
                 padding: 10px;
                 border-radius: 10px;
                 margin-left: 15px;
-
+                
 
                 .employee-gravatar {
                     border-radius: 5px;
@@ -101,20 +114,15 @@
             flex-direction: row;
 
             button {
-                background-color: #009E9D;
-                border-color: #009E9D;
-                color: $white;
+                border-color: #E8A87C;
+                background-color: #E8A87C;
+  
+                color: $plain-white;
                 border-radius: 5px;
                 height: 49px;
-
-                -webkit-box-shadow: 1px 5px 23px -2px rgb(167, 164, 164);
-                -moz-box-shadow: 1px 5px 23px -2px rgb(167, 164, 164);
-                box-shadow: 1px 5px 23px -2px rgb(167, 164, 164);
-
                 &:hover {
-                    border-color: #C38D9E;
-                    background-color: #C38D9E;
-
+                    background-color: #E27D60;
+                    border-color: #E27D60;
                 }
             }
 

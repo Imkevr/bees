@@ -206,9 +206,9 @@ class ProfileView extends Component {
                     <div id="profile-header">
 
                         <div id="user-info">
-                            <div id="user-image">
-                                {/* <Gravatar id="gravatar" /> */}
-                            </div>
+                            {/* <div id="user-image">
+                                <Gravatar id="gravatar" />
+                            </div> */}
                             <div id="user-details">
                                 <h3>Hi <span>{this.state.userData.firstname}</span>, &#x1F929;<br /> have a great day!</h3>
                                 <p>Job title: {this.state.userData.jobTitle}</p>

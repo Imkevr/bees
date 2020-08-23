@@ -23,12 +23,11 @@
                 width: 90%;
             }
     
-            h3{
-                margin-top:-40px;
-                margin-left:30px !important;
-                color:$blue;
+            h2{
+                margin-top:-30px;
+                color:#78C9B4;
                 font-weight:600;
-                font-size:1.6em;
+                font-size:1.9em;
             }
         }
     }
@@ -36,8 +35,7 @@
     #login {
         width: 70%;
         height: 100%;
-        background-color: $blue-light;
-
+background-color: rgba(2,159,157,1) ;
 
 
         #login-form {
@@ -45,28 +43,25 @@
             width: 500px;
             background-color: $plain-white;
             margin: 130px auto;
-            border-radius: 10px;
-            ;
-            -webkit-box-shadow: 1px 5px 23px -2px rgba(199, 199, 199, 1);
-            -moz-box-shadow: 1px 5px 23px -2px rgba(199, 199, 199, 1);
-            box-shadow: 1px 5px 23px -2px rgba(199, 199, 199, 1);
-            padding: 80px 20px 40px 20px;
-
+            border-radius: 5px;
+            display: flex;
+            flex-direction: column;
             div {
-                height: 10%;
+                height: 20%;
 
-                h2 {
-                    
+                #welcome {
                     text-align: center;
-                    font-weight: 700;
-                    margin: auto;
-                    color: $black
+                    font-weight: 550;
+                    font-size:2.5em;
+                    margin-top:50px !important;
+                    color: #E8A87C;
+                   
                 }
 
             }
 
             .fields {
-                height: 70%;
+                height: 60%;
                 display: flex;
                 flex-direction: column;
                 margin-left: 16%;
@@ -78,7 +73,9 @@
                 .form-group {
                     margin: 20px 0px;
                     width: 80%;
-
+                    label{
+                        font-weight:500;
+                    }
                 }
             }
 
@@ -89,22 +86,19 @@
                     cursor: pointer;
                     width: 70%;
                     height: 40%;
-                    color: $black;
-                    font-size: .9em;
+                    color:$white;
+                    font-size: 1.1em;
                     margin: 10px auto;
-                    background-color: $blue;
+                    background-color: #E8A87C;
                     border: none;
                     padding: 10px;
                     font-weight: 600;
-                    border: solid 5px $blue;
+                    border: solid 5px #E8A87C;
                     border-radius: 5px;
-                    -webkit-box-shadow: 1px 5px 23px -2px rgba(199, 199, 199, 1);
-                    -moz-box-shadow: 1px 5px 23px -2px rgba(199, 199, 199, 1);
-                    box-shadow: 1px 5px 23px -2px rgba(199, 199, 199, 1);
                     text-align: center;
 
                     &:hover {
-                        color: $plain-white;
+                        color: #E27D60;
                     }
                 }
 
@@ -118,7 +112,7 @@
                     }
 
                     &:hover span {
-                        color: $blue;
+                        color:#E8A87C;
                     }
                 }
 
