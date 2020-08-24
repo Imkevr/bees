@@ -1,38 +1,48 @@
 import React, { Component } from 'react';
 import '../../styles/TimeSlot.scss';
-import GenerateAvailableTimeSlots from './GenerateAvailbaleTimeslots';
-import GetAllAppointments from '../Queries/GetAllAppointments'
+
 
 class ShowAvailableTimeslots extends Component {
     constructor(props) {
-        super(props);
+        super(props)
         this.state = {
-            size: 5,
+            sliceEnd: 5,
+            sliceStart: 0,
             selectedSlotValue: "",
+            // timeSlotArrLength: this.props.allTimeSlots.length,
+            allTimeSlots: [],
+            // timeSlotSlice: timeSlotArr.slice(this.state.sliceStart, this.state.sliceEnd)
         }
-        this.handleTimeSlotClick = this.handleTimeSlotClick.bind(this);
-    }
 
+    }
+    static getDerivedStateFromProps(nextProps) {
+        this.setState({ timeSlotArr: nextProps.allTimeSlots })
+    }
     handleTimeSlotClick = (timeSlot) => {
-       var allAppointments = GetAllAppointments
         this.setState({ selectedSlotValue: timeSlot }, () => {
             this.props.onClick(this.state.selectedSlotValue)
             console.log('time slot value', timeSlot)
-            console.log("All appointemnts: ", allAppointments)
 
         });
-
-        
-
     }
+    previousSlots = () => {
+        console.log(test)
+    }
+    forwordSlots = () => {
+        console.log(test)
+    }
+
+
     render() {
-        var timeSlotArr = this.props.timeSlots.slice(0, this.state.size);
+        // var timeSlotArr = props.allTimeSlots.slice(this.state.sliceStart);
         return (
             <React.Fragment>
 
-
-                { timeSlotArr.map(timeSlot => <a className="timeslot btn " key={timeSlot} value={timeSlot} onClick={(e) => this.handleTimeSlotClick(timeSlot)}>{timeSlot}</a>)
-                }
+                {console.log("props", this.props)}
+                <button className="button btn" onClick={() => this.previousSlots()} disabled={this.state.sliceStart === 0}>left</button>
+                {/* {this.state.timeSlotArr.map(timeSlot => <a className="timeslot btn " key={timeSlot} value={timeSlot} onClick={() => this.handleTimeSlotClick(timeSlot)}>{timeSlot}</a>)
+                } */}  {console.log("allTimeSlots", this.state.allTimeSlots)}
+                <button className="button btn">right</button>
 
             </React.Fragment>
         )

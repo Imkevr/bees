@@ -75,7 +75,7 @@ class ProfileView extends Component {
     constructor() {
         super();
         this.state = {
-            copied:false,
+            copied: false,
             userData: [],
             organizationData: [],
             todaysAppointments: [],
@@ -98,7 +98,7 @@ class ProfileView extends Component {
         const appCount = allAppointments.length;
         const todayScheduledApp = this.filterTodaysAppointments(allAppointments)
         //sort appointment by comparing start time
-        todayScheduledApp.sort((a,b)=>moment(a.start)-moment(b.start));
+        todayScheduledApp.sort((a, b) => moment(a.start) - moment(b.start));
 
         this.setState({
             userData: getUser,
@@ -112,7 +112,7 @@ class ProfileView extends Component {
 
     filterTodaysAppointments(appointments) {
         const today = moment();
-        return appointments.filter(appointment => (moment(appointment.start).format('YYYY-MM-DD') === today.format('YYYY-MM-DD') &&(moment(appointment.end) > today) ));
+        return appointments.filter(appointment => (moment(appointment.start).format('YYYY-MM-DD') === today.format('YYYY-MM-DD') && (moment(appointment.end) > today)));
     }
 
     getClients(data) {
@@ -122,7 +122,6 @@ class ProfileView extends Component {
         });
     };
     getServices(data) {
-        console.log("service", data.organizationServicefeed)
         let count = 0;
         if (data.organizationServicefeed) {
             count = data.organizationServicefeed.length;
@@ -243,16 +242,13 @@ class ProfileView extends Component {
 
                     </div>
                     <div id="profile-body">
-                        {/* <div id="body-header">
-                            <h4 id="dashboard-title">Dashboard</h4>
-                        </div> */}
                         <div id="body-section">
                             <div id="daily-appoint">
                                 <h5 id="daily-appoint-title" >Todays Schedule</h5>
                                 <div id="schedule">
                                     {this.state.todaysAppointments.length !== 0 ?
                                         this.state.todaysAppointments.map(appointment => <TodaysAppointments key={appointment.id} appointmentDetails={appointment} />)
-                                        : <p>You have no appoinments today</p>
+                                        : <p id="no-appoints">You have no appoinments today</p>
                                     }
 
 
@@ -265,18 +261,20 @@ class ProfileView extends Component {
                                     With this link your clients can easily check your schedule before making an appointment.<br />
                                     No personal appointment information will be shown on the calendar
                                     </p>
-                                    <Link id="link-to-Pcalendar" to={`/calendar/public/organization/${this.state.organizationData.id}`}>/calendar/public/organization/{this.state.organizationData.id}</Link>
-                                    <CopyToClipboard text={`http://localhost:3000/calendar/public/organization/${this.state.organizationData.id}`}
-                                        onCopy={() => this.setState({ copied: true })}>
-                                        <button className="btn" data-toggle="tooltip" data-placement="right" title="Copy calendar link to clipboard"  >
-                                            <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" className="bi bi-clipboard" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd" d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z" />
-                                                <path fill-rule="evenodd" d="M9.5 1h-3a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
-                                            </svg>
-                                        </button>
-                                    </CopyToClipboard>
-                                    {this.state.copied ? <span style={{color: 'red'}}>Copied.</span> : null}
-
+                                    <div id="public-calendar-link">
+                                        <Link id="link-to-Pcalendar" to={`/calendar/public/organization/${this.state.organizationData.id}`}>Click here </Link>
+                                        <p>to view public agenda or copy it </p>
+                                        <CopyToClipboard text={`http://localhost:3000/calendar/public/organization/${this.state.organizationData.id}`}
+                                            onCopy={() => this.setState({ copied: true })}>
+                                            <button className="btn" id="copy-btn" data-toggle="tooltip" data-placement="right" title="Copy calendar link to clipboard"  >
+                                                <svg width="1.5em" id="copy-svg" height="1.5em" viewBox="0 0 16 16" className="bi bi-clipboard" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z" />
+                                                    <path fill-rule="evenodd" d="M9.5 1h-3a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
+                                                </svg>
+                                            </button>
+                                        </CopyToClipboard>
+                                        {this.state.copied ? <span style={{ color: 'red' }}>Copied.</span> : null}
+                                    </div>
 
                                 </div>
                                 <div id="employees-section">

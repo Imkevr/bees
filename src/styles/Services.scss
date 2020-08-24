@@ -9,7 +9,10 @@
       background-color: $blue-light;
 
       #service-header {
-            height: 20%;
+            background: rgb(0, 158, 157);
+            background: linear-gradient(90deg, rgba(0, 158, 157, 1) 0%, rgba(133, 220, 186, 0.8939950980392157) 100%, rgba(133, 220, 186, 1) 100%);
+            color: $white;
+            height: 30%;
             display: flex;
             flex-direction: row;
 
@@ -18,7 +21,6 @@
                   font-weight: 600;
                   margin-top: 50px;
                   margin-left: 50px;
-                  color: $blue-dark
             }
 
             button {
@@ -28,16 +30,11 @@
                   font-size: .9em;
                   margin: 45px 0px;
                   padding: 12px;
-                  background-color: $blue;
-                  font-weight: 600;
-                  border: solid 5px $blue;
+                  background-color: $plain-white;
+                  font-weight: 700;
                   border-radius: 5px;
-                  -webkit-box-shadow: 1px 5px 23px -2px rgba(199, 199, 199, 1);
-                  -moz-box-shadow: 1px 5px 23px -2px rgba(199, 199, 199, 1);
-                  box-shadow: 1px 5px 23px -2px rgba(199, 199, 199, 1);
-
                   &:hover {
-                        color: $plain-white;
+                        color: #17A9A3;
                   }
             }
 
@@ -47,10 +44,12 @@
             height: 90%;
             width: 95%;
             margin: auto;
-            background-color: #FCFBFE;
-            -webkit-box-shadow: 1px 5px 23px -2px rgba(199, 199, 199, 1);
-            -moz-box-shadow: 1px 5px 23px -2px rgba(199, 199, 199, 1);
-            box-shadow: 1px 5px 23px -2px rgba(199, 199, 199, 1);
+            margin-top:-80px;
+            background-color: $plain-white;
+            // -webkit-box-shadow: 1px 5px 23px -2px rgba(199, 199, 199, 1);
+            // -moz-box-shadow: 1px 5px 23px -2px rgba(199, 199, 199, 1);
+            // box-shadow: 1px 5px 23px -2px rgba(199, 199, 199, 1);
+            border-radius: 5px;
             overflow: auto;
 
             table {
@@ -58,8 +57,7 @@
                   width: 90%;
                   margin: 0 auto;
                   margin-top: 1%;
-                  background-color: #FCFBFE;
-
+                
                   thead {
 
                         tr {
@@ -70,6 +68,7 @@
                                     margin-left: 0px;
                                     color: $blue-dark;
                                     font-size: 1.2em;
+                                   
 
                               }
                         }

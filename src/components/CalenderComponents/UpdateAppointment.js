@@ -14,7 +14,7 @@ import ShowAvailableTimeslots from '../Modals/ShowAvailableTimeslots';
 
 const UPDATE_APPOINTMENT = gql`
   
-mutation UpdateAppointment($start: DateTime!,$end:DateTime!, $serviceId: ID!, $clientId:ID!, $id: ID!, $willSendMail: Boolean! ) {
+mutation UpdateAppointment($start:DateTime! ,$end:DateTime!, $serviceId: ID!, $clientId:ID!, $id: ID!, $willSendMail: Boolean! ) {
   updateAppointment(start: $start, end: $end, clientId:$clientId, serviceId:$serviceId, id:$id, willSendMail:$willSendMail) {
    id
    start
@@ -44,7 +44,7 @@ class UpdateAppointment extends Component {
         };
         this.openDeleteAppointment = this.openDeleteAppointment.bind(this);
         this.handleDateSelect = this.handleDateSelect.bind(this);
-        this.handleServiceSelect = this.handleServiceSelect.bind(this);
+       
     };
 
     handleDateSelect(date) {
@@ -100,7 +100,7 @@ class UpdateAppointment extends Component {
             <React.Fragment>
                 <div className="customModal">
                     <div className="modal-header">
-
+                        {console.log("update props:", this.props)}
                         <h5 className="customModal__text">Reschedule Appointment</h5>
                         <button className="btn modal__button__red" onClick={() => { this.openDeleteAppointment() }}>Delete</button>
 
@@ -125,7 +125,7 @@ class UpdateAppointment extends Component {
                             <div className="update-service-client">
                                 <ServiceSearch onChange={this.handleServiceSelect} serviceId={this.state.serviceId} start={this.state.selectedDate} searchGoal='update' />
                                 <div>
-                                     <ShowAvailableTimeslots onClick={this.getSelectedTimeslot} timeSlots={this.state.AvailabletimeSlots} /> 
+                                     <ShowAvailableTimeslots onClick={this.getSelectedTimeslot} allTimeSlots={this.state.AvailabletimeSlots} /> 
                                 </div>
                                 <ClientSearch onChange={this.handleClientSelect} clientId={this.state.clientId} />
                             </div>
@@ -143,7 +143,7 @@ class UpdateAppointment extends Component {
                                             variables: { start: this.state.start, end: this.state.end, clientId: this.state.clientId, serviceId:this.state.serviceId, id: this.state.id , willSendMail:false}
                                         });
                                         this.handleRemove();
-                                        window.location.reload(false);
+                                        // window.location.reload(false);
                                     }}
                     
                                 >

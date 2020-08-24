@@ -39,9 +39,9 @@ class ClientList extends Component {
                     if (!data) return <p>No data was found</p>
                     return (
                         <React.Fragment>
-                            <div className="container">
+                            <div id="client-list">
 
-                                <div className="row row-cols-3">
+                                <div  id="client-list-sub">
 
                                     {this.state.clientFeed.map(client => <Client key={client.id} client={client} />)}
 

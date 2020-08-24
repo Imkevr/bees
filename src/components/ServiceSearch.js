@@ -65,7 +65,6 @@ class ServiceList extends Component {
             this.servicesToRender = data.servicefeed
             console.log('service ID ', this.props.serviceId);
             var serviceObj = this.props.serviceId !== "" ? data.servicefeed.find(service => service.id === this.props.serviceId) : " ";
-            //  console.log('update found service ', serviceObj.id);
             return (
               <React.Fragment>
                 <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Select a service:</label>

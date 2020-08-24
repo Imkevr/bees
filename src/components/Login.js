@@ -1,29 +1,23 @@
-import React, { Component } from 'react'
-import { AUTH_TOKEN } from '../constants'
-import { Mutation } from 'react-apollo'
-import gql from 'graphql-tag'
-import '../styles/Login.scss'
-import AppointLogo from '../images/appoint-scheduler-full-logo.png'
+import React, { Component } from 'react';
+import { AUTH_TOKEN } from '../constants';
+import { Mutation } from 'react-apollo';
+import gql from 'graphql-tag';
+import '../styles/Login.scss';
+import AppointLogo from '../images/appoint-scheduler-full-logo.png';
 
 class Login extends Component {
     state = {
         login: true,// switchen between login and signup
         email: '',
         password: '',
-        firstname: '',
-        lastname: '',
-        error: null
-    }
+        fullname:'',
+        applyEmail:'',
+        description:'',
+        error: false,
+        applySend: false,
+    };
 
     render() {
-        const SIGNUP_MUTATION = gql`
-        mutation SignupMutation($email: String!, $password: String!, $firstname:String!, $lastname:String!) {
-        signup(email: $email, password: $password, firstname: $firstname, lastname: $lastname) {
-        token
-        
-      }
-    }
-      `
         const LOGIN_MUTATION = gql`
         mutation LoginMutation($email: String!, $password: String!) {
         login(email: $email, password: $password) {
@@ -31,96 +25,129 @@ class Login extends Component {
         
     }
   }
-      `
+      `;
 
-        const { login, email, password, firstname, lastname } = this.state;
+        const { login, email, password} = this.state;
         return (
             <div id="login-container">
-
                 <div id="side">
-
                     <div id="side-caption">
-                        <img src={AppointLogo} id="appointes-logo" />
-                        <h2> Your Business Scheduler  </h2>
+                        <img src={AppointLogo} id="appoint-full-logo" />
+                        <h2 id="tagline"> Your business scheduler  </h2>
                     </div>
                 </div>
                 <div id="login">
                     <div id="login-form">
                         <div>
-                            <h2 id="welcome" >{login ? 'Welcome' : 'Apply now'}</h2>
+                            <h2 id="welcome" >{login ? 'Welcome' : 'Great to meet you'}</h2>
                         </div>
-                        <div className="fields">
-                            {!login && (
+                            {!login ? (
                                 <React.Fragment>
+                                    <div id="apply-text">
+                                        <p>
+             
+                                             Before we start we need your contact info, 
+                                             so we can set up an account for you and your business.
+                                            
+                                        </p>
+                                    </div>
+                                    <div id="apply-form-fields">
                                     <div className="form-group">
-                                        <label>First name:</label>
+                                        <label>*Full name:</label>
                                         <input
                                             className="form-control"
-                                            value={firstname}
-                                            onChange={e => this.setState({ firstname: e.target.value })}
                                             type="text"
-                                            placeholder="Your first name"
+                                            placeholder="Ex. Gerard Mullens"
+                                            onChange={e => this.setState({ fullname: e.target.value })}
+
                                         />
                                     </div>
                                     <div className="form-group">
-                                        <label>Last name:</label>
+                                        <label>*Email:</label>
                                         <input
                                             className="form-control"
-                                            value={lastname}
-                                            onChange={e => this.setState({ lastname: e.target.value })}
                                             type="text"
-                                            placeholder="Your last name"
+                                            placeholder="Your email address"
+                                            onChange={e => this.setState({ applyEmail: e.target.value })}
+                                
                                         />
+                                    </div>
+                                    <div className="form-group">
+                                        <label>*Company info:</label>
+                                        <textarea
+                                            className="form-control"
+                                            type="textarea"
+                                            placeholder="Tell us in advance a little about your company"
+                                            onChange={e => this.setState({ description: e.target.value })}
+
+                                        />
+                                    </div>
                                     </div>
                                 </React.Fragment>
 
-                            )}
-                            <div className="form-group">
-                                <label>Email:</label>
-                                <input
-                                    className="form-control"
-                                    value={email}
-                                    onChange={e => this.setState({ email: e.target.value })}
-                                    type="text"
-                                    placeholder="Your email address"
-                                />
+                            ) : (
+                                    <React.Fragment>
+                                        <div id="login-form-fields">
+                                        <div className="form-group">
+                                            <label>Email:</label>
+                                            <input
+                                                className="form-control"
+                                                value={email}
+                                                onChange={e => this.setState({ email: e.target.value })}
+                                                type="text"
+                                                placeholder="Your email address"
+                                              
+                                            />
+                                        </div>
+                                        <div className="form-group">
+                                            <label>Password:</label>
+                                            <input
+                                                className="form-control"
+                                                value={password}
+                                                onChange={e => this.setState({ password: e.target.value })}
+                                                type="password"
+                                                placeholder={login
+                                                    ? 'Enter password'
+                                                    : 'Choose a safe password'}
+                                            />
+                                        </div>
+                                        </div>
+                                    </React.Fragment>
+                                )}
+                    <div id="apply-submited">
+                         {this.state.applySend ? (<p>Your apllication has been submited</p>) : ""}
+                          {this.state.error? ( <p id="incorrect-cred">Your credentials are incorrect{console.log("error", this.state.error)}</p>):''}
+                         
                             </div>
-                            <div className="form-group">
-                                <label>Password:</label>
-                                <input
-                                    className="form-control"
-                                    value={password}
-                                    onChange={e => this.setState({ password: e.target.value })}
-                                    type="password"
-                                    placeholder={login
-                                        ? 'Enter password'
-                                        : 'Choose a safe password'}
-                                />
-                            </div>
-
-                        </div>
                         <div className="button-field">
-
-                            <Mutation
-                                mutation={login ? LOGIN_MUTATION : SIGNUP_MUTATION}
-                                variables={{ email, password, firstname, lastname }}
+                            {login ? <Mutation
+                                mutation={LOGIN_MUTATION}
+                                variables={{ email, password }}
                                 onCompleted={data => this._confirm(data)}
-                                onError={error => this.setState({ error: error })}
+                                onError={error => this.setState({ error: true })}
                             >
                                 {mutation => (
-                                    <div className="button" onClick={mutation}  >
-                                        {login ? 'Login' : 'Sign Up'}
+                                    <button className="button btn" onClick={mutation} disabled={(this.state.email === "")||(this.state.password==="")} >
+                                        <p>Login</p>
 
-                                    </div>
+                                    </button>
                                 )}
                             </Mutation>
-
+                                :
+                                <React.Fragment>
+                                  
+                                    <button className="button btn" onClick={() => this.setState({ applySend: true })}  disabled={(this.state.applyEmail === "")||(this.state.fullname==="")||(this.state.description==="")}>
+                                             <p>Apply now</p>
+                                    </button>
+                                </React.Fragment>
+                            }
                             <div
                                 className="change-form"
-                                onClick={() => this.setState({ login: !login })}
+                                onClick={() => this.setState({ login: !login, applySend: false , error:false})}
                             >
                                 {login ? "Don't have an account?" : 'Already have an account?'}
                                 <span> {login ? "Apply now" : 'Login'}</span>
+                                {login ? '':  <p>(*) fields are required</p>}
                             </div>
                         </div>
                     </div>
@@ -130,9 +157,11 @@ class Login extends Component {
     }
 
     _confirm = async data => {
-        const { token } = this.state.login ? data.login : data.signup;
+        const { token } = data.login;
+        this.setState({error:false});
         this._saveUserData(token);
         this.props.history.push('/');
+
     };
 
     _saveUserData = token => {

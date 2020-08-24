@@ -14,20 +14,22 @@
         flex-direction: column;
         padding: 20px;
         border-right: 1px solid #ECECEC;
- 
-     
+
+
         #side-caption {
-            width:80%;
-            margin:100px auto;
-            #appointes-logo {
-                width: 90%;
+            width: 80%;
+            margin: 100px auto;
+
+            #appoint-full-logo {
+                width: 80%;
             }
-    
-            h2{
-                margin-top:-30px;
-                color:#78C9B4;
-                font-weight:600;
-                font-size:1.9em;
+
+            #tagline {
+                margin-top: -25px;
+                color: rgba(2, 159, 157, 1);
+                font-weight: 500;
+                font-size: 1.75em;
+
             }
         }
     }
@@ -35,7 +37,7 @@
     #login {
         width: 70%;
         height: 100%;
-background-color: rgba(2,159,157,1) ;
+        background-color: rgba(2, 159, 157, 1);
 
 
         #login-form {
@@ -46,49 +48,84 @@ background-color: rgba(2,159,157,1) ;
             border-radius: 5px;
             display: flex;
             flex-direction: column;
+
             div {
                 height: 20%;
 
                 #welcome {
                     text-align: center;
                     font-weight: 550;
-                    font-size:2.5em;
-                    margin-top:50px !important;
+                    font-size: 2.5em;
+                    margin-top: 50px !important;
                     color: #E8A87C;
-                   
                 }
 
             }
 
-            .fields {
-                height: 60%;
+            #apply-text {
+                height: 15%;
+                font-size: 0.9em;
+                width: 70%;
+                margin: auto;
+                font-weight: 500;
+                // text-align: center;
+
+            }
+
+            #apply-form-fields,
+            #login-form-fields {
+                height: 45%;
                 display: flex;
                 flex-direction: column;
                 margin-left: 16%;
 
                 :first-child {
-                    margin-top: 20px;
+                    margin-top: 10px;
                 }
 
                 .form-group {
-                    margin: 20px 0px;
+                    margin: 10px 0px;
                     width: 80%;
-                    label{
-                        font-weight:500;
+
+                    label {
+                        font-weight: 500;
                     }
+                }
+            }
+
+            #apply-submited {
+                height: 10%;
+                width: 70%;
+                margin: auto;
+
+                p {
+                    background-color: rgba(85, 255, 214, 0.50);
+                    padding: 10px;
+                    text-align: center;
+                    font-weight: 600;
+                    border-radius: 5px;
+                    
+                }
+                #incorrect-cred{
+                    background-color: rgba(250, 111, 68, 0.5);
+                    padding: 10px;
+                    text-align: center;
+                    font-weight: 600;
+                    border-radius: 5px;
                 }
             }
 
             .button-field {
                 height: 20%;
 
+
                 .button {
                     cursor: pointer;
                     width: 70%;
                     height: 40%;
-                    color:$white;
+                    color: $white;
                     font-size: 1.1em;
-                    margin: 10px auto;
+                    margin: 10px 75px;
                     background-color: #E8A87C;
                     border: none;
                     padding: 10px;
@@ -102,6 +139,7 @@ background-color: rgba(2,159,157,1) ;
                     }
                 }
 
+
                 .change-form {
                     cursor: pointer;
                     text-align: center;
@@ -112,7 +150,7 @@ background-color: rgba(2,159,157,1) ;
                     }
 
                     &:hover span {
-                        color:#E8A87C;
+                        color: #E8A87C;
                     }
                 }
 
@@ -122,4 +160,196 @@ background-color: rgba(2,159,157,1) ;
     }
 
 
+}
+
+
+
+@media only screen and (max-width: 1024px)and (max-height: 768px) {
+    #login-container {
+
+        #side {
+            #side-caption {
+
+                #appoint-full-logo {
+                    width: 100%;
+                }
+
+                #tagline {
+                    margin-top: -15px;
+                    font-size: 1.05em;
+
+                }
+            }
+        }
+
+        #login {
+            width: 70%;
+            height: 100%;
+            background-color: rgba(2, 159, 157, 1);
+
+
+            #login-form {
+                height: 600px;
+                width: 400px;
+                margin-top: 110px;
+
+                div {
+
+
+                    #welcome {
+                        font-size: 2em;
+                    }
+
+                }
+
+
+            }
+
+        }
+
+    }
+
+}
+
+@media only screen and (max-width: 768px)and (max-height:1024px) {
+    #login-container {
+
+        #side {
+            #side-caption {
+
+                #appoint-full-logo {
+                    width: 105%;
+                }
+
+                #tagline {
+                    margin-top: -10px;
+                    font-size: 0.76em;
+
+                }
+            }
+        }
+
+        #login {
+            width: 70%;
+            height: 100%;
+            background-color: rgba(2, 159, 157, 1);
+
+
+            #login-form {
+                height: 600px;
+                width: 400px;
+                margin-top: 110px;
+
+                div {
+
+
+                    #welcome {
+                        font-size: 1.9em;
+                    }
+
+                }
+
+
+            }
+
+        }
+
+    }
+
+}
+
+@media only screen and (max-width: 1366px) and (max-height: 1024px) {
+
+    #login-container {
+
+        #side {
+            #side-caption {
+
+                #appoint-full-logo {
+                    width: 90%;
+                }
+
+                #tagline {
+                    margin-top: -17px;
+                    font-size: 1.4em;
+
+
+                }
+            }
+        }
+
+        #login {
+            width: 70%;
+            height: 100%;
+            background-color: rgba(2, 159, 157, 1);
+
+
+            #login-form {
+                height: 700px;
+                width: 500px;
+                margin-top: 110px;
+
+                div {
+
+
+                    #welcome {
+                        font-size: 1.9em;
+                    }
+
+                }
+
+
+            }
+
+        }
+
+    }
+
+}
+
+@media only screen and (max-width: 1024px)and (max-height: 1366px) {
+    #login-container {
+
+        #side {
+            #side-caption {
+
+                #appoint-full-logo {
+                    width: 100%;
+                }
+
+                #tagline {
+                    margin-top: -10px;
+                    font-size: 0.75em;
+
+
+                }
+            }
+        }
+
+        #login {
+            width: 70%;
+            height: 100%;
+            background-color: rgba(2, 159, 157, 1);
+
+
+            #login-form {
+                height: 600px;
+                width: 400px;
+                margin-top: 110px;
+
+                div {
+
+
+                    #welcome {
+                        font-size: 1.9em;
+                    }
+
+                }
+
+
+            }
+
+        }
+
+    }
 }
