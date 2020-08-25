@@ -28,8 +28,8 @@ class Client extends Component {
         return (
             <div className=" client-card">
                 <div className="client-details">
-                    <div className="name">{`${this.props.client.firstname} ${this.props.client.lastname}`}</div>
-                    <div className="email">{`${this.props.client.email}`}</div>
+                    <div className="client-name">{`${this.props.client.firstname} ${this.props.client.lastname}`}</div>
+                    <div className="client-email">{`${this.props.client.email}`}</div>
                 </div>
                 <div className="icon-holder">
                     <div>

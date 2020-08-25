@@ -22,7 +22,7 @@ class ClientList extends Component {
         const CLIENT_FEED_QUERY = gql`
      {
         clientfeed {
-          id
+          id 
           firstname
           lastname
           email

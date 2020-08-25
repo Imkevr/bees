@@ -210,8 +210,8 @@ class ProfileView extends Component {
                             </div> */}
                             <div id="user-details">
                                 <h3>Hi <span>{this.state.userData.firstname}</span>, &#x1F929;<br /> have a great day!</h3>
-                                <p>Job title: {this.state.userData.jobTitle}</p>
-                                <p>Email: {this.state.userData.email}</p>
+                                <p> {this.state.userData.jobTitle}</p>
+                                <p> {this.state.userData.email}</p>
                             </div>
                         </div>
                         <div id="company-details">

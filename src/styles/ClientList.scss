@@ -18,6 +18,7 @@
             font-weight: 600;
             margin-top: 50px; 
             margin-left: 50px;
+            color:$plain-white;
            
         }
 
@@ -43,7 +44,7 @@
         height: 100%;
         width: 95%;
         margin: auto;
-        margin-top:-90px;
+        margin-top:-110px;
        
 
         #client-list {
@@ -52,39 +53,44 @@
 
             #client-list-sub {
                 width: 90%;
+                margin-left:15%;
                 margin-top: 4%;
                 display: flex;
                flex-wrap: wrap;
                 .client-card {
-                    height: 130px ;
+                    height: 100px ;
                     width:350px;
                      margin: 10px;
                     padding: 10px;
                     color: $blue-dark;
                     font-weight: 600;
-                    border: 1px solid #FCFBFE;
                     border-radius: 5px;
                     display: flex;
                     flex-direction: row;
-                    background-color: #FCFBFE;
-                    -webkit-box-shadow: 1px 5px 23px -2px rgba(199, 199, 199, 1);
-                    -moz-box-shadow: 1px 5px 23px -2px rgba(199, 199, 199, 1);
-                    box-shadow: 1px 5px 23px -2px rgba(199, 199, 199, 1);
+                    background-color: $plain-white;
+                    // -webkit-box-shadow: 1px 5px 23px -2px rgba(199, 199, 199, 1);
+                    // -moz-box-shadow: 1px 5px 23px -2px rgba(199, 199, 199, 1);
+                    // box-shadow: 1px 5px 23px -2px rgba(199, 199, 199, 1);
 
                     .client-details{
                         width:95%;
-                        padding-left:20px;
-
-                        
+                        padding-left:20px;  
+                        margin:auto;
                        
+                        .client-name{
+                            color: #17A9A3;
+                        } 
+                        .client-email{
+                           margin-left:0px; 
+                        }
                     }
                     .icon-holder {
                         width:20%;
                         display: flex;
                         flex-direction: column;
+                        margin:auto;
+                        margin-top:10px;
                         div {
-                            
-
                             svg {
                                 margin-left:15px;
                                 font-size: 1.2em;

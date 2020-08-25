@@ -1,11 +1,12 @@
-import React, { Component, useState } from 'react';
+import React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 import Moment from 'moment';
 
-import DatePicker from "react-datepicker";
+import DatePicker from 'react-datepicker';
 
-import "react-datepicker/dist/react-datepicker.css";
+import 'react-datepicker/dist/react-datepicker.css';
+import '../../styles/UpdateAppModal.scss'
 
 import ServiceSearch from '../ServiceSearch';
 import ClientSearch from '../SearchQueryComponents/ClientfeedQuery/ClientSearch';
@@ -98,23 +99,20 @@ class UpdateAppointment extends Component {
 
         return (
             <React.Fragment>
-                <div className="customModal">
-                    <div className="modal-header">
-                        {console.log("update props:", this.props)}
-                        <h5 className="customModal__text">Reschedule Appointment</h5>
-                        <button className="btn modal__button__red" onClick={() => { this.openDeleteAppointment() }}>Delete</button>
-
-                        {this.state.openDeleteAppointment &&
-                            <DeleteAppointmentModal appointment={this.state.id} onHide={() => { this.setState({ openDeleteAppointment: false, id: null }); this.handleRemove() }} show />}
+                <div id="UpdateAppModal">
+                    <div id="UA-header">
+                  
+                        <h5 id="UA-header-title">Reschedule Appointment</h5>
+                       
 
                     </div>
-                    <div className="modal-container">
+                    <div id="UA-body">
 
-                        <div className="update">
-                            <div className="update-time">
+                        <div id="update">
+                            <div id="update-time">
 
                                 <label>Selected date: </label>
-                                <p>{this.state.selectedDate.format('dddd, MMMM Do YYYY')}</p>
+                                <p id="date">{this.state.selectedDate.format('dddd, MMMM Do YYYY')}</p>
                                 <DatePicker
                                     selected={this.state.selectedDate.toDate()}
                                     onChange={this.handleDateSelect}
@@ -122,9 +120,9 @@ class UpdateAppointment extends Component {
                                 />
 
                             </div>
-                            <div className="update-service-client">
+                            <div id="update-service-client">
                                 <ServiceSearch onChange={this.handleServiceSelect} serviceId={this.state.serviceId} start={this.state.selectedDate} searchGoal='update' />
-                                <div>
+                                <div id="showAvailableTimeslots">
                                      <ShowAvailableTimeslots onClick={this.getSelectedTimeslot} allTimeSlots={this.state.AvailabletimeSlots} /> 
                                 </div>
                                 <ClientSearch onChange={this.handleClientSelect} clientId={this.state.clientId} />
@@ -132,11 +130,11 @@ class UpdateAppointment extends Component {
                         </div>
 
                     </div>
-                    <div className="modal-footer" >
+                    <div id="UA-footer" >
                         <Mutation mutation={UPDATE_APPOINTMENT}>
                             {(updateAppointment, { data }) => (
 
-                                <button className="btn modal__button__blue"
+                                <button className="btn confirm-btn "
                                     onClick={(e) => {
                                         e.preventDefault();
                                         updateAppointment({
@@ -154,7 +152,7 @@ class UpdateAppointment extends Component {
 
                             }
                         </Mutation>
-                        <button className="btn modal__button__cancel" onClick={this.handleRemove}>Cancel</button>
+                        <button className="btn cancel-btn" onClick={this.handleRemove}>Cancel</button>
                     </div>
                 </div>
             </React.Fragment>

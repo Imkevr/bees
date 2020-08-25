@@ -1,16 +1,15 @@
-import React, { Component } from 'react'
-import { NavLink } from 'react-router-dom'
-import { withRouter } from 'react-router'
-import { AUTH_TOKEN } from '../constants'
-import Gravatar from './Gravatar'
-import SidenavButtons from './Modals/SidenavButtons'
-import '../styles/Sidenav.scss'
-import AppointLogo from '../images/appoint-scheduler.png'
+import React, { Component } from 'react';
+import { NavLink } from 'react-router-dom';
+import { withRouter } from 'react-router';
+import { AUTH_TOKEN } from '../constants';
+import Gravatar from './Gravatar';
+import '../styles/Sidenav.scss';
+import AppointLogo from '../images/appoint-scheduler.png';
 
 class Sidenav extends Component {
 
   render() {
-    const authToken = localStorage.getItem(AUTH_TOKEN)
+    const authToken = localStorage.getItem(AUTH_TOKEN);
 
     return (
       <React.Fragment>
@@ -21,7 +20,7 @@ class Sidenav extends Component {
             </div>
             <div id="nav-links">
               <div id="nav-links-container">
-                <NavLink exact={true} to="/" activeClassName="active" className="link">
+                <NavLink exact={true} to="/" activeClassName="active" className="side-link">
                   <div className="item-link">
                     <div className="nav-link-icon">
                       <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" className="bi bi-columns-gap nav-svg" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -32,7 +31,7 @@ class Sidenav extends Component {
                     <p className="nav-text"> Dashboard</p>
                   </div>
                 </NavLink>
-                <NavLink exact={true} to="/calendar" activeClassName="active" className="link">
+                <NavLink  exact={true} to="/calendar" activeClassName="active" className="side-link">
                   <div className="item-link">
                     <div className="nav-link-icon">
                       <svg className="bi bi-kanban nav-svg" width="1.5em" height="1.5em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -47,7 +46,7 @@ class Sidenav extends Component {
                   </div>
                 </NavLink>
 
-                <NavLink exact={true} to="/servicelist" activeClassName="active" className="link">
+                <NavLink to="/servicelist" activeClassName="active" className="side-link">
                   <div className="item-link" >
                     <div className="nav-link-icon">
                       <svg className="bi bi-pencil-square nav-svg" width="1.5em" height="1.5em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -61,7 +60,7 @@ class Sidenav extends Component {
                 </NavLink>
 
 
-                <NavLink exact={true} to="/clientlist" activeClassName="active" className="link">
+                <NavLink  to="/clientlist" activeClassName="active" className="side-link">
                   <div className="item-link">
                     <div className="nav-link-icon">
                       <svg className="bi bi-people nav-svg" width="1.5em" height="1.5em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -75,19 +74,6 @@ class Sidenav extends Component {
 
               </div>
             </div>
-
-            {/* <div id="nav-buttons">
-                <div class="btn-group ">
-                  <button type="button" class=" dropdown-toggle dropdown-toggle-split btn-dropdown btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Create <span class="sr-only">Toggle Dropdown</span></button>
-
-                  <div class="dropdown-menu dropdown ">
-                    <SidenavButtons usage="client" />
-                    <SidenavButtons usage="service" />
-                  </div>
-                </div>
-
-
-              </div> */}
 
             <div id="nav-logout">
 

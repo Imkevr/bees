@@ -1,0 +1,109 @@
+@import './colors';
+
+#DetailsAppModal {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+
+    #DA-header {
+        height: 10%;
+        text-align: center !important;
+        padding: 10px;
+        display: flex;
+        flex-direction: row;
+
+        #DA-header-title {
+            width: 70%;
+            height: 100%;
+            font-weight: 700;
+            font-size: 1.5em;
+            margin-top: 20px;
+            margin-left: 12%;
+            color: #E8A87C;
+
+
+
+        }
+        #cancel-app{
+            height:50px;
+            color: rgba(248, 63, 63, 0.849);
+            font-size: 1em;
+            font-weight: 600;
+            margin-top: 10px;
+            border: solid 2px rgba(248, 63, 63, 0.849);
+            border-radius:5px;
+            &:hover{
+                background-color:#E8A87C;
+                color:$white;
+                border: solid 2px #E8A87C;
+            }
+        }
+    }
+
+    #DA-body {
+
+        padding: 30px 20px;
+        height: 75%;
+        width: 40%;
+        margin: auto;
+
+        #app-details {
+            padding:50px;
+            margin-left:5%;
+         div{
+             margin:20px;
+             .details-app-icons{
+                  color:  rgb(4, 160, 158);
+                  margin-right:20px;
+             }
+         }
+        }
+    }
+
+    #DA-footer {
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        height: 15%;
+        width: 50%;
+        margin: 0;
+        left: 39% !important;
+
+
+        .confirm-btn {
+            margin-right: 30px;
+            margin-top: 10px;
+            text-align: center;
+            color: $white;
+            background-color: rgb(4, 160, 158);
+            font-size: 1em;
+            padding: 5px 15px;
+            font-weight: 700;
+            height: 50px;
+            border-radius: 5px;
+
+
+            &:hover {
+                color: $plain-white;
+                background-color: rgb(139, 220, 191);
+            }
+
+
+        }
+
+
+        .cancel-btn {
+
+            color: rgba(248, 63, 63, 0.849);
+            font-size: 1em;
+            font-weight: 600;
+            margin-top: -10px;
+            &:hover{
+                color:#E8A87C;
+            }
+
+        }
+    }
+}
+

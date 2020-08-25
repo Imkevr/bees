@@ -12,14 +12,15 @@
         text-align: center !important;
         padding: 10px;
 
-        .CAH-header {
-            width: 80%;
-            height:100%;
-            font-weight: 600;
-            margin-top:20px;
-            color: $blue-dark;
 
-        }
+            #CAH-title{
+                font-weight: 700;
+                font-size: 1.5em;
+                margin-left: 4%;
+                color: #E8A87C;
+                margin-top:20px;
+            }
+        
     }
 
     .CA-body{
@@ -33,7 +34,7 @@
             width: 50%;
 
             .service-search {
-                margin-bottom: 40px;
+                margin-bottom: 50px;
             }
         }
 
@@ -46,8 +47,9 @@
 
 
             div {
+                padding:4px;
                 .create-app-icons {
-                    color: $blue-dark;
+                    color: rgb(4, 160, 158);
                     width: 50px;
                 }
 
@@ -76,17 +78,13 @@
             margin-right: 30px;
             margin-top: 10px;
             text-align: center;
-            color: $black;
-            background-color: $blue;
-            font-size: .9em;
-            padding: 0px 10px;
-            font-weight: 600;
-            height:50px;
-            border: solid 5px $blue;
+            color: $white;
+            background-color: rgb(4, 160, 158);
+            font-size: 1em;
+            padding: 5px 15px;
+            font-weight: 700;
+            height: 50px;
             border-radius: 5px;
-            -webkit-box-shadow: 1px 5px 23px -2px rgb(199, 199, 199);
-            -moz-box-shadow: 1px 5px 23px -2px rgba(199, 199, 199, 1);
-            box-shadow: 1px 5px 23px -2px rgba(199, 199, 199, 1);
 
             &:hover {
                 color: $plain-white;
@@ -102,8 +100,11 @@
             color: rgba(248, 63, 63, 0.849);
             font-size: 1em;
             font-weight: 600;
-            
-           
+            margin-top: -10px;
+
+           &:hover{
+               color:#E8A87C;
+           }
         }
     }
 }
