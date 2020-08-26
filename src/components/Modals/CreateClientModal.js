@@ -12,6 +12,10 @@ class CreateClientModal extends React.Component {
             firstname: '',
             lastname: '',
             email: '',
+
+            firstnameFilled:false,
+            lastnameFilled:false,
+            emailFilled:false,
         };
 
     }
@@ -40,37 +44,36 @@ class CreateClientModal extends React.Component {
                         centered
                     >
                         <Modal.Header closeButton >
-                            <Modal.Title id="contained-modal-title-vcenter" className="title">Create a new client</Modal.Title>
+                            <Modal.Title className="create-client-title" >Create a new client</Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
                             <div className="flex flex-column mt3 client-row ">
                                 <section className="form-group firstname">
-                                    <label>First name:</label>
+                                    <label>First name*:</label>
                                     <input
                                         className="form-control "
                                         value={firstname}
-                                        onChange={e => this.setState({ firstname: e.target.value })}
+                                        onChange={e => this.setState({ firstname: e.target.value, firstnameFilled:true})}
                                         type="text"
                                         placeholder="Enter first name"
                                     />
                                 </section>
                                 <section className="form-group lastname">
-                                    <label>Last name:</label>
+                                    <label>Last name*:</label>
                                     <input
                                         className="form-control "
                                         value={lastname}
-                                        onChange={e => this.setState({ lastname: e.target.value })}
+                                        onChange={e => this.setState({ lastname: e.target.value, lastnameFilled:true })}
                                         type="text"
                                         placeholder="Enter last name"
                                     />
                                 </section>
                                 </div>
                                 <section className="form-group email">
-                                    <label>Email:</label>
+                                    <label>Email*:</label>
                                     <input
                                         className="form-control "
-                                        value={email}
-                                        onChange={e => this.setState({ email: e.target.value })}
+                                        onChange={e => this.setState({ email: e.target.value, emailFilled:true })}
                                         type="text"
                                         placeholder="Enter email"
                                     />
@@ -79,12 +82,12 @@ class CreateClientModal extends React.Component {
 
                         </Modal.Body>
                         <Modal.Footer>
+                            <p>(*) All fields are required</p>
                             <Mutation mutation={CLIENT_POST_MUTATION}
                                 variables={{ lastname, firstname, email }}>
-                                {/* onCompleted={() => this.props.history.push('/')} */}
-
+                               
                                 {postMutation =>
-                                    <button onClick={() => { postMutation(); this.props.onHide(); window.location.reload(false) }} className="btn submit">Submit</button>
+                                    <button onClick={() => { postMutation(); this.props.onHide()}} id="submit" className="btn " disabled={!this.state.emailFilled ||!this.state.lastnameFilled || !this.state.firstnameFilled}>Submit</button>
 
                                 }
                             </Mutation>

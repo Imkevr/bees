@@ -46,7 +46,7 @@ class UpdateServiceModal extends React.Component {
                                 centered
                             >
                                 <Modal.Header closeButton >
-                                    <Modal.Title id="contained-modal-title-vcenter">Update service</Modal.Title>
+                                    <Modal.Title id="create-service-title">Update service</Modal.Title>
                                 </Modal.Header>
                                 <Modal.Body>
                                 <div className="flex flex-column mt3 create-service-page">
@@ -133,10 +133,8 @@ class UpdateServiceModal extends React.Component {
                                 <Modal.Footer>
                                     <Mutation mutation={UPDATE_MUTATION}
                                         variables={{id, cost, name, description, hours, minutes, color }}>
-                                        {/* onCompleted={() => this.props.history.push('/')} */}
-
                                         {updateMutation =>
-                                            <button onClick={() => {updateMutation(); this.props.onHide(); window.location.reload(false)}} className="btn submit">Update</button>
+                                            <button onClick={() => {updateMutation(); this.props.onHide(); window.location.reload(false)}} id="submit" className="btn ">Update</button>
                                           
                                         }
                                     </Mutation>

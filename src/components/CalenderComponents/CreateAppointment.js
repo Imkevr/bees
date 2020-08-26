@@ -74,16 +74,9 @@ class CreatAppointment extends Component {
       this.setState({
         selectedClient: selectedClientObj,
         clientId: selectedClientObj.id,
-        clientWasNotSelected: false,
-        clientEnableButton: true,
       });
     }
-    else {
-      this.setState({
-        clientWasNotSelected: true,
-        clientEnableButton: false,
-      });
-    }
+
   };
 
   handleRemove = () => {
@@ -105,7 +98,7 @@ class CreatAppointment extends Component {
             <div className="selections">
               <div className="service-search">
                 <ServiceSearch className="service-search" onChange={this.handleServiceSelect} serviceId={this.state.serviceId} start={this.props.calendar.start} />
-                {this.state.appointmentHasOverlap ? <p className="error">This appointment overlaps with another one </p> : ""}
+                {this.state.appointmentHasOverlap ? <p className="error">Can't schedule this appointment, it overlaps</p> : ""}
               </div>
               <ClientSearch onChange={this.handleClientSelect} clientId={this.state.clientId} />
             </div>
@@ -156,7 +149,7 @@ class CreatAppointment extends Component {
                     this.handleRemove();
                     // window.location.reload(false);
                   }}
-                  // disabled={!this.state.appointmentDisabledButton && !this.state.clientDisabledButton}
+                  disabled={this.state.appointmentHasOverlap}
                 >
                   Book
                 </button>
@@ -177,7 +170,7 @@ class CreatAppointment extends Component {
                     this.handleRemove();
                     window.location.reload(false);
                   }}
-                  // disabled={!this.state.appointmentDisabledButton && !this.state.clientDisabledButton}
+                  disabled={this.state.appointmentHasOverlap}
                 >
                   Book & send confirmation
                 </button>

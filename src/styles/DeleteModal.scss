@@ -2,6 +2,7 @@
 
 .tittle {
     margin-left: 300px !important;
+    color: #E8A87C !important;
 }
 
 .delete-content {
@@ -10,13 +11,14 @@
     span {
         color: $blue-dark;
         font-weight: 600;
+        color: rgb(4, 160, 158)!important;
     }
 }
 
 
 .no {
     margin: auto !important;
-    color: $blue;
+    color:rgb(4, 160, 158);
     font-size: 1.1em;
     padding: px;
     font-weight: 600;

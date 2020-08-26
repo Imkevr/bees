@@ -47,9 +47,6 @@ class ClientList extends Component {
 
                                 </div>
                             </div>
-
-                             
-
                         </React.Fragment>
                     )
                 }}

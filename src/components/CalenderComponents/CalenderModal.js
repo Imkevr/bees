@@ -20,7 +20,7 @@ class CalenderModal extends Component {
             viewEnd: this.props.end,
             viewServiceId: this.props.serviceId,
             viewClientId: this.props.clientId,
-
+          
             openUpdateAppointment: false,
 
 
@@ -83,7 +83,7 @@ class CalenderModal extends Component {
                                 <div id="DA-header">
 
                                     <h5 id="DA-header-title"> Appointment details</h5>
-                                    {/* {this.state.buttonIsDisabled? <p>This appointment overlaps with another one </p> : ""} */}
+                                  
                                     <button className="btn" id="cancel-app" onClick={() => { this.openDeleteAppointment() }}>Cancel Appointment</button>
 
                                     {this.state.openDeleteAppointment &&

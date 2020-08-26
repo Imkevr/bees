@@ -23,7 +23,7 @@ class CreateServiceModal extends React.Component {
     render() {
         const { name, cost, description, hours, minutes, color } = this.state
         const POST_MUTATION = gql`
-   mutation PostMutation($cost: Float!, $name: String!, $hours: Int!, $minutes:Int!, $description: String!, $color:String ) {
+   mutation PostMutation($cost: Float!, $name: String!, $hours: Int!, $minutes:Int!, $description: String, $color:String ) {
    postService(cost: $cost, name: $name, minutes: $minutes, hours: $hours, description:$description, color: $color) {
      id
      cost
@@ -45,7 +45,7 @@ class CreateServiceModal extends React.Component {
                         centered
                     >
                         <Modal.Header closeButton >
-                            <Modal.Title id="contained-modal-title-vcenter">Create a new service</Modal.Title>
+                            <Modal.Title id="create-service-title">Create a new service</Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
                             <div className="flex flex-column mt3 create-service-page">
@@ -132,10 +132,10 @@ class CreateServiceModal extends React.Component {
                         <Modal.Footer>
                             <Mutation mutation={POST_MUTATION}
                                 variables={{ cost, name, description, hours, minutes, color }}>
-                                {/* onCompleted={() => this.props.history.push('/')} */}
+
 
                                 {postMutation =>
-                                    <button className="btn submit" onClick={() => { postMutation(); this.props.onHide(); window.location.reload(false) }}>Submit</button>
+                                    <button className="btn " id="submit" onClick={() => { postMutation(); this.props.onHide() }}>Submit</button>
 
                                 }
                             </Mutation>
