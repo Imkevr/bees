@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../../styles/PublicCalendarStyles/PublicCalendarEvent.scss'
+import '../../../styles/PublicCalendarStyles/PublicCalendarEvent.scss';
 
 
 const CustomEvent = (props) => (

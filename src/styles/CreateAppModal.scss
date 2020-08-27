@@ -88,7 +88,7 @@
 
             &:hover {
                 color: $plain-white;
-                background-color: $blue;
+                background-color: rgb(139, 220, 191);
             }
 
 
@@ -116,7 +116,5 @@
 }
 
 @media only screen and (min-width: 1024px)and (min-height: 1366px){
-    .createApp-btn {
-       
-    }
+
 }

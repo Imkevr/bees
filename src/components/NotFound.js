@@ -1,5 +1,5 @@
-import React from 'react'
-import '../styles/NotFound.scss'
+import React from 'react';
+import '../styles/NotFound.scss';
 
 export default class NotFound extends React.Component {
 

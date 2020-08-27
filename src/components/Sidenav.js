@@ -16,7 +16,7 @@ class Sidenav extends Component {
         {authToken && (
           <div id="nav-container">
             <div id="nav-head">
-              <img src={AppointLogo} id="appointes-logo" />
+              <img src={AppointLogo} id="appointes-logo" alt="Appoint logo" />
             </div>
             <div id="nav-links">
               <div id="nav-links-container">

@@ -5,10 +5,8 @@ import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import Gravatar from 'react-gravatar';
 import PublicCalendarEvent from '../PublicCalendarComponents/PublicCalendarModals/PublicCalendarEvent';
-import EmployeeIcon from '../EmployeeIcon';
-import PublicCalenderModal from '../PublicCalendarComponents/PublicCalendarModals/PublicCalendarModal';
 import CustomHeaderCell from '../CalenderComponents/CustomHeaderCell';
-import AppointWhiteLogo from '../../images/appoint-scheduler-white.png'
+import AppointWhiteLogo from '../../images/appoint-scheduler-white.png';
 
 import 'react-week-calendar/dist/style.css';
 import '../../styles/PublicCalendarStyles/PublicCalendar.scss';
@@ -149,7 +147,7 @@ export default class PublicCalendar extends React.Component {
                   </div>
                   <div id="provided">
                     <h6 id="appoint-provided">Provided by </h6>
-                    <img src={AppointWhiteLogo} id="appoint-white-logo" />
+                    <img src={AppointWhiteLogo} id="appoint-white-logo" alt="appoint-logo"/>
 
                   </div>
                 </div>

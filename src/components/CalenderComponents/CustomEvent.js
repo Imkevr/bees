@@ -1,6 +1,6 @@
 import React from 'react';
 import moment from 'moment';
-import '../../styles/customEvent.scss'
+import '../../styles/customEvent.scss';
 
 
 const CustomEvent = (props) => (

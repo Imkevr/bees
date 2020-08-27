@@ -32,7 +32,7 @@ class Login extends Component {
             <div id="login-container">
                 <div id="side">
                     <div id="side-caption">
-                        <img src={AppointLogo} id="appoint-full-logo" />
+                        <img src={AppointLogo} id="appoint-full-logo" alt="appoint logo"/>
                         <h2 id="tagline"> Your business scheduler  </h2>
                     </div>
                 </div>
@@ -116,7 +116,7 @@ class Login extends Component {
                                 )}
                     <div id="apply-submited">
                          {this.state.applySend ? (<p>Your apllication has been submited</p>) : ""}
-                          {this.state.error? ( <p id="incorrect-cred">Your credentials are incorrect{console.log("error", this.state.error)}</p>):''}
+                          {this.state.error? ( <p id="incorrect-cred">Your credentials are incorrect</p>):''}
                          
                             </div>
                         <div className="button-field">
